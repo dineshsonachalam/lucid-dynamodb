@@ -101,7 +101,7 @@ if (isset($_POST['index'])) {
                     </div>
 
                     <div class="form-group">
-                        <input type="submit" name="login" value="index" class="btn btn-primary" />
+                        <input type="submit" name="index" value="index" class="btn btn-primary" />
                     </div>
                 </fieldset>
             </form>

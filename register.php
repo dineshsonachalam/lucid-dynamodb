@@ -43,7 +43,7 @@ if (isset($_POST['signup'])) {
     }
     if (!$error) {
         if(mysqli_query($con, "INSERT INTO student(name,email,password,dept,dob,college,gender) VALUES('" . $name . "', '" . $email . "', '" . md5($password) . "', '" . $dept . "','" . $dob . "','" .$college. "','" . $gender . "')"   )) {
-            $successmsg = "Successfully Registered! <a href='login.php'>Click here to Login</a>";
+            $successmsg = "Successfully Registered! <a href='index.php'>Click here to Login</a>";
         } else {
             $errormsg = "Error in registering...Please try again later!";
         }
@@ -97,7 +97,7 @@ if (isset($_POST['signup'])) {
         <!-- menu items -->
         <div class="collapse navbar-collapse" id="navbar1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="login.php">Login</a></li>
+                <li><a href="index.php">Login</a></li>
                 <li class="active"><a href="register.php">Sign Up</a></li>
             </ul>
         </div>
@@ -173,7 +173,7 @@ if (isset($_POST['signup'])) {
     </div>
     <div class="row">
         <div class="col-md-4 col-md-offset-4 text-center">
-        Already Registered? <a  style="color:white" href="login.php">Login Here</a>
+        Already Registered? <a  style="color:white" href="index.php">Login Here</a>
         </div>
     </div>
 </div>
