@@ -1,33 +1,27 @@
 <?php
-
 // php populate html table from mysql database
-
 $hostname = "localhost";
 $username = "root";
 $password = "";
 $databaseName = "dianesis";
-
 // connect to mysql
 $connect = mysqli_connect($hostname, $username, $password, $databaseName);
 session_start();
-
 // mysql select query
 
-$query = "SELECT * FROM course";
-
-
+$query = "SELECT * FROM `course` WHERE course_id not IN (SELECT course_id from enrollmentfact where student_id=".$_SESSION['usr_id'].")";
 // result for method one
+
 $result1 = mysqli_query($connect, $query);
 
 // result for method two
 //$result2 = mysqli_query($connect, $query);
-
 $dataRow = "";
-
 while($row1 = mysqli_fetch_array($result1))
 {
-    $dataRow = $dataRow."<tr><td>$row1[0]</td><td>$row1[1]</td><td>$row1[2]</td><td>$row1[3]</td><td>$row1[4]</td></tr>";
+    $dataRow = $dataRow."<tr><td>$row1[0]</td><td>$row1[1]</td><td>$row1[2]</td><td>$row1[3]</td><td>$row1[4]</td><td><button class='button enroll_btn' data-courseid=$row1[0]>Enroll</button></td></tr>";
 }
+//echo $_SESSION['usr_id'];
 
 ?>
 
@@ -37,6 +31,50 @@ while($row1 = mysqli_fetch_array($result1))
 
 <html lang="en">
 <head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+  <script>
+
+
+$(document).ready(function(){
+    $(".enroll_btn").click(function(){
+
+    //alert("hello world");
+    var courseid = $(this).data("courseid");
+    console.log(courseid);
+
+/*
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange=function() {
+        if (xhttp.readyState==4 && xhttp.status==200) {
+            document.getElementByClassName('enroll_btn').innerHTML=xhttp.responseText; //to get response from a server
+        }
+    };
+    xhttp.open("POST","getuser.php?q=courseid",true);
+    xhttp.send();
+*/
+    /*
+      Logic for the coding
+    */
+    $.ajax({    //create an ajax request to load_page.php
+   type: "GET",
+   url: "enroll.php?q="+courseid,
+   dataType: "html",   //expect html to be returned
+   success: function(response){
+    //   $("#responsecontainer").html(response);
+       alert(response);
+       //reloading the page manually
+        location.reload();
+       console.log(response);
+   }
+
+});
+
+
+  });
+});
+</script>
+
 	<meta charset="utf-8" />
 	<title>Courses</title>
 	<meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; width=device-width;">
@@ -56,7 +94,6 @@ background-color: #3e94ec;
                             color: #f5f5f5;
                             background-color: transparent;
                         }
-
 body {
   background-color: #3e94ec;
   font-family: "Roboto", helvetica, arial, sans-serif;
@@ -70,6 +107,11 @@ body {
     background-color: #f5f5f5;
 }
   </style>
+
+
+
+
+
 </head>
 
 
@@ -118,6 +160,8 @@ body {
 <th class="text-left">Course Type</th>
 <th class="text-left">Department</th>
 <th class="text-left">Duration</th>
+<th class="text-left">Enroll</th>
+
 
 </tr>
 </thead>
@@ -132,6 +176,12 @@ body {
          <td><?php echo $row1[4];?></td>
      </tr>
   <?php endwhile;?>
+<!---
+  <tr>
+  <td>  <button class='enroll_btn' data-courseid="1234">Enroll</button></p> </td>
+  </tr>
+--->
+<!---  <?php echo $_SESSION['usr_name']; ?> --->
 
 </tbody>
 <br><br>
@@ -139,7 +189,7 @@ body {
 
 <!-- Table Two -->
 
-    <?php echo $dataRow;?>
+    <?php echo $dataRow; ?>
 </table>
 
 

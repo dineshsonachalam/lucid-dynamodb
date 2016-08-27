@@ -1,0 +1,45 @@
+<!--
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("p").click(function(){
+        alert("The paragraph was clicked.");
+    });
+});
+</script>
+</head>
+<body>
+
+<p>Click on this paragraph.</p>
+
+</body>
+</html>
+-->
+<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+
+
+  $(document).ready(function(){
+      $(".enroll_btn").click(function(){
+
+      alert("Button was clicked");
+      var courseid = $(".enroll_btn").data("courseid");
+      alert(courseid);
+      });
+  });
+
+
+    </script>
+  </head>
+  <body>
+      <tr>
+    <td>  <button class='enroll_btn' data-courseid="1234">Enroll</button></p> </td>
+      </tr>
+
+  </body>
+</html>

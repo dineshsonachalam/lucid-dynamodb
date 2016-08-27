@@ -1,6 +1,23 @@
 <?php
 session_start();
 include_once 'dbconnect.php';
+
+$query = "SELECT DISTINCT course.course_name,enrollmentfact.enroll_date
+FROM enrollmentfact
+INNER JOIN course
+ON enrollmentfact.course_id=course.course_id AND enrollmentfact.student_id=".$_SESSION['usr_id'];
+// result for method one
+
+$result1 = mysqli_query($con, $query);
+
+// result for method two
+//$result2 = mysqli_query($connect, $query);
+$dataRow = "";
+while($row1 = mysqli_fetch_array($result1))
+{
+    $dataRow = $dataRow."<tr><td>$row1[0]</td><td>$row1[1]</td></tr>";
+}
+//echo $_SESSION['usr_id'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -50,6 +67,8 @@ include_once 'dbconnect.php';
         </div>
         <div class="collapse navbar-collapse" id="navbar1">
             <ul class="nav navbar-nav navbar-right">
+
+                  <!-- php current session after login -->
                 <?php if (isset($_SESSION['usr_id'])) { ?>
 
                 <li><p class="navbar-text">Signed in as <?php echo $_SESSION['usr_name']; ?></p></li>
@@ -66,6 +85,44 @@ include_once 'dbconnect.php';
         </div>
     </div>
 </nav>
+<div class="table-title">
+<h3>Courses you have enrolled</h3>
+</div>
+<table class="table table-hover">
+<thead>
+<tr>
+
+<th class="text-left">Course Name</th>
+<th class="text-left">Enrollment date</th>
+
+
+
+</tr>
+</thead>
+<tbody class="table-hover">
+
+  <?php while($row1 = mysqli_fetch_array($result1)):;?>
+     <tr>
+         <td><?php echo $row1[0];?></td>
+         <td><?php echo $row1[1];?></td>
+
+     </tr>
+  <?php endwhile;?>
+<!---
+  <tr>
+  <td>  <button class='enroll_btn' data-courseid="1234">Enroll</button></p> </td>
+  </tr>
+--->
+<!---  <?php echo $_SESSION['usr_name']; ?> --->
+
+</tbody>
+<br><br>
+
+
+<!-- Table Two -->
+
+    <?php echo $dataRow; ?>
+</table>
 
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/bootstrap.min.js"></script>

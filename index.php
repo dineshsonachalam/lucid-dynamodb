@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 
@@ -101,7 +102,7 @@ if (isset($_POST['index'])) {
                     </div>
 
                     <div class="form-group">
-                        <input type="submit" name="index" value="index" class="btn btn-primary" />
+                        <input type="submit" name="index" value="Login" class="btn btn-primary" />
                     </div>
                 </fieldset>
             </form>

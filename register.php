@@ -137,13 +137,22 @@ if (isset($_POST['signup'])) {
 
                     <div class="form-group">
                         <label for="name">Department</label>
-                        <input type="text" name="dept" placeholder="Enter Department Name" required value="<?php if($error) echo $dept; ?>" class="form-control" />
+                    <!--    <input type="text" name="dept" placeholder="Enter Department Name" required value="<?php if($error) echo $dept; ?>" class="form-control" /> -->
+                    <br>
+                    <select name="dept" class="form-control">
+                      <option name="dept" value="ece"   required value="<?php if($error) echo $dept; ?>">ECE</option>
+                      <option name="dept" value="cse"  required value="<?php if($error) echo $dept; ?>">CSE</option>
+                      <option name="dept" value="eee"   required value="<?php if($error) echo $dept; ?>">EEE</option>
+                      <option name="dept" value="it" required value="<?php if($error) echo $dept; ?>">IT</option>
+                    </select>
+
 
                     </div>
 
                     <div class="form-group">
                         <label for="name">Date of Birth</label>
                         <input type="date" name="dob" placeholder="Enter Date-of-Birth" required value="<?php if($error) echo $dob; ?>" class="form-control" />
+
 
                     </div>
                     <div class="form-group">
