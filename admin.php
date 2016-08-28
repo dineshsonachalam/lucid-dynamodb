@@ -3,7 +3,7 @@
 session_start();
 
 if(isset($_SESSION['usr_id'])!="") {
-    header("Location: home.php");
+    header("Location: admin_home.php");
 }
 
 include_once 'dbconnect.php';
@@ -13,12 +13,12 @@ if (isset($_POST['index'])) {
 
     $email = mysqli_real_escape_string($con, $_POST['email']);
     $password = mysqli_real_escape_string($con, $_POST['password']);
-    $result = mysqli_query($con, "SELECT * FROM student WHERE is_admin=0 AND email = '" . $email. "' and password = '" . md5($password) . "'");
+    $result = mysqli_query($con, "SELECT * FROM student WHERE is_admin=1 AND email = '" . $email. "' and password = '" . md5($password) . "'");
 
     if ($row = mysqli_fetch_array($result)) {
         $_SESSION['usr_id'] = $row['id'];
         $_SESSION['usr_name'] = $row['name'];
-        header("Location: home.php");
+        header("Location: admin_home.php");
     } else {
         $errormsg = "Incorrect Email or Password!!!";
     }
@@ -75,8 +75,8 @@ if (isset($_POST['index'])) {
         <!-- menu items -->
         <div class="collapse navbar-collapse" id="navbar1" >
             <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="index.php">Login</a></li>
-                <li><a href="register.php">Sign Up</a></li>
+                <li class="active"><a href="admin.php">Login</a></li>
+                <li><a href="admin_register.php">Sign Up</a></li>
             </ul>
         </div>
     </div>
@@ -111,7 +111,7 @@ if (isset($_POST['index'])) {
     </div>
     <div class="row">
         <div class="col-md-4 col-md-offset-4 text-center">
-        New User? <a style="color:white" href="register.php">Sign Up Here</a>
+        New User? <a style="color:white" href="admin_register.php">Sign Up Here</a>
         </div>
     </div>
 </div>

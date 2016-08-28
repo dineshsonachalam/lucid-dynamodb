@@ -2,22 +2,28 @@
 session_start();
 include_once 'dbconnect.php';
 
+/*
 $query = "SELECT DISTINCT course.course_name,enrollmentfact.enroll_date
 FROM enrollmentfact
 INNER JOIN course
-ON enrollmentfact.course_id=course.course_id AND enrollmentfact.student_id=".$_SESSION['usr_id'];
+ON enrollmentfact.course_id=course.course_id AND enrollmentfact.student_id=".$_SESSION['usr_id']; */
 // result for method one
-
+$query = "(SELECT * FROM `student` WHERE  id  =".$_SESSION['usr_id'].")";
 $result1 = mysqli_query($con, $query);
+//$result1 = mysqli_query($con, $query);
 
 // result for method two
 //$result2 = mysqli_query($connect, $query);
 $dataRow = "";
+/*
 while($row1 = mysqli_fetch_array($result1))
 {
     $dataRow = $dataRow."<tr><td>$row1[0]</td><td>$row1[1]</td></tr>";
 }
+*/
 //echo $_SESSION['usr_id'];
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -74,7 +80,7 @@ while($row1 = mysqli_fetch_array($result1))
                 <li><p class="navbar-text">Signed in as <?php echo $_SESSION['usr_name']; ?></p></li>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="courses.php">Courses</a></li>
-                <li><a href="profile2.php">Profile</a></li>
+                <li><a href="profile.php">Profile</a></li>
 
                 <li><a href="logout.php">Log Out</a></li>
                 <?php } else { ?>
@@ -86,44 +92,39 @@ while($row1 = mysqli_fetch_array($result1))
     </div>
 </nav>
 <div class="table-title">
-<h3>Courses you have enrolled</h3>
+<h3>Profile details</h3>
 </div>
-<table class="table table-hover">
-<thead>
-<tr>
 
-<th class="text-left">Course Name</th>
-<th class="text-left">Enrollment date</th>
+</div>
+<?php
+echo $_SESSION['usr_id'];
+if(isset($_SESSION['usr_id']))
+{
+  $id=$_SESSION['usr_id'];
+//  echo $id;
 
+  if(isset($_POST['submit']))
+  {
+    $name=$_POST['name'];
+    $email=$_POST['email'];
+    $query3 = mysqli_query($con,"update student set name='$name', email='$email' where id='$id'");
+  //  echo "successfully updated into the database";
+    }
+  $query1=mysqli_query($con,"select * from student where id='$id'");
+  $query2=mysqli_fetch_array($query1);
+ ?>
+<div id="edit_details">
+  <form method="post" action="">
+    Name: <input type="text" name="name" value="<?php echo $query2['name']; ?>" /><br />
+    Email:&nbsp; <input type="text" name="email" value="<?php echo $query2['email']; ?>" /><br /><br />
+    <br />
+    <input type="submit" class="s_button" name="submit" value="update" />
 
-
-</tr>
-</thead>
-<tbody class="table-hover">
-
-  <?php while($row1 = mysqli_fetch_array($result1)):;?>
-     <tr>
-         <td><?php echo $row1[0];?></td>
-         <td><?php echo $row1[1];?></td>
-
-     </tr>
-  <?php endwhile;?>
-<!---
-  <tr>
-  <td>  <button class='enroll_btn' data-courseid="1234">Enroll</button></p> </td>
-  </tr>
---->
-<!---  <?php echo $_SESSION['usr_name']; ?> --->
-
-</tbody>
-<br><br>
-
-
-<!-- Table Two -->
-
-    <?php echo $dataRow; ?>
-</table>
-
+  </form>
+  <?php
+  }
+  ?>
+</div>
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/bootstrap.min.js"></script>
 </body>

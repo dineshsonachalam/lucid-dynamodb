@@ -2,7 +2,7 @@
 session_start();
 
 if(isset($_SESSION['usr_id'])) {
-    header("Location: index.php");
+    header("Location: admin.php");
 }
 
 include_once 'dbconnect.php';
@@ -21,7 +21,7 @@ if (isset($_POST['signup'])) {
         $dob = mysqli_real_escape_string($con, $_POST['dob']);
           $college = mysqli_real_escape_string($con, $_POST['college']);
           $gender = mysqli_real_escape_string($con, $_POST['gender']);
-
+          $is_admin = 1;
 
 
     //name can contain only alpha characters and space
@@ -42,7 +42,7 @@ if (isset($_POST['signup'])) {
         $cpassword_error = "Password and Confirm Password doesn't match";
     }
     if (!$error) {
-        if(mysqli_query($con, "INSERT INTO student(name,email,password,dept,dob,college,gender) VALUES('" . $name . "', '" . $email . "', '" . md5($password) . "', '" . $dept . "','" . $dob . "','" .$college. "','" . $gender . "')"   )) {
+        if(mysqli_query($con, "INSERT INTO student(name,email,password,dept,dob,college,gender,is_admin) VALUES('" . $name . "', '" . $email . "', '" . md5($password) . "', '" . $dept . "','" . $dob . "','" .$college. "','" . $gender . "','".$is_admin."')"   )) {
             $successmsg = "Successfully Registered! <a href='index.php'>Click here to Login</a>";
         } else {
             $errormsg = "Error in registering...Please try again later!";
@@ -182,7 +182,7 @@ if (isset($_POST['signup'])) {
     </div>
     <div class="row">
         <div class="col-md-4 col-md-offset-4 text-center">
-        Already Registered? <a  style="color:white" href="index.php">Login Here</a>
+        Already Registered? <a  style="color:white" href="admin.php">Login Here</a>
         </div>
     </div>
 </div>

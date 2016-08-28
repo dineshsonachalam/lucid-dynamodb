@@ -20,6 +20,26 @@ $(document).ready(function(){
 -->
 <html>
   <head>
+  <style style="text/css">
+div.slide-slow {
+width: 100%;
+overflow: hidden;
+}
+div.slide-slow div.inner {
+animation: slide-slow 3s;
+margin-top: 0%;
+animation-iteration-count: infinite;
+}
+@keyframes slide-slow {
+from {
+  margin-left: 100%;
+}
+to {
+  margin-left: 0%;
+}
+}
+</style>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
 
@@ -37,6 +57,11 @@ $(document).ready(function(){
     </script>
   </head>
   <body>
+    <div class="slide-slow">
+  <div class="inner">
+    <img src="http://www.html.am/images/html-codes/marquees/fish-swimming.gif" alt="Swimming fish">
+  </div>
+</div>
       <tr>
     <td>  <button class='enroll_btn' data-courseid="1234">Enroll</button></p> </td>
       </tr>
