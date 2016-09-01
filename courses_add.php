@@ -9,7 +9,7 @@ $connect = mysqli_connect($hostname, $username, $password, $databaseName);
 session_start();
 // mysql select query
 
-$query = "SELECT * FROM `course` WHERE course_id not IN (SELECT course_id from enrollmentfact where student_id=".$_SESSION['usr_id'].")";
+$query ="SELECT *FROM course";
 // result for method one
 
 $result1 = mysqli_query($connect, $query);
@@ -19,7 +19,7 @@ $result1 = mysqli_query($connect, $query);
 $dataRow = "";
 while($row1 = mysqli_fetch_array($result1))
 {
-    $dataRow = $dataRow."<tr><td>$row1[0]</td><td>$row1[1]</td><td>$row1[2]</td><td>$row1[3]</td><td>$row1[4]</td><td><button class='button enroll_btn' data-courseid=$row1[0]>Enroll</button></td></tr>";
+    $dataRow = $dataRow."<tr><td>$row1[0]</td><td>$row1[1]</td><td>$row1[2]</td><td>$row1[3]</td><td>$row1[4]</td></tr>";
 }
 //echo $_SESSION['usr_id'];
 
@@ -34,46 +34,23 @@ while($row1 = mysqli_fetch_array($result1))
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
   <script>
+  /*
+  $(document).ready(function(){
+    $(".s_button").click(function(){
+    //  location.reload();
+    location.href = location.href;
+//alert("The course have been successfully added!:)");
 
-
-$(document).ready(function(){
-    $(".enroll_btn").click(function(){
-
-    //alert("hello world");
-    var courseid = $(this).data("courseid");
-    console.log(courseid);
-
-/*
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange=function() {
-        if (xhttp.readyState==4 && xhttp.status==200) {
-            document.getElementByClassName('enroll_btn').innerHTML=xhttp.responseText; //to get response from a server
-        }
-    };
-    xhttp.open("POST","getuser.php?q=courseid",true);
-    xhttp.send();
+});
+});
 */
-    /*
-      Logic for the coding
-    */
-    $.ajax({    //create an ajax request to load_page.php
-   type: "GET",
-   url: "enroll.php?q="+courseid,
-   dataType: "html",   //expect html to be returned
-   success: function(response){
-    //   $("#responsecontainer").html(response);
-       alert(response);
-       //reloading the page manually
-        location.reload();
-       console.log(response);
-   }
+$(".s_button").click(function(){
+//  location.reload();
+location.href = location.href;
+//alert("The course have been successfully added!:)");
 
 });
-
-
-  });
-});
-</script>
+  </script>
 
 	<meta charset="utf-8" />
 	<title>Courses</title>
@@ -133,9 +110,9 @@ body {
                   <?php if (isset($_SESSION['usr_id'])) { ?>
 
                   <li><p class="navbar-text">Signed in as <?php echo $_SESSION['usr_name']; ?></p></li>
-                  <li><a href="index.php">Home</a></li>
+                  <li><a href="admin_home.php">Home</a></li>
                   <li><a href="courses.php">Courses</a></li>
-                  <li><a href="profile2.php">Profile</a></li>
+                  <li><a href="admin_profile.php">Profile</a></li>
 
                   <li><a href="logout.php">Log Out</a></li>
                   <?php } else { ?>
@@ -149,9 +126,72 @@ body {
 
 
 
-<div class="table-title">
+  <div class="table-title">
+  <h3>Add courses</h3>
+  </div>
+
+  </div>
+  <?php
+  //echo $_SESSION['usr_id'];
+  if(isset($_SESSION['usr_id']))
+  {
+    $id=$_SESSION['usr_id'];
+  //  echo $id;
+    if(isset($_POST['submit']))
+    {
+  /*
+      $name=$_POST['name'];
+      $email=$_POST['email'];
+      $dept=$_POST['dept'];
+      $dob=$_POST['dob'];
+      $college=$_POST['college'];
+      $gender=$_POST['gender'];
+      $query3 = mysqli_query($con,"update student set name='$name', email='$email',dept='$dept',dob='$dob',college='$college',gender='$gender' where id='$id'");
+    //  echo "successfully updated into the database";
+  */
+  $course_id=$_POST['course_id'];
+  $course_name=$_POST['course_name'];
+  $course_type=$_POST['course_type'];
+  $dept=$_POST['dept'];
+  $duration=$_POST['duration'];
+  $course_url=$_POST['course_url'];
+  $query3 = mysqli_query($connect,"INSERT INTO `course`(`course_id`, `course_name`, `course_type`, `dept`, `duration`, `course_url`)
+   VALUES ('$course_id','$course_name','$course_type','$dept','$duration','$course_url')");
+
+      }
+
+    $query1=mysqli_query($connect,"select * from course");
+    $query2=mysqli_fetch_array($query1);
+    //echo "<script>location.reload()</script>";
+   ?>
+
+
+  <div id="edit_details">
+
+    <form method="post" action="">
+    &nbsp;  Course ID:   &nbsp;   &nbsp;  &nbsp;   &nbsp;<input type="text" name="course_id"  /><br />
+    &nbsp;  Course Name: <input type="text" name="course_name"  /><br />
+    &nbsp;  Course Type: &nbsp; <input type="text" name="course_type"  /><br />
+    &nbsp;  Department:  &nbsp;  &nbsp;<input type="text" name="dept"  /><br />
+    &nbsp;  Duration:  &nbsp;  &nbsp;  &nbsp;    &nbsp; &nbsp;<input type="text" name="duration" /><br />
+    &nbsp;  Course URL:   &nbsp;  &nbsp;<input type="text" name="course_url"  /><br />
+
+      <br />
+      <br />
+
+
+
+
+
+     &nbsp; <input type="submit" class="s_button" name="submit" value="Add"   />
+
+    </form>
+    <?php
+    }
+    ?>
+  </div>
+
 <h3>Course table</h3>
-</div>
 <table class="table table-hover">
 <thead>
 <tr>
@@ -160,7 +200,7 @@ body {
 <th class="text-left">Course Type</th>
 <th class="text-left">Department</th>
 <th class="text-left">Duration</th>
-<th class="text-left">Enroll</th>
+
 
 
 </tr>

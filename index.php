@@ -114,6 +114,12 @@ if (isset($_POST['index'])) {
         New User? <a style="color:white" href="register.php">Sign Up Here</a>
         </div>
     </div>
+    
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4 text-center">
+        Admin? <a style="color:white" href="admin.php">Login Here</a>
+        </div>
+    </div>
 </div>
 
 <script src="js/jquery-1.10.2.js"></script>
