@@ -21,6 +21,7 @@ while($row1 = mysqli_fetch_array($result1))
 */
 //echo $_SESSION['usr_id'];
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>

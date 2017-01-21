@@ -43,16 +43,6 @@ $(document).ready(function(){
     var courseid = $(this).data("courseid");
     console.log(courseid);
 
-/*
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange=function() {
-        if (xhttp.readyState==4 && xhttp.status==200) {
-            document.getElementByClassName('enroll_btn').innerHTML=xhttp.responseText; //to get response from a server
-        }
-    };
-    xhttp.open("POST","getuser.php?q=courseid",true);
-    xhttp.send();
-*/
     /*
       Logic for the coding
     */
