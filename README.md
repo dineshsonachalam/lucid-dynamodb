@@ -2,7 +2,7 @@
 Online Course Reservation
 
 - It involves user to enroll a new course from the list of the courses that are categorized by department.
-- After the user enroll a new course it gets updates at his home page. 
+- After the user enroll a new course it gets updates at his home page.
 - This project involves a working signup,register,login and logout details.
 
 ### BACKEND
@@ -12,8 +12,8 @@ Online Course Reservation
 * I have stored the user details in mysql database.
 * I have included mysql queries to automatically update my database when user chooses a new course.
 * Each user have a different id in which there personal details, registered course details are stored.
-* I am displaying only courses that are not  registered by the user in available course section. 
-* AJAX request to automatically reload the page and remove the course from the course section when user register a course. 
+* I am displaying only courses that are not  registered by the user in available course section.
+* AJAX request to automatically reload the page and remove the course from the course section when user register a course.
 * So it gets added up in his registered course section
 
 
@@ -24,6 +24,8 @@ Online Course Reservation
 * It has two tables one is course table , registered course table.
 * Implemented charts that give the statistics of the registered course for the admin.
 * Admin can directly add or remove the course.
+
+
 
 ### SCREENSHOTS
 
@@ -58,4 +60,3 @@ Online Course Reservation
 #### Adding the course by admin
 
 ![Alt text](https://cdn.rawgit.com/dineshsonachalam/ocr/5f2ef082/screenshots/7.png "Optional Title")
-
