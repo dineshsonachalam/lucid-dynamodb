@@ -1,5 +1,7 @@
 <?php
 //session_start();
+//This page is the admin home page. All contents related to admin are stored in course table
+
 //include_once 'dbconnect.php';
 $DB_NAME = 'dianesis';
 
