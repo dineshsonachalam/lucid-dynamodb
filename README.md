@@ -64,5 +64,6 @@ Online Course Reservation
 
 
 #### Todo
-1. Remove unwanted test files
+1. Remove unwanted test files and organize them in test folder
 2. Store configurations in a config file(database name, host, port, etc)
+3. Write automated test cases using selenium
