@@ -60,3 +60,9 @@ Online Course Reservation
 #### Adding the course by admin
 
 ![Alt text](https://cdn.rawgit.com/dineshsonachalam/ocr/5f2ef082/screenshots/7.png "Optional Title")
+
+
+
+#### Todo
+1. Remove unwanted test files
+2. Store configurations in a config file(database name, host, port, etc)
