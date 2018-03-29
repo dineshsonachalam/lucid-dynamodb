@@ -1,5 +1,4 @@
-# ocr
-Online Course Reservation
+# Course Registration System
 
 - It involves user to enroll a new course from the list of the courses that are categorized by department.
 - After the user enroll a new course it gets updates at his home page.
