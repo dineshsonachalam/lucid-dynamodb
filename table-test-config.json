@@ -1,0 +1,49 @@
+{
+    "table_schema": {
+        "spacex_user": {
+            "table_name": "spacex_user",
+            "key_schema": [
+                {
+                    "AttributeName": "user_id",
+                    "KeyType": "HASH"
+                }
+            ],
+            "attribute_definition": [
+                {
+                    "AttributeName": "user_id",
+                    "AttributeType": "S"
+                },
+                {
+                    "AttributeName": "email",
+                    "AttributeType": "S"
+                }
+            ],
+            "global_secondary_indexes": [
+                {
+                    "IndexName": "email",
+                    "KeySchema": [
+                        {
+                            "AttributeName": "email",
+                            "KeyType": "HASH"
+                        }
+                    ],
+                    "Projection": {
+                        "ProjectionType": "ALL"
+                    },
+                    "ProvisionedThroughput": {
+                        "ReadCapacityUnits": 1,
+                        "WriteCapacityUnits": 1
+                    }
+                }
+            ],
+            "provisioned_throughput": {
+                "ReadCapacityUnits": 1,
+                "WriteCapacityUnits": 1
+            }
+        }
+    },
+    "db": "dynamodb",
+    "region_name": "us-east-1",
+    "AWS_SERVER_PUBLIC_KEY": "",
+    "AWS_SERVER_SECRET_KEY": ""
+}
