@@ -122,7 +122,6 @@ class Crud:
             logger.error("create_table: Unexpected error: {}".format(e))
             return None
 
-
     def delete_table(self):
         try:
             self.dynamodb_client.delete_table(TableName=self.table_name)
