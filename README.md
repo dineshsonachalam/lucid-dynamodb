@@ -5,8 +5,8 @@ A simple python wrapper to AWS DynamoDB.
 
 | S.No | Functions            | Description                      | Status  |
 |------|----------------------|----------------------------------|---------|
-| 1.   | create_table         | Create a new table if not exists | Backlog |
-| 2.   | delete_table         | Delete a table                   | Backlog |
+| 1.   | create_table         | Create a new table if not exists | Done    |
+| 2.   | delete_table         | Delete a table                   | Done    |
 | 3.   | read_all_table_names | List out all the table names     | Backlog |
 | 4.   | create_item          | Create a new item                | Backlog |
 | 5.   | read_item            | Read a item                      | Backlog |

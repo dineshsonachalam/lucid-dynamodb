@@ -12,10 +12,6 @@
                 {
                     "AttributeName": "user_id",
                     "AttributeType": "S"
-                },
-                {
-                    "AttributeName": "email",
-                    "AttributeType": "S"
                 }
             ],
             "global_secondary_indexes": [
