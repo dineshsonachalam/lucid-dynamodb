@@ -5,11 +5,14 @@ cleanup() {
 
 Main() {
     cleanup
-    # Compliling your package
+    # Compliling the package
     python3 setup.py sdist bdist_wheel
     # Upload projects to pypi
-    twine upload --skip-existing dist/*
+    twine upload --username $PYPI_USERNAME --password $PYPI_PASSWORD --skip-existing dist/*
     cleanup
 }
 
 Main
+
+
+
