@@ -12,10 +12,10 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v2
+        - name: Install package dependencies
+          run: pip3 install -r requirements-dev.txt
+
         - name: Build python package and deploy to PYPI
+          run: sh deploy.sh
           env:
             ENVIRONMENT_VARIABLE_NAME: ${{ secrets.PYPI_PASSWORD }}
-          run: |
-            pip3 install -r requirements-dev.txt
-            sh deploy.sh
-
