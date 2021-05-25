@@ -1,6 +1,11 @@
-from setuptools import find_packages, setup
+from setuptools import setup, find_packages
 import requests
 import semantic_version
+
+install_requires = [
+    'boto3>=1.17.78',
+    'botocore>=1.20.78'
+]
 
 def get_LucidDynamodb_version():
     url = "https://pypi.org/pypi/LucidDynamodb/json"
@@ -11,21 +16,22 @@ def get_LucidDynamodb_version():
     next_version = current_version.next_patch()
     return next_version
 
-with open('requirements.txt', 'rt') as requirements:
-    requires = requirements.readlines()
-    setup(
-            name="LucidDynamodb",
-            version=str(get_LucidDynamodb_version()),
-            author="Dinesh Sonachalam",
-            author_email="dineshsonachalam@gmail.com",
-            description="A simple Python wrapper to AWS Dynamodb",
-            url="https://github.com/dineshsonachalam/Lucid-Dynamodb",
-            install_reqires=requires,
-            include_package_data=True,
-            classifiers=[
+setup(
+        name="LucidDynamodb",
+        version=str(get_LucidDynamodb_version()),
+        author="Dinesh Sonachalam",
+        author_email="dineshsonachalam@gmail.com",
+        description="A simple Python wrapper to AWS Dynamodb",
+        url="https://github.com/dineshsonachalam/Lucid-Dynamodb",
+        long_description=open('README.rst').read(),
+        zip_safe=False,
+        license='MIT',
+        keywords='python dynamodb amazon',
+        python_requires=">=3.6",
+        install_requires=install_requires,
+        classifiers=[
                 "Programming Language :: Python :: 3",
                 "License :: OSI Approved :: MIT License",
                 "Operating System :: OS Independent",
-            ],
-            python_requires='>=3.6',
-    )
+        ]
+)
