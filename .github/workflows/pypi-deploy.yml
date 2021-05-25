@@ -1,0 +1,32 @@
+name: Docker
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - latest
+
+jobs:
+  deploy-to-pypi:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: Start backend and frontend applications in the background
+          run: |
+            cd backend
+            python3 main.py &
+            cd ..
+            sleep 15
+            curl --location --request GET 'http://0.0.0.0:8001/battles'
+
+        - name: API testing
+          run: |
+            npm run start --prefix frontend &
+            pytest backend -s
+
+        - name: Cypress End to End testing
+          uses: cypress-io/github-action@v2
+          with:
+            working-directory: frontend
+

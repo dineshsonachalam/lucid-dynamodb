@@ -1,9 +1,15 @@
-rm -r dist ;
-python setup.py sdist bdist_wheel ;
-if twine check dist/* ; then
-  if [ "$1" = "--test" ] ; then
-    twine upload --repository-url https://test.pypi.org/legacy/ dist/*
-  else
-    twine upload dist/* ;
-  fi
-fi
+#!/bin/bash
+cleanup() {
+    rm -rf build dist *.egg-info
+}
+
+Main() {
+    cleanup
+    # Compliling your package
+    python3 setup.py sdist bdist_wheel
+    # Upload projects to pypi
+    twine upload --skip-existing dist/*
+    cleanup
+}
+
+Main

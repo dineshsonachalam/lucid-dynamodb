@@ -12,18 +12,18 @@ class DynamoDb:
             aws_secret_access_key = aws_secret_access_key,
         )
         
-    def create_table(self, TableName, KeySchema, AttributeDefinitions, GlobalSecondaryIndexes, ProvisionedThroughput):
+    def create_table(self, TableName, KeySchema, AttributeDefinitions, ProvisionedThroughput, GlobalSecondaryIndexes=[]):
         """Create a new table
 
         Args:
             TableName (str): Table name
             KeySchema (list): A key schema specifies the attributes that make up the primary key of a table.
             AttributeDefinitions (list): An array of attributes that describe the key schema for the table.
-            GlobalSecondaryIndexes (list): An index with a partition key and a sort key that can be different from those on the base table.
-            ProvisionedThroughput (dict): Provisioned throughput settings for this specified table
+            ProvisionedThroughput (dict): Provisioned throughput settings for this specified table. 
+            GlobalSecondaryIndexes (list, optional): An index with a partition key and a sort key that can be different from those on the base table.
 
         Returns:
-            bool: Table creation is successful or not
+            bool: Table creation is successful or failed
         """
         try:
             if(len(GlobalSecondaryIndexes)>0):
@@ -55,7 +55,7 @@ class DynamoDb:
             TableName (str): Table name
 
         Returns:
-            bool: Table deletion is successful or not
+            bool: Table deletion is successful or failed
         """
         try:
             table = self.db.Table(TableName)
@@ -84,9 +84,54 @@ class DynamoDb:
         except Exception as e:
             logging.warning(e)
             return []
-                 
-    def create_item(self):
-        pass
+
+    def create_item(self, TableName ,Item):
+        """Create a New Item
+
+        Args:
+            TableName (str): Table name
+            Item (dict): Item with Primary key
+
+        Returns:
+            bool: Item creation is successful or failed
+        """
+        try:
+            table = self.db.Table(TableName)
+            table.put_item(Item=Item)
+            return True
+        except Exception as e:
+            logging.warning(e)
+            return False
+        
+    def delete_item(self, TableName, Key, ConditionExpression = "", ExpressionAttributeValues={}):
+        """Delete an Item
+
+        Args:
+            TableName (str): Table name
+            Key (dict): Primary Key
+            ConditionExpression (str, optional): ConditionExpression to prevent the item from being deleted if the condition is not met.
+            ExpressionAttributeValues (dict, optional): Expressed attribute values.
+
+        Returns:
+            bool: Item deletion is successful or failed
+        """
+        try:
+            table = self.db.Table(TableName)
+            if(len(ConditionExpression)>0 and len(ExpressionAttributeValues)>0):
+                table.delete_item(
+                    Key=Key,
+                    ConditionExpression=ConditionExpression,
+                    ExpressionAttributeValues=ExpressionAttributeValues
+                )
+            else:
+                table.delete_item(
+                    Key=Key
+                )
+            return True
+        except Exception as e:
+            logging.warning(e)
+            return False
+        
     def read_item(self):
         pass
     def read_all_item(self):
@@ -94,6 +139,4 @@ class DynamoDb:
     def read_items_by_filter(self):
         pass
     def update_item(self):
-        pass
-    def delete_item(self):
         pass
