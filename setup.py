@@ -29,6 +29,7 @@ setup(
         keywords='python dynamodb amazon',
         python_requires=">=3.6",
         install_requires=install_requires,
+        packages=find_packages(),
         classifiers=[
                 "Programming Language :: Python :: 3",
                 "License :: OSI Approved :: MIT License",

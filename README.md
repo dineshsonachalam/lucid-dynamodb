@@ -18,6 +18,13 @@ A simple python wrapper to AWS DynamoDB.
 Pypi package: https://pypi.org/project/LucidDynamodb/
 
 
-pip3 install LucidDynamodb
 
-pip3 install LucidDynamodb --upgrade
+```
+python3 -m pip install LucidDynamodb
+
+dineshsonachalam@macbook ~ % python3 -m pip list | grep -i "LucidDynamodb"
+LucidDynamodb             1.0.15
+```
+
+
+
