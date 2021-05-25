@@ -16,6 +16,7 @@ jobs:
           run: pip3 install -r requirements-dev.txt
 
         - name: Build python package and deploy to PYPI
-          run: sh deploy.sh
-          env:
-            ENVIRONMENT_VARIABLE_NAME: ${{ secrets.PYPI_PASSWORD }}
+          run: |
+            rm -rf build dist *.egg-info
+            python3 setup.py sdist bdist_wheel
+            twine upload --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_PASSWORD }} --skip-existing dist/*
