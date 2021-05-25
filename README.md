@@ -15,4 +15,9 @@ A simple python wrapper to AWS DynamoDB.
 | 8.   | read_items_by_filter | Read items by filter             | Backlog |
 | 9.   | update_item          | Update an item by filter         | Backlog |
 
-Pypi package: https://pypi.org/project/LucidDynamodb/1.0.0/
+Pypi package: https://pypi.org/project/LucidDynamodb/
+
+
+pip3 install LucidDynamodb
+
+pip3 install LucidDynamodb --upgrade
