@@ -132,11 +132,25 @@ class DynamoDb:
             logging.warning(e)
             return False
         
-    def read_item(self):
-        pass
-    def read_all_item(self):
-        pass
-    def read_items_by_filter(self):
-        pass
+    def read_item(self, TableName, Key):
+        """Read an Item
+
+        Args:
+            TableName (str): Table name
+            Key (dict): Primary Key
+
+        Returns:
+            # list: List of table names
+        """
+        try:
+            table = self.db.Table(TableName)
+            response = table.get_item(Key=Key)
+            return response.get('Item')
+        except Exception as e:
+            logging.warning(e)
+            return []
+# True
+# {'user_id': '101'}
+    
     def update_item(self):
         pass
