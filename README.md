@@ -17,7 +17,7 @@ A simple python wrapper to AWS DynamoDB.
 
 Pypi package: https://pypi.org/project/LucidDynamodb/
 
-
+Support Pagination and proper error messages.
 
 ```
 python3 -m pip install LucidDynamodb
