@@ -140,7 +140,7 @@ class DynamoDb:
             Key (dict): Primary Key
 
         Returns:
-            # list: List of table names
+            dict: Item
         """
         try:
             table = self.db.Table(TableName)
@@ -149,8 +149,6 @@ class DynamoDb:
         except Exception as e:
             logging.warning(e)
             return []
-# True
-# {'user_id': '101'}
     
     def update_item(self):
         pass
