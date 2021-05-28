@@ -29,4 +29,12 @@ LucidDynamodb             1.0.15
 ```
 
 
+**Update function should support following functionalities:**
+
+1. UPDATE_KEY
+2. ADD_ELEMENT_TO_LIST
+3. ADD_ELEMENT_TO_STRING_SET
+4. REMOVE_KEY_FROM_DICT
+5. REMOVE_ELEMENT_FROM_LIST
+6. REMOVE_ELEMENT_FROM_STRING_SET
 
