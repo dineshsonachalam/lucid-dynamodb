@@ -10,14 +10,16 @@ A simple python wrapper to AWS DynamoDB.
 | 3.   | read_all_table_names | List out all the table names     | Done    |
 | 4.   | create_item          | Create a new item                | Done    |
 | 5.   | delete_item          | Delete items by filter           | Done    |
-| 6.   | read_item            | Read a item                      | Backlog |
-| 7.   | read_all_item        | Read all item                    | Backlog |
-| 8.   | read_items_by_filter | Read items by filter             | Backlog |
-| 9.   | update_item          | Update an item by filter         | Backlog |
+| 6.   | read_item            | Read a item                      | Done    |
+| 7.   | read_items_by_filter | Read items by filter             | Done    |
+| 8.   | update_item          | Update an item by filter         | Backlog |
 
-Pypi package: https://pypi.org/project/LucidDynamodb/
+**Pypi package:** https://pypi.org/project/LucidDynamodb/
 
-Support Pagination and proper error messages.
+
+
+
+**Note:** Add support for Dynamodb streams.
 
 ```
 python3 -m pip install LucidDynamodb

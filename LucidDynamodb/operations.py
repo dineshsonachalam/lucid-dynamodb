@@ -149,6 +149,35 @@ class DynamoDb:
         except Exception as e:
             logging.warning(e)
             return []
-    
-    def update_item(self):
-        pass
+
+    def read_items_by_filter(self, TableName, KeyConditionExpression, GlobalSecondaryIndexName=None):
+        """Read items by filter
+           The Query operation will return all of the items from the table or index with that partition key value. 
+
+        Args:
+            TableName (str): Table name
+            KeyConditionExpression (boto3.dynamodb.conditions.Equals): Use the KeyConditionExpression parameter to 
+                provide a specific value for the partition key. You can optionally narrow the scope of the Query 
+                operation by specifying a sort key value and a comparison operator in KeyConditionExpression. 
+            GlobalSecondaryIndexName (str, optional): Name of the GlobalSecondaryIndex. Defaults to None.
+
+        Returns:
+            [type]: [description]
+        """
+        try:
+            table = self.db.Table(TableName)
+            if GlobalSecondaryIndexName != None:
+                response = table.query(
+                    IndexName=GlobalSecondaryIndexName,
+                    KeyConditionExpression=KeyConditionExpression
+                )
+            else:
+                response = table.query(
+                    KeyConditionExpression=KeyConditionExpression
+                )
+            items = json.dumps(response.get('Items'))
+            items = json.loads(items)    
+            return items
+        except Exception as e:
+            logging.warning(e)
+            return []    

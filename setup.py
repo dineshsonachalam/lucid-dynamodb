@@ -4,7 +4,8 @@ import semantic_version
 
 install_requires = [
     'boto3>=1.17.78',
-    'botocore>=1.20.78'
+    'botocore>=1.20.78',
+    'simplejson==3.17.2'
 ]
 
 def get_LucidDynamodb_version():
@@ -27,7 +28,7 @@ setup(
         zip_safe=False,
         license='MIT',
         keywords='python dynamodb amazon',
-        python_requires=">=3.6",
+        python_requires=">=3.1",
         install_requires=install_requires,
         packages=find_packages(),
         classifiers=[
