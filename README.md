@@ -38,3 +38,11 @@ LucidDynamodb             1.0.15
 5. REMOVE_ELEMENT_FROM_LIST
 6. REMOVE_ELEMENT_FROM_STRING_SET
 
+**Todo:**
+1. Complete update_item function.
+2. Add integration test to CI/CD.
+3. Add proper documentation.
+4. Research functionalities of Dynamodb stream.
+5. Add support for Dynamodb stream.
+6. Integrate Dynamodb stream integration example to CI/CD
+
