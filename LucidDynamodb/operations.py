@@ -17,7 +17,7 @@ class DynamoDb:
 
         Args:
             TableName (str): Table name
-            KeySchema (list): A key schema specifies the attributes that make up the primary key of a table.
+            KeySchema (list): A key schema specifies the attributes that make up the Primary key (Partition key,  Sort Key(Optional)) of a table.
             AttributeDefinitions (list): An array of attributes that describe the key schema for the table.
             ProvisionedThroughput (dict): Provisioned throughput settings for this specified table. 
             GlobalSecondaryIndexes (list, optional): An index with a partition key and a sort key that can be different from those on the base table.
@@ -90,7 +90,7 @@ class DynamoDb:
 
         Args:
             TableName (str): Table name
-            Item (dict): Item with Primary key
+            Item (dict): Item with Partition key,  Sort Key(Optional)
 
         Returns:
             bool: Item creation is successful or failed
@@ -108,7 +108,7 @@ class DynamoDb:
 
         Args:
             TableName (str): Table name
-            Key (dict): Primary Key
+            Key (dict): Partition key,  Sort Key(Optional)
             ConditionExpression (str, optional): ConditionExpression to prevent the item from being deleted if the condition is not met.
             ExpressionAttributeValues (dict, optional): Expressed attribute values.
 
@@ -137,7 +137,7 @@ class DynamoDb:
 
         Args:
             TableName (str): Table name
-            Key (dict): Primary Key
+            Key (dict): Partition key,  Sort Key(Optional)
 
         Returns:
             dict: Item
