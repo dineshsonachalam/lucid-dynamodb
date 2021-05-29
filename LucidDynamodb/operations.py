@@ -45,7 +45,7 @@ class DynamoDb:
                 table.meta.client.get_waiter('table_exists').wait(TableName=TableName)
             return True
         except Exception as e:
-            logging.warning(e)
+            logging.error(e)
             return False
 
     def delete_table(self, TableName):
@@ -63,7 +63,7 @@ class DynamoDb:
             table.wait_until_not_exists()
             return True
         except Exception as e:
-            logging.warning(e)
+            logging.error(e)
             return False
                 
     def read_all_table_names(self):
@@ -82,7 +82,7 @@ class DynamoDb:
             table_names = db_client.list_tables()['TableNames']
             return table_names
         except Exception as e:
-            logging.warning(e)
+            logging.error(e)
             return []
 
     def create_item(self, TableName ,Item):
@@ -100,7 +100,7 @@ class DynamoDb:
             table.put_item(Item=Item)
             return True
         except Exception as e:
-            logging.warning(e)
+            logging.error(e)
             return False
         
     def delete_item(self, TableName, Key, ConditionExpression = "", ExpressionAttributeValues={}):
@@ -129,7 +129,7 @@ class DynamoDb:
                 )
             return True
         except Exception as e:
-            logging.warning(e)
+            logging.error(e)
             return False
         
     def read_item(self, TableName, Key):
@@ -147,8 +147,8 @@ class DynamoDb:
             response = table.get_item(Key=Key)
             return response.get('Item')
         except Exception as e:
-            logging.warning(e)
-            return []
+            logging.error(e)
+            return {}
 
     def read_items_by_filter(self, TableName, KeyConditionExpression, GlobalSecondaryIndexName=None):
         """Read items by filter
@@ -179,7 +179,7 @@ class DynamoDb:
             items = json.loads(items)    
             return items
         except Exception as e:
-            logging.warning(e)
+            logging.error(e)
             return []    
         
     def generateAttributeNames(self, attribute_names):
@@ -256,6 +256,9 @@ class DynamoDb:
             AttributesToUpdate (dict): Attributes data with K:V
             Operation (str, optional): Update operation category
                 Defaults to UPDATE_EXISTING_ATTRIBUTE_OR_ADD_NEW_ATTRIBUTE.
+        
+        Returns:
+            bool: Attribute update is successful or failed
         """
         try:
             table = self.db.Table(TableName)
@@ -277,7 +280,46 @@ class DynamoDb:
             else:
                 return False
         except Exception as e:
-            logging.warning(e)
+            logging.error(e)
+            return False
+
+    def increase_attribute_value(self, TableName, Key, AttributeName, IncrementValue):
+        """Increase an existing attribute value
+
+        Args:
+            TableName (str): Table name
+            Key (dict): Partition key,  Sort Key(Optional)
+            AttributeName (str): Name of the attribute
+            IncrementValue (int): Increment value for an attribute
+
+        Returns:
+            bool: Attribute value is incremented or not
+        """
+        try:
+            table = self.db.Table(TableName)
+            AttributesToUpdate = {
+                AttributeName: IncrementValue
+            }
+            Operation = "INCREASE_ATTRIBUTE_VALUE"
+            UpdateExpression, ExpressionAttributeNames, \
+            ExpressionAttributeValues = self.generate_update_expression(AttributesToUpdate, Operation)
+            if(len(UpdateExpression)>0 and len(ExpressionAttributeNames)>0 \
+               and len(ExpressionAttributeValues)>0):
+                print("UpdateExpression: ", UpdateExpression)
+                print("ExpressionAttributeNames: ", ExpressionAttributeNames)
+                print("ExpressionAttributeValues: ", ExpressionAttributeValues)
+                response = table.update_item(
+                                Key=Key,
+                                UpdateExpression=UpdateExpression,
+                                ExpressionAttributeNames=ExpressionAttributeNames,
+                                ExpressionAttributeValues=ExpressionAttributeValues,
+                                ReturnValues="ALL_NEW"
+                )
+                return True
+            else:
+                return False
+        except Exception as e:
+            logging.error(e)
             return False
     
     def delete_attribute(self, TableName, Key, AttributeName):
@@ -302,5 +344,5 @@ class DynamoDb:
             )
             return True
         except Exception as e:
-            logging.warning(e)
+            logging.error(e)
             return False
