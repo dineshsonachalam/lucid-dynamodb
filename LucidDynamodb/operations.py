@@ -17,7 +17,7 @@ class DynamoDb:
 
         Args:
             TableName (str): Table name
-            KeySchema (list): A key schema specifies the attributes that make up the Primary key (Partition key,  Sort Key(Optional)) of a table.
+            KeySchema (list): A key schema specifies the attributes that make up the Partition key,  Sort Key(Optional)) of a table.
             AttributeDefinitions (list): An array of attributes that describe the key schema for the table.
             ProvisionedThroughput (dict): Provisioned throughput settings for this specified table. 
             GlobalSecondaryIndexes (list, optional): An index with a partition key and a sort key that can be different from those on the base table.
@@ -162,7 +162,7 @@ class DynamoDb:
             GlobalSecondaryIndexName (str, optional): Name of the GlobalSecondaryIndex. Defaults to None.
 
         Returns:
-            [type]: [description]
+            list: Table items
         """
         try:
             table = self.db.Table(TableName)
@@ -181,3 +181,126 @@ class DynamoDb:
         except Exception as e:
             logging.warning(e)
             return []    
+        
+    def generateAttributeNames(self, attribute_names):
+        """Generate attribute names
+
+        Args:
+            attribute_names (str): Attribute names
+
+        Returns:
+            str: Expression attribute names
+        """
+        ExpressionAttributeNames = {}
+        for attribute_name in attribute_names:
+            ExpressionAttributeNames["#{}".format(attribute_name)] = attribute_name
+        return ExpressionAttributeNames 
+       
+    def generate_update_expression(self, AttributesToUpdate, Operation):
+        """Generate update expression
+
+        Args:
+            AttributesToUpdate (dict): Attributes to update
+            Operation (str): Operation category
+        
+        Returns:       
+            UpdateExpression (str): Describes all updates you want to perform on specified item
+                Example: SET #domain_name = :value1, #owned_by = :value2
+            ExpressionAttributeNames (dict): Attribute name
+                Example: {'#domain_name': 'domain_name', '#owned_by': 'owned_by'} 
+            ExpressionAttributeValues (dict): Attribute values
+                Example: {':value1': 'xbox.com', ':value2': 'Microsoft'}
+        """
+        UpdateExpression = ""
+        ExpressionAttributeNames = {}
+        ExpressionAttributeValues = {}
+        counter = 1
+        for attribute_name, attribute_value in AttributesToUpdate.items():
+            ExpressionAttributeNames = self.generateAttributeNames(attribute_name.split('.'))
+            attribute_name = attribute_name.replace(".", ".#")
+            
+            if Operation == "UPDATE_EXISTING_ATTRIBUTE_OR_ADD_NEW_ATTRIBUTE":
+                if "SET" not in UpdateExpression: 
+                    UpdateExpression = "SET "
+                UpdateExpression += "#{} = :value{}, ".format(attribute_name, counter)
+            elif Operation == "ADD_ATTRIBUTE_TO_LIST":
+                if "SET" not in UpdateExpression: 
+                    UpdateExpression = "SET "
+                UpdateExpression += "#{} = list_append(#{},:value{}), ".format(attribute_name, attribute_name, counter)
+            elif Operation == "ADD_ATTRIBUTE_TO_STRING_SET":
+                if "ADD" not in UpdateExpression: 
+                    UpdateExpression = "ADD "
+                UpdateExpression += "#{} :value{}, ".format(attribute_name, counter)
+            elif Operation == "DELETE_ATTRIBUTE_FROM_STRING_SET":
+                if "DELETE" not in UpdateExpression: 
+                    UpdateExpression = "DELETE "
+                UpdateExpression += "#{} :value{}, ".format(attribute_name, counter)
+            if Operation == "ADD_ATTRIBUTE_TO_LIST":
+                ExpressionAttributeValues[":value{}".format(counter)] = [attribute_value]
+            elif  Operation == "ADD_ATTRIBUTE_TO_STRING_SET" or Operation == "DELETE_ATTRIBUTE_FROM_STRING_SET":
+                ExpressionAttributeValues[":value{}".format(counter)] = set([attribute_value])
+            else:
+                ExpressionAttributeValues[":value{}".format(counter)] = attribute_value
+            counter = counter + 1
+        
+        UpdateExpression = UpdateExpression.rstrip(", ")
+        return UpdateExpression, ExpressionAttributeNames, ExpressionAttributeValues
+
+    def update_item(self, TableName, Key, 
+                    AttributesToUpdate, Operation="UPDATE_EXISTING_ATTRIBUTE_OR_ADD_NEW_ATTRIBUTE"):
+        """Update an item
+
+        Args:
+            TableName (str): Table name
+            Key (dict): Partition key,  Sort Key(Optional)
+            AttributesToUpdate (dict): Attributes data with K:V
+            Operation (str, optional): Update operation category
+                Defaults to UPDATE_EXISTING_ATTRIBUTE_OR_ADD_NEW_ATTRIBUTE.
+        """
+        try:
+            table = self.db.Table(TableName)
+            UpdateExpression, ExpressionAttributeNames, \
+            ExpressionAttributeValues = self.generate_update_expression(AttributesToUpdate, Operation)
+            if(len(UpdateExpression)>0 and len(ExpressionAttributeNames)>0 \
+               and len(ExpressionAttributeValues)>0):
+                print("UpdateExpression: ", UpdateExpression)
+                print("ExpressionAttributeNames: ", ExpressionAttributeNames)
+                print("ExpressionAttributeValues: ", ExpressionAttributeValues)
+                table.update_item(
+                                Key=Key,
+                                UpdateExpression=UpdateExpression,
+                                ExpressionAttributeNames=ExpressionAttributeNames,
+                                ExpressionAttributeValues=ExpressionAttributeValues,
+                                ReturnValues="ALL_NEW"
+                )
+                return True
+            else:
+                return False
+        except Exception as e:
+            logging.warning(e)
+            return False
+    
+    def delete_attribute(self, TableName, Key, AttributeName):
+        """Delete an attribute from an item
+
+        Args:
+            TableName (str): Table name
+            Key (dict): Partition key,  Sort Key(Optional)
+            AttributeName (str): Name of the Attribute
+
+        Returns:
+            bool: Attribute deletion is successful or failed
+        """
+        try:
+            table = self.db.Table(TableName)
+            response = table.get_item(Key=Key)
+
+            table.update_item(
+                                Key=Key,
+                                UpdateExpression="REMOVE {}".format(AttributeName),
+                                ReturnValues="ALL_NEW"
+            )
+            return True
+        except Exception as e:
+            logging.warning(e)
+            return False

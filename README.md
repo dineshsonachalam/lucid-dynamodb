@@ -12,14 +12,14 @@ A simple python wrapper to AWS DynamoDB.
 | 5.   | delete_item          | Delete items by filter           | Done    |
 | 6.   | read_item            | Read a item                      | Done    |
 | 7.   | read_items_by_filter | Read items by filter             | Done    |
-| 8.   | update_item          | Update an item by filter         | Backlog |
+| 8.   | update_item          | Update an item by filter         | Done    |
+| 9.   | delete_attribute     | Delete an item from an item      | Done    |
 
 **Pypi package:** https://pypi.org/project/LucidDynamodb/
 
 
 
 
-**Note:** Add support for Dynamodb streams.
 
 ```
 python3 -m pip install LucidDynamodb
@@ -39,10 +39,6 @@ LucidDynamodb             1.0.15
 6. REMOVE_ELEMENT_FROM_STRING_SET
 
 **Todo:**
-1. Complete update_item function.
-2. Add integration test to CI/CD.
-3. Add proper documentation.
-4. Research functionalities of Dynamodb stream.
-5. Add support for Dynamodb stream.
-6. Integrate Dynamodb stream integration example to CI/CD
+1. Add integration test to CI/CD.
+2. Add proper documentation.
 
