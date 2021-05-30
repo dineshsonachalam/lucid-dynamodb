@@ -347,7 +347,7 @@ INFO:root:Item:
 }
 ```
 
-### 8. Add a new attribute in an item
+### 7. Add a new attribute in an item
 
 ```Python
 from LucidDynamodb.Operations import DynamoDb
