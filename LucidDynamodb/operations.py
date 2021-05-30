@@ -1,6 +1,5 @@
 import boto3
 import logging
-import simplejson as json
 
 class DynamoDb:
     def __init__(self, region_name, aws_access_key_id, aws_secret_access_key):
@@ -176,10 +175,8 @@ class DynamoDb:
             else:
                 response = table.query(
                     KeyConditionExpression=KeyConditionExpression
-                )
-            items = json.dumps(response.get('Items'))
-            items = json.loads(items)    
-            return items
+                )   
+            return response.get('Items')
         except Exception as e:
             logging.error(e)
             return []    
