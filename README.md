@@ -1,43 +1,51 @@
-# Lucid DynamoDB: 
+<p align="center">
+  <img src="https://i.imgur.com/r9hHHUo.png" alt="LucidDynamodb">
+</p>
+<p align="center">
+    <em>A minimalistic wrapper to AWS DynamoDB</em>
+</p>
+<p align="center">
+  
+<a href="https://github.com/dineshsonachalam/Lucid-Dynamodb/actions" target="_blank">
+    <img src="https://github.com/dineshsonachalam/Lucid-Dynamodb/actions/workflows/pypi-deploy.yml/badge.svg" alt="Deployment">
+</a>
+  
+<a href="https://pypi.org/project/LucidDynamodb" target="_blank">
+    <img src="https://img.shields.io/pypi/v/LucidDynamodb?color=%2334D058&label=pypi%20package" alt="Package version">
+</a>
+</p>
 
-A simple python wrapper to AWS DynamoDB.
+## Installation
 
+<div class="termy">
 
-| S.No | Functions            | Description                      | Status  |
-|------|----------------------|----------------------------------|---------|
-| 1.   | create_table         | Create a new table if not exists | Done    |
-| 2.   | delete_table         | Delete a table                   | Done    |
-| 3.   | read_all_table_names | List out all the table names     | Done    |
-| 4.   | create_item          | Create a new item                | Done    |
-| 5.   | delete_item          | Delete items by filter           | Done    |
-| 6.   | read_item            | Read a item                      | Done    |
-| 7.   | read_items_by_filter | Read items by filter             | Done    |
-| 8.   | update_item          | Update an item by filter         | Done    |
-| 9.   | delete_attribute     | Delete an item from an item      | Done    |
+```console
+$ pip install LucidDynamodb
+```
+  
+</div>
 
-**Pypi package:** https://pypi.org/project/LucidDynamodb/
-
-
-
-
+**Prerequisite:**  
+1. Set Python3 as a default python version on your MacOS/Linux.
 
 ```
-python3 -m pip install LucidDynamodb
+# Step 1: Install Python3 using homebrew
+$ brew install python
 
-dineshsonachalam@macbook ~ % python3 -m pip list | grep -i "LucidDynamodb"
-LucidDynamodb             1.0.15
+# Step 2: Look for the path where the latest python3 is available
+dineshsonachalam@macbook ~ % ls -l /usr/local/bin/python*
+lrwxr-xr-x  1 dineshsonachalam  admin  24 May 30 11:31 /usr/local/bin/python -> /usr/local/bin/python3.9
+
+# Step 3: Change the default symbolic link to version of python you want to use
+$ ln -s -f /usr/local/bin/python3.9 /usr/local/bin/python
+
+# Step 4: Close the current terminal session or keep it that way and instead open a new terminal window (not tab). Check for the python version.
+dineshsonachalam@macbook ~ % python --version
+Python 3.9.2
 ```
-
-**Update function should support following functionalities:**
-
-1. UPDATE_KEY
-2. ADD_ELEMENT_TO_LIST
-3. ADD_ELEMENT_TO_STRING_SET
-4. REMOVE_KEY_FROM_DICT
-5. REMOVE_ELEMENT_FROM_LIST
-6. REMOVE_ELEMENT_FROM_STRING_SET
-
-**Todo:**
-1. Add integration test to CI/CD.
-2. Add proper documentation.
-
+2. Set pip3 as a default pip version on MacOS/Linux.
+```
+# Step 1: Add alias to your ~/.bashrc
+dineshsonachalam@macbook ~ % cat ~/.zshrc | grep -i "alias"
+alias pip=pip3
+```
