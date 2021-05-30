@@ -827,4 +827,6 @@ INFO:root: Table deleted successfully
 INFO:root:Table names: ['user']
 ```
 
+## License
 
+This project is licensed under the terms of the MIT license.
