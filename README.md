@@ -27,6 +27,23 @@ pip install LucidDynamodb
 
 **Note:**  <a href="https://gist.github.com/dineshsonachalam/88f55b28c1f0c1ce93421f5a8f33e84a"> Prerequisite for Python3 development </a>
 
+## Table of Contents
+
+- [Example](#example)
+    - [Create a new table](#1-create-a-new-table)
+    - [Get all table names](#2-get-all-table-names)
+    - [Create a New Item](#3-create-a-new-item)
+    - [Read an Item](#4-read-an-item)
+    - [Increase an existing attribute value](#5-increase-an-existing-attribute-value)
+    - [Update existing attribute in an item](#6-update-existing-attribute-in-an-item)
+    - [Add a new attribute in an item](#7-add-a-new-attribute-in-an-item)
+    - [Add an attribute to the list](#8-add-an-attribute-to-the-list)
+    - [Add an attribute to the string set](#9-add-an-attribute-to-the-string-set)
+    - [Delete an attribute from the string set](#10-delete-an-attribute-from-the-string-set)
+    - [Delete an attribute from an item](#11-delete-an-attribute-from-an-item)
+    - [Read items by filter](#12-read-items-by-filter)
+    - [Delete a table](#13-delete-a-table)
+
 ## Example
 
 ### 1. Create a new table
