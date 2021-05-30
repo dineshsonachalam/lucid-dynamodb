@@ -1,5 +1,7 @@
 import boto3
 import logging
+import simplejson as json
+
 class DynamoDb:
     def __init__(self, region_name, aws_access_key_id, aws_secret_access_key):
         self.region_name = region_name

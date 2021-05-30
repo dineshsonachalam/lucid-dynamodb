@@ -2,6 +2,7 @@ from LucidDynamodb.Operations import DynamoDb
 import os
 import logging
 import uuid
+from boto3.dynamodb.conditions import Key
 logging.basicConfig(level=logging.INFO)
 
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
@@ -42,7 +43,7 @@ if __name__ == "__main__":
                 aws_access_key_id=AWS_ACCESS_KEY_ID, 
                 aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
-    # # 1. Create a new table
+    # # # 1. Create a new table
     # table_creation_status = db.create_table(
     #                                 TableName=table_schema.get("TableName"),
     #                                 KeySchema=table_schema.get("KeySchema"),
@@ -55,44 +56,100 @@ if __name__ == "__main__":
     # else:
     #     logging.error("{} table creation failed".format(table_schema.get("TableName")))
         
-    # # Output: INFO:root:dev_jobs table created successfully
-    # # Image: https://i.imgur.com/lBrqUCb.png (Dynamodb table console)    
+    # # # Output: INFO:root:dev_jobs table created successfully
+    # # # Image: https://i.imgur.com/lBrqUCb.png (Dynamodb table console)    
 
         
-    # # 2. Get all table names
+    # # # 2. Get all table names
     # table_names = db.read_all_table_names()
     # logging.info("Table names: {}".format(table_names))
     
-    # # Output: INFO:root:Table names: ['dev_jobs', 'user']     
-    # # Image: https://i.imgur.com/q3GG9Ah.png (Dynamodb Tables)  
+    # # # Output: INFO:root:Table names: ['dev_jobs', 'user']
+    # # # Image: https://i.imgur.com/q3GG9Ah.png (Dynamodb Tables)  
     
-    # 3. Create a new Item
-    item_creation_status = db.create_item(
-        TableName=table_schema.get("TableName"), 
-        Item={
-            "company_name": "Google",
-            "role_id": str(uuid.uuid4()),
-            "role": "Software Engineer 1",
-            "salary": "$1,50,531",
-            "locations": ["Mountain View, California", "Austin, Texas", "Chicago, IL"],
-            "yearly_hike_percent": "8%",
-            "benefits": set(["Internet, Medical, Edu reimbursements", 
-                             "Health insurance",
-                             "Travel reimbursements"
-                             ]),
-            "overall_review":{
-                "overall_rating" : "4/5",
-                "compensation_and_benefits": "3.9/5"
-            }
-        }
-    )
-    if(item_creation_status == True):
-        logging.info("Item created successfully")
-    else:
-        logging.warning("Item creation failed")
+    # # 3. Create a new Item
+    # item_creation_status = db.create_item(
+    #     TableName=table_schema.get("TableName"), 
+    #     Item={
+    #         "company_name": "Google",
+    #         "role_id": str(uuid.uuid4()),
+    #         "role": "Software Engineer 1",
+    #         "salary": "$1,50,531",
+    #         "locations": ["Mountain View, California", "Austin, Texas", "Chicago, IL"],
+    #         "yearly_hike_percent": 8,
+    #         "benefits": set(["Internet, Medical, Edu reimbursements", 
+    #                          "Health insurance",
+    #                          "Travel reimbursements"
+    #                          ]),
+    #         "overall_review":{
+    #             "overall_rating" : "4/5",
+    #             "compensation_and_benefits": "3.9/5"
+    #         }
+    #     }
+    # )
+    # if(item_creation_status == True):
+    #     logging.info("Item created successfully")
+    # else:
+    #     logging.warning("Item creation failed")
 
-    # Output: INFO:root:Item created successfully
-    # Image: https://i.imgur.com/ABh9IXt.png
+    # # Output: INFO:root:Item created successfully
+    # # Image: https://i.imgur.com/ABh9IXt.png
+    
+    # 4. Read an item
+    item = db.read_item(
+        TableName=table_schema.get("TableName"), 
+        Key={
+            "company_name": "Google",
+            "role_id": "716e3655-e178-435e-a68e-5dda64c3ec6d"
+        })
+    if(item != None):
+        logging.info("Item: {}".format(item))
+    else:
+        logging.warning("Item doesn't exist")
+    # Output: INFO:root:Item: {'locations': ['Mountain View, California', 'Austin, Texas', 'Chicago, IL'], 'role_id': 'f18685a0-a425-4519-b808-b02899c8bcfd', 'overall_review': {'compensation_and_benefits': '3.9/5', 'overall_rating': '4/5'}, 'company_name': 'Google', 'role': 'Software Engineer 1', 'yearly_hike_percent': '8%', 'salary': '$1,50,531', 'benefits': {'Travel reimbursements', 'Health insurance', 'Internet, Medical, Edu reimbursements'}}
+
+    # 5. Increase an existing attribute value
+    increase_attribute_status = db.increase_attribute_value(
+        TableName=table_schema.get("TableName"), 
+        Key={
+            "company_name": "Google",
+            "role_id": "716e3655-e178-435e-a68e-5dda64c3ec6d"
+        }, 
+        AttributeName="yearly_hike_percent", 
+        IncrementValue=3)
+    
+    if(increase_attribute_status==True):
+        logging.info("Attribute value increment completed")
+    else:
+        logging.warning("Attribute value increment failed")
+    
+
+    item = db.read_item(
+        TableName=table_schema.get("TableName"), 
+        Key={
+            "company_name": "Google",
+            "role_id": "716e3655-e178-435e-a68e-5dda64c3ec6d"
+        })
+    if(item != None):
+        logging.info("Item: {}".format(item))
+    else:
+        logging.warning("Item doesn't exist")    
+    
+    # print(db.increase_attribute_value(
+    #     TableName='Test_1',
+    #     Key={
+    #             "user_id": 0
+    #     },
+    #     AttributeName="salary",
+    #     IncrementValue=5
+    # ))
+
+       
+    # # X. Read items by filter:
+    # items = db.read_items_by_filter(
+    #     TableName=table_schema.get("TableName"), 
+    #     KeyConditionExpression=Key("company_name").eq("Google"))
+    # print(items)
         
 #     # 4. Delete an Item
 #     item_deletion_status = db.delete_item(
