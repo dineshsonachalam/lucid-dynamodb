@@ -25,27 +25,7 @@ $ pip install LucidDynamodb
   
 </div>
 
-**Prerequisite:**  
-1. Set Python3 as a default python version on your MacOS/Linux.
+**Note:**  <a href="https://gist.github.com/dineshsonachalam/88f55b28c1f0c1ce93421f5a8f33e84a"> Prerequisite for Python3 development </a>
 
-```
-# Step 1: Install Python3 using homebrew
-$ brew install python
 
-# Step 2: Look for the path where the latest python3 is available
-dineshsonachalam@macbook ~ % ls -l /usr/local/bin/python*
-lrwxr-xr-x  1 dineshsonachalam  admin  24 May 30 11:31 /usr/local/bin/python -> /usr/local/bin/python3.9
 
-# Step 3: Change the default symbolic link to version of python you want to use
-$ ln -s -f /usr/local/bin/python3.9 /usr/local/bin/python
-
-# Step 4: Close the current terminal session or keep it that way and instead open a new terminal window (not tab). Check for the python version.
-dineshsonachalam@macbook ~ % python --version
-Python 3.9.2
-```
-2. Set pip3 as a default pip version on MacOS/Linux.
-```
-# Step 1: Add alias to your ~/.bashrc
-dineshsonachalam@macbook ~ % cat ~/.zshrc | grep -i "alias"
-alias pip=pip3
-```
