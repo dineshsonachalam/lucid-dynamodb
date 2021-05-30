@@ -20,7 +20,7 @@
 <div class="termy">
 
 ```console
-$ pip install LucidDynamodb
+pip install LucidDynamodb
 ```
   
 </div>
