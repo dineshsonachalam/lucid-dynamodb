@@ -183,7 +183,7 @@ if __name__ == "__main__":
                 aws_access_key_id=AWS_ACCESS_KEY_ID, 
                 aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     item = db.read_item(
-        TableName=table_schema.get("TableName"), 
+        TableName="dev_jobs", 
         Key={
             "company_name": "Google",
             "role_id": "e85f79a7-0857-4086-afbd-da13ec76b442"
