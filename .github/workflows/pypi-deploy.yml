@@ -8,6 +8,17 @@ on:
       - latest
 
 jobs:
+
+  integration-test:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: Start integration test
+          env: 
+            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          run: python3 test.py
+  
   deploy-to-pypi:
       runs-on: ubuntu-latest
       steps:
@@ -20,3 +31,5 @@ jobs:
             rm -rf build dist *.egg-info
             python3 setup.py sdist bdist_wheel
             twine upload --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_PASSWORD }} --skip-existing dist/*
+
+  
