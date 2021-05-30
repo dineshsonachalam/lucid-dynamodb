@@ -109,19 +109,30 @@ if __name__ == "__main__":
     # Output: INFO:root:Item: {'locations': ['Mountain View, California', 'Austin, Texas', 'Chicago, IL'], 'role_id': 'f18685a0-a425-4519-b808-b02899c8bcfd', 'overall_review': {'compensation_and_benefits': '3.9/5', 'overall_rating': '4/5'}, 'company_name': 'Google', 'role': 'Software Engineer 1', 'yearly_hike_percent': '8%', 'salary': '$1,50,531', 'benefits': {'Travel reimbursements', 'Health insurance', 'Internet, Medical, Edu reimbursements'}}
 
     # 5. Increase an existing attribute value
-    increase_attribute_status = db.increase_attribute_value(
-        TableName=table_schema.get("TableName"), 
+    print(db.increase_attribute_value(
+        TableName='dev_jobs',
         Key={
             "company_name": "Google",
             "role_id": "716e3655-e178-435e-a68e-5dda64c3ec6d"
-        }, 
-        AttributeName="yearly_hike_percent", 
-        IncrementValue=3)
+        },
+        AttributeName="yearly_hike_percent",
+        IncrementValue=5
+    ))
+        
+    # increase_attribute_status = db.increase_attribute_value(
+    #     TableName='dev_jobs',
+    #     Key={
+    #         "company_name": "Google",
+    #         "role_id": "716e3655-e178-435e-a68e-5dda64c3ec6d"
+    #     },
+    #     AttributeName="yearly_hike_percent",
+    #     IncrementValue=5
+    # )
     
-    if(increase_attribute_status==True):
-        logging.info("Attribute value increment completed")
-    else:
-        logging.warning("Attribute value increment failed")
+    # if(increase_attribute_status==True):
+    #     logging.info("Attribute value increment completed")
+    # else:
+    #     logging.warning("Attribute value increment failed")
     
 
     item = db.read_item(

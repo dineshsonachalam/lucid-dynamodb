@@ -218,13 +218,17 @@ class DynamoDb:
         ExpressionAttributeValues = {}
         counter = 1
         for attribute_name, attribute_value in AttributesToUpdate.items():
-            ExpressionAttributeNames = self.generateAttributeNames(attribute_name.split('.'))
+            ExpressionAttributeNames = self.generate_attribute_names(attribute_name.split('.'))
             attribute_name = attribute_name.replace(".", ".#")
             
             if Operation == "UPDATE_EXISTING_ATTRIBUTE_OR_ADD_NEW_ATTRIBUTE":
                 if "SET" not in UpdateExpression: 
                     UpdateExpression = "SET "
                 UpdateExpression += "#{} = :value{}, ".format(attribute_name, counter)
+            elif Operation == "INCREASE_ATTRIBUTE_VALUE":
+                if "SET" not in UpdateExpression: 
+                    UpdateExpression = "SET "
+                UpdateExpression += "#{} = #{} + :value{}, ".format(attribute_name, attribute_name, counter)                
             elif Operation == "ADD_ATTRIBUTE_TO_LIST":
                 if "SET" not in UpdateExpression: 
                     UpdateExpression = "SET "
@@ -247,7 +251,7 @@ class DynamoDb:
         
         UpdateExpression = UpdateExpression.rstrip(", ")
         return UpdateExpression, ExpressionAttributeNames, ExpressionAttributeValues
-
+    
     def update_item(self, TableName, Key, 
                     AttributesToUpdate, Operation="UPDATE_EXISTING_ATTRIBUTE_OR_ADD_NEW_ATTRIBUTE"):
         """Update an item
@@ -268,9 +272,6 @@ class DynamoDb:
             ExpressionAttributeValues = self.generate_update_expression(AttributesToUpdate, Operation)
             if(len(UpdateExpression)>0 and len(ExpressionAttributeNames)>0 \
                and len(ExpressionAttributeValues)>0):
-                print("UpdateExpression: ", UpdateExpression)
-                print("ExpressionAttributeNames: ", ExpressionAttributeNames)
-                print("ExpressionAttributeValues: ", ExpressionAttributeValues)
                 table.update_item(
                                 Key=Key,
                                 UpdateExpression=UpdateExpression,
@@ -307,9 +308,6 @@ class DynamoDb:
             ExpressionAttributeValues = self.generate_update_expression(AttributesToUpdate, Operation)
             if(len(UpdateExpression)>0 and len(ExpressionAttributeNames)>0 \
                and len(ExpressionAttributeValues)>0):
-                print("UpdateExpression: ", UpdateExpression)
-                print("ExpressionAttributeNames: ", ExpressionAttributeNames)
-                print("ExpressionAttributeValues: ", ExpressionAttributeValues)
                 response = table.update_item(
                                 Key=Key,
                                 UpdateExpression=UpdateExpression,
