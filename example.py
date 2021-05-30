@@ -43,54 +43,54 @@ if __name__ == "__main__":
                 aws_access_key_id=AWS_ACCESS_KEY_ID, 
                 aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
-    # # # 1. Create a new table
-    # table_creation_status = db.create_table(
-    #                                 TableName=table_schema.get("TableName"),
-    #                                 KeySchema=table_schema.get("KeySchema"),
-    #                                 AttributeDefinitions=table_schema.get("AttributeDefinitions"),
-    #                                 GlobalSecondaryIndexes=table_schema.get("GlobalSecondaryIndexes"),
-    #                                 ProvisionedThroughput=table_schema.get("ProvisionedThroughput")
-    # )
-    # if(table_creation_status == True):
-    #     logging.info("{} table created successfully".format(table_schema.get("TableName")))
-    # else:
-    #     logging.error("{} table creation failed".format(table_schema.get("TableName")))
+    # # 1. Create a new table
+    table_creation_status = db.create_table(
+                                    TableName=table_schema.get("TableName"),
+                                    KeySchema=table_schema.get("KeySchema"),
+                                    AttributeDefinitions=table_schema.get("AttributeDefinitions"),
+                                    GlobalSecondaryIndexes=table_schema.get("GlobalSecondaryIndexes"),
+                                    ProvisionedThroughput=table_schema.get("ProvisionedThroughput")
+    )
+    if(table_creation_status == True):
+        logging.info("{} table created successfully".format(table_schema.get("TableName")))
+    else:
+        logging.error("{} table creation failed".format(table_schema.get("TableName")))
         
-    # # # Output: INFO:root:dev_jobs table created successfully
-    # # # Image: https://i.imgur.com/lBrqUCb.png (Dynamodb table console)    
+    # # Output: INFO:root:dev_jobs table created successfully
+    # # Image: https://i.imgur.com/lBrqUCb.png (Dynamodb table console)    
 
         
-    # # # 2. Get all table names
-    # table_names = db.read_all_table_names()
-    # logging.info("Table names: {}".format(table_names))
+    # # 2. Get all table names
+    table_names = db.read_all_table_names()
+    logging.info("Table names: {}".format(table_names))
     
-    # # # Output: INFO:root:Table names: ['dev_jobs', 'user']
-    # # # Image: https://i.imgur.com/q3GG9Ah.png (Dynamodb Tables)  
+    # # Output: INFO:root:Table names: ['dev_jobs', 'user']
+    # # Image: https://i.imgur.com/q3GG9Ah.png (Dynamodb Tables)  
     
-    # # 3. Create a new Item
-    # item_creation_status = db.create_item(
-    #     TableName=table_schema.get("TableName"), 
-    #     Item={
-    #         "company_name": "Google",
-    #         "role_id": str(uuid.uuid4()),
-    #         "role": "Software Engineer 1",
-    #         "salary": "$1,50,531",
-    #         "locations": ["Mountain View, California", "Austin, Texas", "Chicago, IL"],
-    #         "yearly_hike_percent": 8,
-    #         "benefits": set(["Internet, Medical, Edu reimbursements", 
-    #                          "Health insurance",
-    #                          "Travel reimbursements"
-    #                          ]),
-    #         "overall_review":{
-    #             "overall_rating" : "4/5",
-    #             "compensation_and_benefits": "3.9/5"
-    #         }
-    #     }
-    # )
-    # if(item_creation_status == True):
-    #     logging.info("Item created successfully")
-    # else:
-    #     logging.warning("Item creation failed")
+    # 3. Create a new Item
+    item_creation_status = db.create_item(
+        TableName=table_schema.get("TableName"), 
+        Item={
+            "company_name": "Google",
+            "role_id": str(uuid.uuid4()),
+            "role": "Software Engineer 1",
+            "salary": "$1,50,531",
+            "locations": ["Mountain View, California", "Austin, Texas", "Chicago, IL"],
+            "yearly_hike_percent": 8,
+            "benefits": set(["Internet, Medical, Edu reimbursements", 
+                             "Health insurance",
+                             "Travel reimbursements"
+                             ]),
+            "overall_review":{
+                "overall_rating" : "4/5",
+                "compensation_and_benefits": "3.9/5"
+            }
+        }
+    )
+    if(item_creation_status == True):
+        logging.info("Item created successfully")
+    else:
+        logging.warning("Item creation failed")
 
     # # Output: INFO:root:Item created successfully
     # # Image: https://i.imgur.com/ABh9IXt.png

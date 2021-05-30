@@ -184,7 +184,7 @@ class DynamoDb:
             logging.error(e)
             return []    
         
-    def generateAttributeNames(self, attribute_names):
+    def generate_attribute_names(self, attribute_names):
         """Generate attribute names
 
         Args:
@@ -197,7 +197,7 @@ class DynamoDb:
         for attribute_name in attribute_names:
             ExpressionAttributeNames["#{}".format(attribute_name)] = attribute_name
         return ExpressionAttributeNames 
-       
+      
     def generate_update_expression(self, AttributesToUpdate, Operation):
         """Generate update expression
 

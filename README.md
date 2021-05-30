@@ -28,7 +28,6 @@ dineshsonachalam@macbook ~ % python3 -m pip list | grep -i "LucidDynamodb"
 LucidDynamodb             1.0.15
 ```
 
-
 **Update function should support following functionalities:**
 
 1. UPDATE_KEY
