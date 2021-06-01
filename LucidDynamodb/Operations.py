@@ -6,7 +6,7 @@ class DynamoDb:
         self.region_name = region_name
         self.aws_access_key_id = aws_access_key_id
         self.aws_secret_access_key = aws_secret_access_key
-        if(self.region_name==None or self.aws_access_key_id==None or self.aws_secret_access_key==None):
+        if(self.region_name!=None or self.aws_access_key_id!=None or self.aws_secret_access_key!=None):
             self.db = boto3.resource(
                 "dynamodb",
                 region_name = region_name,
@@ -77,17 +77,17 @@ class DynamoDb:
             list: List of table names
         """
         try:
-            if(self.region_name==None or self.aws_access_key_id==None or self.aws_secret_access_key==None):
-                db_client = boto3.client(
-                    "dynamodb"
-                )
-            else:            
+            if(self.region_name!=None or self.aws_access_key_id!=None or self.aws_secret_access_key!=None):
                 db_client = boto3.client(
                     "dynamodb",
                     region_name = self.region_name,
                     aws_access_key_id = self.aws_access_key_id,
                     aws_secret_access_key = self.aws_secret_access_key,
                 )
+            else:
+                db_client = boto3.client(
+                    "dynamodb"
+                )            
             table_names = db_client.list_tables()['TableNames']
             return table_names
         except Exception as e:
