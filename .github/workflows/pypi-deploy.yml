@@ -19,7 +19,7 @@ jobs:
             AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           run: |
             pip3 install -r requirements-dev.txt
-            pip3 install LucidDynamodb
+            python setup.py install
             pytest -s
   
   deploy-to-pypi:
