@@ -18,6 +18,9 @@ jobs:
             AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
             AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           run: |
+            pip3 install virtualenv
+            python3 -m venv env
+            source env/bin/activate
             pip3 install -r requirements-dev.txt
             python setup.py install
             pytest -s
