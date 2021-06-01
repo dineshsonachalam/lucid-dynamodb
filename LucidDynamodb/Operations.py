@@ -2,16 +2,19 @@ import boto3
 import logging
 
 class DynamoDb:
-    def __init__(self, region_name, aws_access_key_id, aws_secret_access_key):
+    def __init__(self, region_name=None, aws_access_key_id=None, aws_secret_access_key=None):
         self.region_name = region_name
         self.aws_access_key_id = aws_access_key_id
         self.aws_secret_access_key = aws_secret_access_key
-        self.db = boto3.resource(
-            "dynamodb",
-            region_name = region_name,
-            aws_access_key_id = aws_access_key_id,
-            aws_secret_access_key = aws_secret_access_key,
-        )
+        if(self.region_name==None or self.aws_access_key_id==None or self.aws_secret_access_key==None):
+            self.db = boto3.resource(
+                "dynamodb",
+                region_name = region_name,
+                aws_access_key_id = aws_access_key_id,
+                aws_secret_access_key = aws_secret_access_key,
+            )
+        else:
+            self.db = boto3.resource("dynamodb")
         
     def create_table(self, TableName, KeySchema, AttributeDefinitions, ProvisionedThroughput, GlobalSecondaryIndexes=[]):
         """Create a new table
@@ -74,12 +77,17 @@ class DynamoDb:
             list: List of table names
         """
         try:
-            db_client = boto3.client(
-                "dynamodb",
-                region_name = self.region_name,
-                aws_access_key_id = self.aws_access_key_id,
-                aws_secret_access_key = self.aws_secret_access_key,
-            )
+            if(self.region_name==None or self.aws_access_key_id==None or self.aws_secret_access_key==None):
+                db_client = boto3.client(
+                    "dynamodb"
+                )
+            else:            
+                db_client = boto3.client(
+                    "dynamodb",
+                    region_name = self.region_name,
+                    aws_access_key_id = self.aws_access_key_id,
+                    aws_secret_access_key = self.aws_secret_access_key,
+                )
             table_names = db_client.list_tables()['TableNames']
             return table_names
         except Exception as e:
