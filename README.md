@@ -13,6 +13,11 @@
 <a href="https://pypi.org/project/LucidDynamodb" target="_blank">
     <img src="https://img.shields.io/pypi/v/LucidDynamodb?color=%2334D058&label=pypi%20package" alt="Package version">
 </a>
+
+<a href="https://github.com/dineshsonachalam/Lucid-Dynamodb/blob/master/LICENSE" target="_blank">
+    <img src="https://img.shields.io/apm/l/atomic-design-ui.svg" alt="MIT License">
+</a>
+	
 </p>
 
 ## Installation
@@ -826,6 +831,23 @@ if __name__ == "__main__":
 INFO:root: Table deleted successfully
 INFO:root:Table names: ['user']
 ```
+
+## Running Tests
+
+To run tests, run the following command
+
+```bash
+pytest -s
+```
+
+## Contributing
+
+Contributions are always welcome!
+
+
+## Support
+
+For support, email dineshsonachalam@gmail.com
 
 ## License
 
