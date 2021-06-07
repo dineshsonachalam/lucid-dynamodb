@@ -840,6 +840,11 @@ To run tests, run the following command
 pytest -s
 ```
 
+## Authors
+
+- [@dineshsonachalam](https://www.github.com/dineshsonachalam)
+
+  
 ## Contributing
 
 Contributions are always welcome!
