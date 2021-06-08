@@ -62,7 +62,7 @@ jobs:
       uses: github/codeql-action/analyze@v1
     
     - name: Upload CodeQL Analysis Report to Artifact
-    - uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v2
       with:
         name: CodeQl-Report
         path: /home/runner/work/Lucid-Dynamodb/results/
