@@ -23,13 +23,13 @@ jobs:
             source env/bin/activate
             pip3 install -r requirements-dev.txt
             python setup.py install
-            pytest -s --html=/home/runner/work/Lucid-Dynamodb/report/integration-test-report.html --self-contained-html
+            pytest -s --html=./integration-test-report.html --self-contained-html
 
         - name: Upload Pytest report to Artifact
           uses: actions/upload-artifact@v2
           with:
             name: Pytest-report
-            path: /home/runner/work/Lucid-Dynamodb/report/integration-test-report.html
+            path: ${{ github.workspace }}/integration-test-report.html
 
   deploy-to-pypi:
       needs: integration-tests
