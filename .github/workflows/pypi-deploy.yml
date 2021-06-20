@@ -70,6 +70,7 @@ jobs:
             path: ${{ github.workspace }}/dependency-graph.png
 
   vulnerability_report:
+      runs-on: ubuntu-18.04
       needs: dependency-graph
       runs-on: ubuntu-latest
       steps:
@@ -90,6 +91,7 @@ jobs:
             path: ${{ github.workspace }}/vulnerability_report.txt
 
   deploy-to-pypi:
+      runs-on: ubuntu-20.04
       needs: vulnerability_report
       runs-on: ubuntu-latest
       steps:
