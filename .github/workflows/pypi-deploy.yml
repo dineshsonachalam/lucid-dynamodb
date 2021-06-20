@@ -79,10 +79,10 @@ jobs:
           run: |
             pip3 install safety
             pip3 install -r requirements.txt
-            safety --help
+            python3 setup.py install
             
         - name: Get vulnerability report for your installed dependencies
-          run: safety check -r requirements.txt -o ./vulnerability_report.txt
+          run: safety -o ./vulnerability_report.txt
         
         - name: Upload vulnerability report to Artifact
           uses: actions/upload-artifact@v2
