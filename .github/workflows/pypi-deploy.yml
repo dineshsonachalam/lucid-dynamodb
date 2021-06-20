@@ -57,7 +57,7 @@ jobs:
 
         - name: Install dependencies
           run: |
-            pip3 install graphviz
+            pip3 install graphviz pipdeptree
             sudo apt-get -y install graphviz
         
         - name: Create dependency graph
