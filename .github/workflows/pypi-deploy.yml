@@ -1,4 +1,4 @@
-name: Integration-Test
+name: Integration-test
 
 on:
   push:
@@ -69,28 +69,8 @@ jobs:
             name: dependency-graph
             path: ${{ github.workspace }}/dependency-graph.png
 
-  vulnerability_report:
-      needs: dependency-graph
-      continue-on-error: true
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-        
-        - name: Security check - Bandit
-          uses: ./
-          with:
-            python_version: ${{ matrix.python-version }}
-            project_path: .
-            ignore_failure: true
-        
-        - name: Upload vulnerability report to Artifact
-          uses: actions/upload-artifact@v2
-          with:
-            name: vulnerability_report
-            path: output/security_report.txt
-
   deploy-to-pypi:
-      needs: vulnerability_report
+      needs: dependency-graph
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v2
