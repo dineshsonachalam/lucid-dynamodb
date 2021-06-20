@@ -69,8 +69,29 @@ jobs:
             name: dependency-graph
             path: ${{ github.workspace }}/dependency-graph.png
 
-  deploy-to-pypi:
+  vulnerability_report:
       needs: dependency-graph
+      continue-on-error: true
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+
+        - name: Install dependencies
+          run: |
+            sudo pip3 install -r requirements-dev.txt
+            sudo python3 setup.py install
+            
+        - name: Get vulnerability report for your installed dependencies
+          run: safety check -o vulnerability_report.txt; exit 0
+        
+        - name: Upload vulnerability report to Artifact
+          uses: actions/upload-artifact@v2
+          with:
+            name: vulnerability_report
+            path: ${{ github.workspace }}/vulnerability_report.txt
+
+  deploy-to-pypi:
+      needs: vulnerability_report
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v2
