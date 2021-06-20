@@ -4,9 +4,7 @@ import semantic_version
 
 install_requires = [
     'boto3>=1.17.78',
-    'botocore>=1.20.78',
-    'simplejson==3.17.2',
-    'semantic-version==2.8.5'
+    'botocore>=1.20.78'
 ]
 
 def get_LucidDynamodb_version():
