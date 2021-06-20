@@ -82,7 +82,7 @@ jobs:
             python3 setup.py install
             
         - name: Get vulnerability report for your installed dependencies
-          run: safety -o ./vulnerability_report.txt
+          run: safety check -o ./vulnerability_report.txt
         
         - name: Upload vulnerability report to Artifact
           uses: actions/upload-artifact@v2
