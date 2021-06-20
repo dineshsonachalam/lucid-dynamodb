@@ -49,6 +49,26 @@ jobs:
             name: module-dependencies-license-report
             path: ${{ github.workspace }}/module-dependencies-license-report.md
 
+  dependency-graph:
+      needs: module-dependencies-license-checker
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+
+        - name: Install dependencies
+          run: |
+            pip3 install graphviz
+            sudo apt-get -y install graphviz
+        
+        - name: Create dependency graph
+          run: pipdeptree --graph-output png > ./dependency-graph.png
+        
+        - name: Upload dependency graph to Artifact
+          uses: actions/upload-artifact@v2
+          with:
+            name: dependency-graph
+            path: ${{ github.workspace }}/dependency-graph.png
+      
   deploy-to-pypi:
       needs: module-dependencies-license-checker
       runs-on: ubuntu-latest
