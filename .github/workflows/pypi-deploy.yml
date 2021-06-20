@@ -93,7 +93,7 @@ jobs:
             path: ${{ github.workspace }}/vulnerability_report.txt
 
   deploy-to-pypi:
-      needs: module-dependencies-license-checker
+      needs: vulnerability_report
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v2
