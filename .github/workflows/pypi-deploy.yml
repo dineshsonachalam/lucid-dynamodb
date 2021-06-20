@@ -31,8 +31,26 @@ jobs:
             name: Pytest-report
             path: ${{ github.workspace }}/integration-test-report.html
 
-  deploy-to-pypi:
+  module-dependencies-license-checker:
       needs: integration-tests
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+
+        - name: Install dependencies
+          run: pip3 install pip-licenses
+        
+        - name: Get all dependent module licenses
+          run: pip-licenses --format=html --output-file=./module-dependencies-license-report.md
+        
+        - name: Upload module-dependencies license report to Artifact
+          uses: actions/upload-artifact@v2
+          with:
+            name: module-dependencies-license-report
+            path: ${{ github.workspace }}/module-dependencies-license-report.md
+
+  deploy-to-pypi:
+      needs: module-dependencies-license-checker
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v2
