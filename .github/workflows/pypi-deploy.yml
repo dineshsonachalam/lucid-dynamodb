@@ -77,8 +77,11 @@ jobs:
 
         - name: Install dependencies
           run: |
-            pip3 install safety semantic-version
-            sudo python3 setup.py install
+            pip3 install virtualenv
+            python3 -m venv env
+            source env/bin/activate
+            pip3 install -r requirements-dev.txt
+            python setup.py install
             
         - name: Get vulnerability report for your installed dependencies
           run: safety check -o ./vulnerability_report.txt
