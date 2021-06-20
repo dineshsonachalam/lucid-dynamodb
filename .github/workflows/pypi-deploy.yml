@@ -71,13 +71,13 @@ jobs:
 
   vulnerability_report:
       needs: dependency-graph
-      runs-on: ubuntu-18.04
+      continue-on-error: true
+      runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v2
 
         - name: Install dependencies
           run: |
-            sudo apt-get -y install python3-setuptools
             sudo pip3 install -r requirements-dev.txt
             sudo python3 setup.py install
             
