@@ -1,5 +1,7 @@
 <p align="center">
-  <img src="https://i.imgur.com/r9hHHUo.png" alt="LucidDynamodb">
+  <a href="https://pypi.org/project/LucidDynamodb" target="_blank">
+    <img src="https://i.imgur.com/r9hHHUo.png" alt="LucidDynamodb">
+  </a>
 </p>
 <p align="center">
     <em>A minimalistic wrapper to AWS DynamoDB</em>
