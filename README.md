@@ -889,9 +889,9 @@ pytest -s
 ## Github Workflow Artifacts
 
 <!-- MARKDOWN-AUTO-DOCS:START (WORKFLOW_ARTIFACT_TABLE) -->
-<table class="ARTIFACTS-TABLE"><thead><tr><th class="artifact-th">Artifact</th><th class="workflow-th">Workflow</th></tr></thead><tbody ><tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/Lucid-Dynamodb/suites/3098531782/artifacts/70812344>dependency-graph</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/Lucid-Dynamodb/actions/runs/977342841>integration-tests</a></td></tr>
-<tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/Lucid-Dynamodb/suites/3098531782/artifacts/70812345>module-dependencies-license-report</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/Lucid-Dynamodb/actions/runs/977342841>integration-tests</a></td></tr>
-<tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/Lucid-Dynamodb/suites/3098531782/artifacts/70812346>Pytest-report</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/Lucid-Dynamodb/actions/runs/977342841>integration-tests</a></td></tr></tbody></table>
+<table class="ARTIFACTS-TABLE"><thead><tr><th class="artifact-th">Artifact</th><th class="workflow-th">Workflow</th></tr></thead><tbody ><tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/Lucid-Dynamodb/suites/3098562909/artifacts/70812933>dependency-graph</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/Lucid-Dynamodb/actions/runs/977358019>integration-tests</a></td></tr>
+<tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/Lucid-Dynamodb/suites/3098562909/artifacts/70812934>module-dependencies-license-report</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/Lucid-Dynamodb/actions/runs/977358019>integration-tests</a></td></tr>
+<tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/Lucid-Dynamodb/suites/3098562909/artifacts/70812935>Pytest-report</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/Lucid-Dynamodb/actions/runs/977358019>integration-tests</a></td></tr></tbody></table>
 <!-- MARKDOWN-AUTO-DOCS:END -->
 
 ## License
