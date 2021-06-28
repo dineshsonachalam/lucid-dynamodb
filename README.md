@@ -12,7 +12,7 @@
         <img src="https://github.com/dineshsonachalam/Lucid-Dynamodb/actions/workflows/pypi-deploy.yml/badge.svg" alt="Deployment">
     </a>
     <a href="https://github.com/dineshsonachalam/Lucid-Dynamodb/actions" target="_blank">
-        <img src="https://github.com/dineshsonachalam/Lucid-Dynamodb/actions/workflows/markdown-autodocs.yml/badge.svg" alt="Deployment">
+        <img src="https://github.com/dineshsonachalam/Lucid-Dynamodb/workflows/markdown-autodocs/badge.svg" alt="Deployment">
     </a>
     <a href="https://pypi.org/project/LucidDynamodb" target="_blank">
         <img src="https://img.shields.io/pypi/v/LucidDynamodb?color=%2334D058&label=pypi%20package" alt="Package version">
