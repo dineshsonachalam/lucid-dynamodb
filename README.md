@@ -64,10 +64,32 @@ You can connect to DynamoDB by following any of these two ways.
 
 1. Using AWS config
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/using-aws-config-to-connect-to-dynamodb.py) -->
+<!-- The below code snippet is automatically added from ./examples/using-aws-config-to-connect-to-dynamodb.py -->
+```py
+from LucidDynamodb.Operations import DynamoDb
+db = DynamoDb()
+
+# $> pip install awscli  #can add user flag 
+# $> aws configure
+# AWS Access Key ID [****************ABCD]:[enter your key here]
+# AWS Secret Access Key [****************xyz]:[enter your secret key here]
+# Default region name [us-west-2]:[enter your region here]
+# Default output format [None]:
+```
 <!-- MARKDOWN-AUTO-DOCS:END -->
 
 2. Using AWS secret key
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/using-aws-secret-to-connect-to-dynamodb.py) -->
+<!-- The below code snippet is automatically added from ./examples/using-aws-secret-to-connect-to-dynamodb.py -->
+```py
+from LucidDynamodb.Operations import DynamoDb
+import os
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+db = DynamoDb(region_name="us-east-1", 
+              aws_access_key_id=AWS_ACCESS_KEY_ID, 
+              aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+```
 <!-- MARKDOWN-AUTO-DOCS:END -->
 
 ### Create a new table
@@ -798,9 +820,9 @@ pytest -s
 ## Github Workflow Artifacts
 
 <!-- MARKDOWN-AUTO-DOCS:START (WORKFLOW_ARTIFACT_TABLE) -->
-<table class="ARTIFACTS-TABLE"><thead><tr><th class="artifact-th">Artifact</th><th class="workflow-th">Workflow</th></tr></thead><tbody ><tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/suites/3204714804/artifacts/74104006>dependency-graph</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/actions/runs/1017540239>integration-tests</a></td></tr>
-<tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/suites/3204714804/artifacts/74104007>module-dependencies-license-report</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/actions/runs/1017540239>integration-tests</a></td></tr>
-<tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/suites/3204714804/artifacts/74104008>Pytest-report</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/actions/runs/1017540239>integration-tests</a></td></tr></tbody></table>
+<table class="ARTIFACTS-TABLE"><thead><tr><th class="artifact-th">Artifact</th><th class="workflow-th">Workflow</th></tr></thead><tbody ><tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/suites/3204896945/artifacts/74109553>dependency-graph</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/actions/runs/1017636459>integration-tests</a></td></tr>
+<tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/suites/3204896945/artifacts/74109554>module-dependencies-license-report</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/actions/runs/1017636459>integration-tests</a></td></tr>
+<tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/suites/3204896945/artifacts/74109555>Pytest-report</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/actions/runs/1017636459>integration-tests</a></td></tr></tbody></table>
 <!-- MARKDOWN-AUTO-DOCS:END -->
 
 ## License
