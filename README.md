@@ -63,14 +63,8 @@ pip install LucidDynamodb
 <!-- The below code snippet is automatically added from ./examples/1-create-a-new-table.py -->
 ```py
 from LucidDynamodb.Operations import DynamoDb
-import os
 import logging
-import uuid
-from boto3.dynamodb.conditions import Key
 logging.basicConfig(level=logging.INFO)
-
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 
 table_schema = {
 	"TableName": "dev_jobs",
@@ -101,12 +95,8 @@ table_schema = {
 	}
 }
 
-
 if __name__ == "__main__":
-    db = DynamoDb(region_name="us-east-1", 
-                aws_access_key_id=AWS_ACCESS_KEY_ID, 
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-                
+    db = DynamoDb()
     table_creation_status = db.create_table(
                                     TableName=table_schema.get("TableName"),
                                     KeySchema=table_schema.get("KeySchema"),
@@ -118,9 +108,10 @@ if __name__ == "__main__":
         logging.info("{} table created successfully".format(table_schema.get("TableName")))
     else:
         logging.error("{} table creation failed".format(table_schema.get("TableName")))
-
-"""Output
-
+        
+"""
+dineshsonachalam@macbook examples % python 1-create-a-new-table.py
+INFO:botocore.credentials:Found credentials in environment variables.
 INFO:root:dev_jobs table created successfully
 """
 ```
@@ -131,25 +122,18 @@ INFO:root:dev_jobs table created successfully
 <!-- The below code snippet is automatically added from ./examples/2-get-all-table-names.py -->
 ```py
 from LucidDynamodb.Operations import DynamoDb
-import os
 import logging
-import uuid
-from boto3.dynamodb.conditions import Key
 logging.basicConfig(level=logging.INFO)
 
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-
 if __name__ == "__main__":
-    db = DynamoDb(region_name="us-east-1", 
-                aws_access_key_id=AWS_ACCESS_KEY_ID, 
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+    db = DynamoDb()
     table_names = db.read_all_table_names()
     logging.info("Table names: {}".format(table_names))
-
-"""Output
-
-INFO:root:Table names: ['dev_jobs', 'user']
+    
+"""
+dineshsonachalam@macbook examples % python 2-get-all-table-names.py
+INFO:botocore.credentials:Found credentials in environment variables.
+INFO:root:Table names: ['dev_jobs', 'dev_test']
 """
 ```
 <!-- MARKDOWN-AUTO-DOCS:END -->
@@ -159,25 +143,16 @@ INFO:root:Table names: ['dev_jobs', 'user']
 <!-- The below code snippet is automatically added from ./examples/3-create-a-new-item.py -->
 ```py
 from LucidDynamodb.Operations import DynamoDb
-import os
 import logging
-import uuid
-from boto3.dynamodb.conditions import Key
 logging.basicConfig(level=logging.INFO)
 
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-
 if __name__ == "__main__":
-    db = DynamoDb(region_name="us-east-1", 
-                aws_access_key_id=AWS_ACCESS_KEY_ID, 
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-
+    db = DynamoDb()
     item_creation_status = db.create_item(
         TableName="dev_jobs", 
         Item={
             "company_name": "Google",
-            "role_id": str(uuid.uuid4()),
+            "role_id": "111",
             "role": "Software Engineer 1",
             "salary": "$1,50,531",
             "locations": ["Mountain View, California", "Austin, Texas", "Chicago, IL"],
@@ -197,8 +172,9 @@ if __name__ == "__main__":
     else:
         logging.warning("Item creation failed")
         
-"""Output
-
+"""
+dineshsonachalam@macbook examples % python 3-create-a-new-item.py
+INFO:botocore.credentials:Found credentials in environment variables.
 INFO:root:Item created successfully
 """
 ```
@@ -209,36 +185,28 @@ INFO:root:Item created successfully
 <!-- The below code snippet is automatically added from ./examples/4-read-an-item.py -->
 ```py
 from LucidDynamodb.Operations import DynamoDb
-import os
 import logging
-import uuid
-from boto3.dynamodb.conditions import Key
 logging.basicConfig(level=logging.INFO)
 
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-
 if __name__ == "__main__":
-    db = DynamoDb(region_name="us-east-1", 
-                aws_access_key_id=AWS_ACCESS_KEY_ID, 
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+    db = DynamoDb()
     item = db.read_item(
         TableName="dev_jobs", 
         Key={
             "company_name": "Google",
-            "role_id": "e85f79a7-0857-4086-afbd-da13ec76b442"
+            "role_id": "111"
         })
     if(item != None):
         logging.info("Item: {}".format(item))
     else:
         logging.warning("Item doesn't exist")
         
-"""Output
-
-INFO:root:Item: 
-{
+"""
+dineshsonachalam@macbook examples % python 4-read-an-item.py
+INFO:botocore.credentials:Found credentials in environment variables.
+INFO:root:Item: {
 	'locations': ['Mountain View, California', 'Austin, Texas', 'Chicago, IL'],
-	'role_id': 'e85f79a7-0857-4086-afbd-da13ec76b442',
+	'role_id': '111',
 	'overall_review': {
 		'compensation_and_benefits': '3.9/5',
 		'overall_rating': '4/5'
@@ -248,9 +216,9 @@ INFO:root:Item:
 	'yearly_hike_percent': Decimal('8'),
 	'salary': '$1,50,531',
 	'benefits': {
-		'Health insurance',
 		'Travel reimbursements',
-		'Internet, Medical, Edu reimbursements'
+		'Internet, Medical, Edu reimbursements',
+		'Health insurance'
 	}
 }
 """
@@ -264,23 +232,16 @@ INFO:root:Item:
 from LucidDynamodb.Operations import DynamoDb
 import os
 import logging
-import uuid
-from boto3.dynamodb.conditions import Key
 logging.basicConfig(level=logging.INFO)
 
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-
 if __name__ == "__main__":
-    db = DynamoDb(region_name="us-east-1", 
-                aws_access_key_id=AWS_ACCESS_KEY_ID, 
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+    db = DynamoDb()
     
     increase_attribute_status = db.increase_attribute_value(
         TableName='dev_jobs',
         Key={
             "company_name": "Google",
-            "role_id": "e85f79a7-0857-4086-afbd-da13ec76b442"
+            "role_id": "111"
         },
         AttributeName="yearly_hike_percent",
         IncrementValue=5
@@ -295,20 +256,20 @@ if __name__ == "__main__":
         TableName='dev_jobs', 
         Key={
             "company_name": "Google",
-            "role_id": "e85f79a7-0857-4086-afbd-da13ec76b442"
+            "role_id": "111"
         })
     if(item != None):
         logging.info("Item: {}".format(item))
     else:
         logging.warning("Item doesn't exist") 
 
-"""Output
-
-INFO:root: Attribute value increment completed
-INFO:root: Item: 
-{
+"""
+dineshsonachalam@macbook examples % python 5-increase-an-existing-attribute-value.py
+INFO:botocore.credentials:Found credentials in environment variables.
+INFO:root:Attribute value increment completed
+INFO:root:Item: {
 	'locations': ['Mountain View, California', 'Austin, Texas', 'Chicago, IL'],
-	'role_id': 'e85f79a7-0857-4086-afbd-da13ec76b442',
+	'role_id': '111',
 	'overall_review': {
 		'compensation_and_benefits': '3.9/5',
 		'overall_rating': '4/5'
@@ -318,9 +279,9 @@ INFO:root: Item:
 	'yearly_hike_percent': Decimal('13'),
 	'salary': '$1,50,531',
 	'benefits': {
+		'Internet, Medical, Edu reimbursements',
 		'Health insurance',
-		'Travel reimbursements',
-		'Internet, Medical, Edu reimbursements'
+		'Travel reimbursements'
 	}
 }
 """
@@ -332,25 +293,16 @@ INFO:root: Item:
 <!-- The below code snippet is automatically added from ./examples/6-update-existing-attribute-in-an-item.py -->
 ```py
 from LucidDynamodb.Operations import DynamoDb
-import os
 import logging
-import uuid
-from boto3.dynamodb.conditions import Key
 logging.basicConfig(level=logging.INFO)
 
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-
 if __name__ == "__main__":
-    db = DynamoDb(region_name="us-east-1", 
-                aws_access_key_id=AWS_ACCESS_KEY_ID, 
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-    
+    db = DynamoDb() 
     item_update_status = db.update_item(
         TableName="dev_jobs", 
         Key={
             "company_name": "Google",
-            "role_id": "e85f79a7-0857-4086-afbd-da13ec76b442"
+            "role_id": "111"
         },
         AttributesToUpdate={
             'role': 'Staff Software Engineer 2'
@@ -365,20 +317,20 @@ if __name__ == "__main__":
         TableName="dev_jobs", 
         Key={
             "company_name": "Google",
-            "role_id": "e85f79a7-0857-4086-afbd-da13ec76b442"
+            "role_id": "111"
         })
     if(item != None):
         logging.info("Item: {}".format(item))
     else:
         logging.warning("Item doesn't exist")
 
-"""Output
-
+"""
+dineshsonachalam@macbook examples % python 6-update-existing-attribute-in-an-item.py
+INFO:botocore.credentials:Found credentials in environment variables.
 INFO:root:Update is successful
-INFO:root:Item: 
-{
+INFO:root:Item: {
 	'locations': ['Mountain View, California', 'Austin, Texas', 'Chicago, IL'],
-	'role_id': 'e85f79a7-0857-4086-afbd-da13ec76b442',
+	'role_id': '111',
 	'overall_review': {
 		'compensation_and_benefits': '3.9/5',
 		'overall_rating': '4/5'
@@ -402,25 +354,16 @@ INFO:root:Item:
 <!-- The below code snippet is automatically added from ./examples/7-add-a-new-attribute-in-an-item.py -->
 ```py
 from LucidDynamodb.Operations import DynamoDb
-import os
 import logging
-import uuid
-from boto3.dynamodb.conditions import Key
 logging.basicConfig(level=logging.INFO)
 
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-
 if __name__ == "__main__":
-    db = DynamoDb(region_name="us-east-1", 
-                aws_access_key_id=AWS_ACCESS_KEY_ID, 
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-    
+    db = DynamoDb()
     item_update_status = db.update_item(
         TableName="dev_jobs", 
         Key={
             "company_name": "Google",
-            "role_id": "e85f79a7-0857-4086-afbd-da13ec76b442"
+            "role_id": "111"
         },
         AttributesToUpdate={
             'overall_review.yearly_bonus_percent': 12
@@ -435,20 +378,213 @@ if __name__ == "__main__":
         TableName="dev_jobs", 
         Key={
             "company_name": "Google",
-            "role_id": "e85f79a7-0857-4086-afbd-da13ec76b442"
+            "role_id": "111"
         })
     if(item != None):
         logging.info("Item: {}".format(item))
     else:
         logging.warning("Item doesn't exist")
         
-"""Output
-
+"""
+dineshsonachalam@macbook examples % python 7-add-a-new-attribute-in-an-item.py
+INFO:botocore.credentials:Found credentials in environment variables.
 INFO:root:Update is successful
-INFO:root:Item: 
-{
+INFO:root:Item: {
 	'locations': ['Mountain View, California', 'Austin, Texas', 'Chicago, IL'],
-	'role_id': 'e85f79a7-0857-4086-afbd-da13ec76b442',
+	'role_id': '111',
+	'overall_review': {
+		'compensation_and_benefits': '3.9/5',
+		'overall_rating': '4/5',
+		'yearly_bonus_percent': Decimal('12')
+	},
+	'company_name': 'Google',
+	'role': 'Staff Software Engineer 2',
+	'yearly_hike_percent': Decimal('13'),
+	'salary': '$1,50,531',
+	'benefits': {
+		'Health insurance',
+		'Internet, Medical, Edu reimbursements',
+		'Travel reimbursements'
+	}
+}
+"""
+```
+<!-- MARKDOWN-AUTO-DOCS:END -->
+
+### 8. Add an attribute to the list
+<!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/8-add-an-attribute-to-the-list.py) -->
+<!-- The below code snippet is automatically added from ./examples/8-add-an-attribute-to-the-list.py -->
+```py
+from LucidDynamodb.Operations import DynamoDb
+import logging
+logging.basicConfig(level=logging.INFO)
+
+if __name__ == "__main__":
+    db = DynamoDb()
+    
+    item_update_status = db.update_item(
+        TableName="dev_jobs", 
+        Key={
+            "company_name": "Google",
+            "role_id": "111"
+        },
+        AttributesToUpdate={
+            'locations': "Detroit, Michigan"
+        },
+        Operation="ADD_ATTRIBUTE_TO_LIST"
+    )
+    if(item_update_status == True):
+        logging.info("Update is successful")
+    else:
+        logging.warning("Update failed")
+
+    item = db.read_item(
+        TableName="dev_jobs", 
+        Key={
+            "company_name": "Google",
+            "role_id": "111"
+        })
+    if(item != None):
+        logging.info("Item: {}".format(item))
+    else:
+        logging.warning("Item doesn't exist")
+
+"""
+dineshsonachalam@macbook examples % python 8-add-an-attribute-to-the-list.py
+INFO:botocore.credentials:Found credentials in environment variables.
+INFO:root:Update is successful
+INFO:root:Item: {
+	'locations': ['Mountain View, California', 'Austin, Texas', 'Chicago, IL', 'Detroit, Michigan'],
+	'role_id': '111',
+	'overall_review': {
+		'compensation_and_benefits': '3.9/5',
+		'overall_rating': '4/5',
+		'yearly_bonus_percent': Decimal('12')
+	},
+	'company_name': 'Google',
+	'role': 'Staff Software Engineer 2',
+	'yearly_hike_percent': Decimal('13'),
+	'salary': '$1,50,531',
+	'benefits': {
+		'Travel reimbursements',
+		'Internet, Medical, Edu reimbursements',
+		'Health insurance'
+	}
+}
+"""
+```
+<!-- MARKDOWN-AUTO-DOCS:END -->
+
+### 9. Add an attribute to the string set
+<!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/9-add-an-attribute-to-the-string-set.py) -->
+<!-- The below code snippet is automatically added from ./examples/9-add-an-attribute-to-the-string-set.py -->
+```py
+from LucidDynamodb.Operations import DynamoDb
+import logging
+logging.basicConfig(level=logging.INFO)
+
+if __name__ == "__main__":
+    db = DynamoDb()
+    
+    item_update_status = db.update_item(
+        TableName="dev_jobs", 
+        Key={
+            "company_name": "Google",
+            "role_id": "111"
+        },
+        AttributesToUpdate={
+            'benefits': "Free Food"
+        },
+        Operation="ADD_ATTRIBUTE_TO_STRING_SET"
+    )
+    if(item_update_status == True):
+        logging.info("Update is successful")
+    else:
+        logging.warning("Update failed")
+
+    item = db.read_item(
+        TableName="dev_jobs", 
+        Key={
+            "company_name": "Google",
+            "role_id": "111"
+        })
+    if(item != None):
+        logging.info("Item: {}".format(item))
+    else:
+        logging.warning("Item doesn't exist")
+        
+"""
+dineshsonachalam@macbook examples % python 9-add-an-attribute-to-the-string-set.py
+INFO:botocore.credentials:Found credentials in environment variables.
+INFO:root:Update is successful
+INFO:root:Item: {
+	'locations': ['Mountain View, California', 'Austin, Texas', 'Chicago, IL', 'Detroit, Michigan'],
+	'role_id': '111',
+	'overall_review': {
+		'compensation_and_benefits': '3.9/5',
+		'overall_rating': '4/5',
+		'yearly_bonus_percent': Decimal('12')
+	},
+	'company_name': 'Google',
+	'role': 'Staff Software Engineer 2',
+	'yearly_hike_percent': Decimal('13'),
+	'salary': '$1,50,531',
+	'benefits': {
+		'Travel reimbursements',
+		'Internet, Medical, Edu reimbursements',
+		'Health insurance',
+		'Free Food'
+	}
+}
+"""
+```
+<!-- MARKDOWN-AUTO-DOCS:END -->
+
+### 10. Delete an attribute from the string set
+<!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/10-delete-an-attribute-from-the-string-set.py) -->
+<!-- The below code snippet is automatically added from ./examples/10-delete-an-attribute-from-the-string-set.py -->
+```py
+from LucidDynamodb.Operations import DynamoDb
+import logging
+logging.basicConfig(level=logging.INFO)
+
+if __name__ == "__main__":
+    db = DynamoDb()
+    
+    item_update_status = db.update_item(
+        TableName="dev_jobs", 
+        Key={
+            "company_name": "Google",
+            "role_id": "111"
+        },
+        AttributesToUpdate={
+            'benefits': "Free Food"
+        },
+        Operation="DELETE_ATTRIBUTE_FROM_STRING_SET"
+    )
+    if(item_update_status == True):
+        logging.info("Update is successful")
+    else:
+        logging.warning("Update failed")
+
+    item = db.read_item(
+        TableName="dev_jobs", 
+        Key={
+            "company_name": "Google",
+            "role_id": "111"
+        })
+    if(item != None):
+        logging.info("Item: {}".format(item))
+    else:
+        logging.warning("Item doesn't exist")
+
+"""
+dineshsonachalam@macbook examples % python 10-delete-an-attribute-from-the-string-set.py
+INFO:botocore.credentials:Found credentials in environment variables.
+INFO:root:Update is successful
+INFO:root:Item: {
+	'locations': ['Mountain View, California', 'Austin, Texas', 'Chicago, IL', 'Detroit, Michigan'],
+	'role_id': '111',
 	'overall_review': {
 		'compensation_and_benefits': '3.9/5',
 		'overall_rating': '4/5',
@@ -468,247 +604,22 @@ INFO:root:Item:
 ```
 <!-- MARKDOWN-AUTO-DOCS:END -->
 
-### 8. Add an attribute to the list
-<!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/8-add-an-attribute-to-the-list.py) -->
-<!-- The below code snippet is automatically added from ./examples/8-add-an-attribute-to-the-list.py -->
-```py
-from LucidDynamodb.Operations import DynamoDb
-import os
-import logging
-import uuid
-from boto3.dynamodb.conditions import Key
-logging.basicConfig(level=logging.INFO)
-
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-
-if __name__ == "__main__":
-    db = DynamoDb(region_name="us-east-1", 
-                aws_access_key_id=AWS_ACCESS_KEY_ID, 
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-    
-    item_update_status = db.update_item(
-        TableName="dev_jobs", 
-        Key={
-            "company_name": "Google",
-            "role_id": "e85f79a7-0857-4086-afbd-da13ec76b442"
-        },
-        AttributesToUpdate={
-            'locations': "Detroit, Michigan"
-        },
-        Operation="ADD_ATTRIBUTE_TO_LIST"
-    )
-    if(item_update_status == True):
-        logging.info("Update is successful")
-    else:
-        logging.warning("Update failed")
-
-    item = db.read_item(
-        TableName="dev_jobs", 
-        Key={
-            "company_name": "Google",
-            "role_id": "e85f79a7-0857-4086-afbd-da13ec76b442"
-        })
-    if(item != None):
-        logging.info("Item: {}".format(item))
-    else:
-        logging.warning("Item doesn't exist")
-
-"""Output
-
-INFO:root:Update is successful
-INFO:root:Item: 
-{
-	'locations': ['Mountain View, California', 'Austin, Texas', 'Chicago, IL', 'Detroit, Michigan'],
-	'role_id': 'e85f79a7-0857-4086-afbd-da13ec76b442',
-	'overall_review': {
-		'compensation_and_benefits': '3.9/5',
-		'overall_rating': '4/5',
-		'yearly_bonus_percent': Decimal('12')
-	},
-	'company_name': 'Google',
-	'role': 'Staff Software Engineer 2',
-	'yearly_hike_percent': Decimal('13'),
-	'salary': '$1,50,531',
-	'benefits': {
-		'Health insurance',
-		'Internet, Medical, Edu reimbursements',
-		'Travel reimbursements'
-	}
-}
-"""
-```
-<!-- MARKDOWN-AUTO-DOCS:END -->
-
-### 9. Add an attribute to the string set
-<!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/9-add-an-attribute-to-the-string-set.py) -->
-<!-- The below code snippet is automatically added from ./examples/9-add-an-attribute-to-the-string-set.py -->
-```py
-from LucidDynamodb.Operations import DynamoDb
-import os
-import logging
-import uuid
-from boto3.dynamodb.conditions import Key
-logging.basicConfig(level=logging.INFO)
-
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-
-if __name__ == "__main__":
-    db = DynamoDb(region_name="us-east-1", 
-                aws_access_key_id=AWS_ACCESS_KEY_ID, 
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-    
-    item_update_status = db.update_item(
-        TableName="dev_jobs", 
-        Key={
-            "company_name": "Google",
-            "role_id": "e85f79a7-0857-4086-afbd-da13ec76b442"
-        },
-        AttributesToUpdate={
-            'benefits': "Free Food"
-        },
-        Operation="ADD_ATTRIBUTE_TO_STRING_SET"
-    )
-    if(item_update_status == True):
-        logging.info("Update is successful")
-    else:
-        logging.warning("Update failed")
-
-    item = db.read_item(
-        TableName="dev_jobs", 
-        Key={
-            "company_name": "Google",
-            "role_id": "e85f79a7-0857-4086-afbd-da13ec76b442"
-        })
-    if(item != None):
-        logging.info("Item: {}".format(item))
-    else:
-        logging.warning("Item doesn't exist")
-        
-"""Output
-
-INFO:root:Update is successful
-INFO:root:Item: 
-{
-	'locations': ['Mountain View, California', 'Austin, Texas', 'Chicago, IL', 'Detroit, Michigan'],
-	'role_id': 'e85f79a7-0857-4086-afbd-da13ec76b442',
-	'overall_review': {
-		'compensation_and_benefits': '3.9/5',
-		'overall_rating': '4/5',
-		'yearly_bonus_percent': Decimal('12')
-	},
-	'company_name': 'Google',
-	'role': 'Staff Software Engineer 2',
-	'yearly_hike_percent': Decimal('13'),
-	'salary': '$1,50,531',
-	'benefits': {
-		'Internet, Medical, Edu reimbursements',
-		'Health insurance',
-		'Free Food',
-		'Travel reimbursements'
-	}
-}
-"""
-```
-<!-- MARKDOWN-AUTO-DOCS:END -->
-
-### 10. Delete an attribute from the string set
-<!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/10-delete-an-attribute-from-the-string-set.py) -->
-<!-- The below code snippet is automatically added from ./examples/10-delete-an-attribute-from-the-string-set.py -->
-```py
-from LucidDynamodb.Operations import DynamoDb
-import os
-import logging
-import uuid
-from boto3.dynamodb.conditions import Key
-logging.basicConfig(level=logging.INFO)
-
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-
-if __name__ == "__main__":
-    db = DynamoDb(region_name="us-east-1", 
-                aws_access_key_id=AWS_ACCESS_KEY_ID, 
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-    
-    item_update_status = db.update_item(
-        TableName="dev_jobs", 
-        Key={
-            "company_name": "Google",
-            "role_id": "e85f79a7-0857-4086-afbd-da13ec76b442"
-        },
-        AttributesToUpdate={
-            'benefits': "Free Food"
-        },
-        Operation="DELETE_ATTRIBUTE_FROM_STRING_SET"
-    )
-    if(item_update_status == True):
-        logging.info("Update is successful")
-    else:
-        logging.warning("Update failed")
-
-    item = db.read_item(
-        TableName="dev_jobs", 
-        Key={
-            "company_name": "Google",
-            "role_id": "e85f79a7-0857-4086-afbd-da13ec76b442"
-        })
-    if(item != None):
-        logging.info("Item: {}".format(item))
-    else:
-        logging.warning("Item doesn't exist")
-
-"""Output
-
-INFO:root:Update is successful
-INFO:root:Item: 
-{
-	'locations': ['Mountain View, California', 'Austin, Texas', 'Chicago, IL', 'Detroit, Michigan'],
-	'role_id': 'e85f79a7-0857-4086-afbd-da13ec76b442',
-	'overall_review': {
-		'compensation_and_benefits': '3.9/5',
-		'overall_rating': '4/5',
-		'yearly_bonus_percent': Decimal('12')
-	},
-	'company_name': 'Google',
-	'role': 'Staff Software Engineer 2',
-	'yearly_hike_percent': Decimal('13'),
-	'salary': '$1,50,531',
-	'benefits': {
-		'Health insurance',
-		'Internet, Medical, Edu reimbursements',
-		'Travel reimbursements'
-	}
-}
-"""
-```
-<!-- MARKDOWN-AUTO-DOCS:END -->
-
 ### 11. Delete an attribute from an item
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/11-delete-an-attribute-from-an-item.py) -->
 <!-- The below code snippet is automatically added from ./examples/11-delete-an-attribute-from-an-item.py -->
 ```py
 from LucidDynamodb.Operations import DynamoDb
-import os
 import logging
-import uuid
-from boto3.dynamodb.conditions import Key
 logging.basicConfig(level=logging.INFO)
 
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-
 if __name__ == "__main__":
-    db = DynamoDb(region_name="us-east-1", 
-                aws_access_key_id=AWS_ACCESS_KEY_ID, 
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+    db = DynamoDb()
     
     attribute_delete_status = db.delete_attribute(
         TableName="dev_jobs", 
         Key={
               "company_name": "Google",
-              "role_id": "e85f79a7-0857-4086-afbd-da13ec76b442"
+              "role_id": "111"
         }, 
         AttributeName="yearly_hike_percent")
 
@@ -721,20 +632,20 @@ if __name__ == "__main__":
         TableName="dev_jobs", 
         Key={
             "company_name": "Google",
-            "role_id": "e85f79a7-0857-4086-afbd-da13ec76b442"
+            "role_id": "111"
         })
     if(item != None):
         logging.info("Item: {}".format(item))
     else:
         logging.warning("Item doesn't exist")
 
-"""Output
-
+"""
+dineshsonachalam@macbook examples % python 11-delete-an-attribute-from-an-item.py
+INFO:botocore.credentials:Found credentials in environment variables.
 INFO:root:The attribute is deleted successfully
-INFO:root:Item: 
-{
+INFO:root:Item: {
 	'locations': ['Mountain View, California', 'Austin, Texas', 'Chicago, IL', 'Detroit, Michigan'],
-	'role_id': 'e85f79a7-0857-4086-afbd-da13ec76b442',
+	'role_id': '111',
 	'overall_review': {
 		'compensation_and_benefits': '3.9/5',
 		'overall_rating': '4/5',
@@ -758,25 +669,18 @@ INFO:root:Item:
 <!-- The below code snippet is automatically added from ./examples/12-read-items-by-filter.py -->
 ```py
 from LucidDynamodb.Operations import DynamoDb
-import os
 import logging
-import uuid
 from boto3.dynamodb.conditions import Key
 logging.basicConfig(level=logging.INFO)
 
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-
 if __name__ == "__main__":
-    db = DynamoDb(region_name="us-east-1", 
-                aws_access_key_id=AWS_ACCESS_KEY_ID, 
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+    db = DynamoDb()
     
     item_creation_status = db.create_item(
         TableName="dev_jobs", 
         Item={
             "company_name": "Google",
-            "role_id": str(uuid.uuid4()),
+            "role_id": "112",
             "role": "Software Architect",
             "salary": "$4,80,000",
             "locations": ["Mountain View, California"],
@@ -803,13 +707,29 @@ if __name__ == "__main__":
     else:
         logging.warning("Items doesn't exist")
         
-"""Output
-
-INFO:root: Item created successfully
-INFO:root:Items: 
-[{
+"""
+dineshsonachalam@macbook examples % python 12-read-items-by-filter.py
+INFO:botocore.credentials:Found credentials in environment variables.
+INFO:root:Item created successfully
+INFO:root:Items: [{
+	'locations': ['Mountain View, California', 'Austin, Texas', 'Chicago, IL', 'Detroit, Michigan'],
+	'role_id': '111',
+	'overall_review': {
+		'compensation_and_benefits': '3.9/5',
+		'overall_rating': '4/5',
+		'yearly_bonus_percent': Decimal('12')
+	},
+	'company_name': 'Google',
+	'role': 'Staff Software Engineer 2',
+	'salary': '$1,50,531',
+	'benefits': {
+		'Internet, Medical, Edu reimbursements',
+		'Travel reimbursements',
+		'Health insurance'
+	}
+}, {
 	'locations': ['Mountain View, California'],
-	'role_id': 'b6065b19-4333-43a4-abf7-dedca2880669',
+	'role_id': '112',
 	'overall_review': {
 		'compensation_and_benefits': '4.2/5',
 		'overall_rating': '3/5'
@@ -821,22 +741,6 @@ INFO:root:Items:
 	'benefits': {
 		'Internet reimbursements'
 	}
-}, {
-	'locations': ['Mountain View, California', 'Austin, Texas', 'Chicago, IL', 'Detroit, Michigan'],
-	'role_id': 'e85f79a7-0857-4086-afbd-da13ec76b442',
-	'overall_review': {
-		'compensation_and_benefits': '3.9/5',
-		'overall_rating': '4/5',
-		'yearly_bonus_percent': Decimal('12')
-	},
-	'company_name': 'Google',
-	'role': 'Staff Software Engineer 2',
-	'salary': '$1,50,531',
-	'benefits': {
-		'Health insurance',
-		'Internet, Medical, Edu reimbursements',
-		'Travel reimbursements'
-	}
 }]
 """
 ```
@@ -847,19 +751,11 @@ INFO:root:Items:
 <!-- The below code snippet is automatically added from ./examples/13-delete-a-table.py -->
 ```py
 from LucidDynamodb.Operations import DynamoDb
-import os
 import logging
-import uuid
-from boto3.dynamodb.conditions import Key
 logging.basicConfig(level=logging.INFO)
 
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-
 if __name__ == "__main__":
-    db = DynamoDb(region_name="us-east-1", 
-                aws_access_key_id=AWS_ACCESS_KEY_ID, 
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+    db = DynamoDb()
     
     delete_table_status = db.delete_table(TableName='dev_jobs')
     if(delete_table_status == True):
@@ -870,10 +766,11 @@ if __name__ == "__main__":
     table_names = db.read_all_table_names()
     logging.info("Table names: {}".format(table_names))
     
-"""Output
-
-INFO:root: Table deleted successfully
-INFO:root:Table names: ['user']
+"""
+dineshsonachalam@macbook examples % python 13-delete-a-table.py
+INFO:botocore.credentials:Found credentials in environment variables.
+INFO:root:Table deleted successfully
+INFO:root:Table names: ['dev_test']
 """
 ```
 <!-- MARKDOWN-AUTO-DOCS:END -->
@@ -889,9 +786,9 @@ pytest -s
 ## Github Workflow Artifacts
 
 <!-- MARKDOWN-AUTO-DOCS:START (WORKFLOW_ARTIFACT_TABLE) -->
-<table class="ARTIFACTS-TABLE"><thead><tr><th class="artifact-th">Artifact</th><th class="workflow-th">Workflow</th></tr></thead><tbody ><tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/Lucid-Dynamodb/suites/3098562909/artifacts/70812933>dependency-graph</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/Lucid-Dynamodb/actions/runs/977358019>integration-tests</a></td></tr>
-<tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/Lucid-Dynamodb/suites/3098562909/artifacts/70812934>module-dependencies-license-report</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/Lucid-Dynamodb/actions/runs/977358019>integration-tests</a></td></tr>
-<tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/Lucid-Dynamodb/suites/3098562909/artifacts/70812935>Pytest-report</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/Lucid-Dynamodb/actions/runs/977358019>integration-tests</a></td></tr></tbody></table>
+<table class="ARTIFACTS-TABLE"><thead><tr><th class="artifact-th">Artifact</th><th class="workflow-th">Workflow</th></tr></thead><tbody ><tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/suites/3204714804/artifacts/74104006>dependency-graph</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/actions/runs/1017540239>integration-tests</a></td></tr>
+<tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/suites/3204714804/artifacts/74104007>module-dependencies-license-report</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/actions/runs/1017540239>integration-tests</a></td></tr>
+<tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/suites/3204714804/artifacts/74104008>Pytest-report</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/actions/runs/1017540239>integration-tests</a></td></tr></tbody></table>
 <!-- MARKDOWN-AUTO-DOCS:END -->
 
 ## License
