@@ -25,19 +25,20 @@
 ## Table of contents
 - [Installation](#installation)
 - [Example](#example)
-    - [Create a new table](#1-create-a-new-table)
-    - [Get all table names](#2-get-all-table-names)
-    - [Create a New Item](#3-create-a-new-item)
-    - [Read an Item](#4-read-an-item)
-    - [Increase an existing attribute value](#5-increase-an-existing-attribute-value)
-    - [Update existing attribute in an item](#6-update-existing-attribute-in-an-item)
-    - [Add a new attribute in an item](#7-add-a-new-attribute-in-an-item)
-    - [Add an attribute to the list](#8-add-an-attribute-to-the-list)
-    - [Add an attribute to the string set](#9-add-an-attribute-to-the-string-set)
-    - [Delete an attribute from the string set](#10-delete-an-attribute-from-the-string-set)
-    - [Delete an attribute from an item](#11-delete-an-attribute-from-an-item)
-    - [Read items by filter](#12-read-items-by-filter)
-    - [Delete a table](#13-delete-a-table)
+    - [Connect to DynamodDB](#connect-to-dynamodb)
+    - [Create a new table](#create-a-new-table)
+    - [Get all table names](#get-all-table-names)
+    - [Create a New Item](#create-a-new-item)
+    - [Read an Item](#read-an-item)
+    - [Increase an existing attribute value](#increase-an-existing-attribute-value)
+    - [Update existing attribute in an item](#update-existing-attribute-in-an-item)
+    - [Add a new attribute in an item](#add-a-new-attribute-in-an-item)
+    - [Add an attribute to the list](#add-an-attribute-to-the-list)
+    - [Add an attribute to the string set](#add-an-attribute-to-the-string-set)
+    - [Delete an attribute from the string set](#delete-an-attribute-from-the-string-set)
+    - [Delete an attribute from an item](#delete-an-attribute-from-an-item)
+    - [Read items by filter](#read-items-by-filter)
+    - [Delete a table](#delete-a-table)
 - [Running tests](#running-tests)
 - [Github Workflow Artifacts](#github-workflow-artifacts)
 - [License](#license)
@@ -58,7 +59,18 @@ pip install LucidDynamodb
 
 ## Example
 
-### 1. Create a new table
+### Connect to DynamoDB
+You can connect to DynamoDB by following any of these two ways.
+
+1. Using AWS config
+<!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/using-aws-config-to-connect-to-dynamodb.py) -->
+<!-- MARKDOWN-AUTO-DOCS:END -->
+
+2. Using AWS secret key
+<!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/using-aws-secret-to-connect-to-dynamodb.py) -->
+<!-- MARKDOWN-AUTO-DOCS:END -->
+
+### Create a new table
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/1-create-a-new-table.py) -->
 <!-- The below code snippet is automatically added from ./examples/1-create-a-new-table.py -->
 ```py
@@ -117,7 +129,7 @@ INFO:root:dev_jobs table created successfully
 ```
 <!-- MARKDOWN-AUTO-DOCS:END -->
 
-### 2. Get all table names
+### Get all table names
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/2-get-all-table-names.py) -->
 <!-- The below code snippet is automatically added from ./examples/2-get-all-table-names.py -->
 ```py
@@ -138,7 +150,7 @@ INFO:root:Table names: ['dev_jobs', 'dev_test']
 ```
 <!-- MARKDOWN-AUTO-DOCS:END -->
 
-### 3. Create a New Item
+### Create a New Item
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/3-create-a-new-item.py) -->
 <!-- The below code snippet is automatically added from ./examples/3-create-a-new-item.py -->
 ```py
@@ -180,7 +192,7 @@ INFO:root:Item created successfully
 ```
 <!-- MARKDOWN-AUTO-DOCS:END -->
 
-### 4. Read an Item
+### Read an Item
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/4-read-an-item.py) -->
 <!-- The below code snippet is automatically added from ./examples/4-read-an-item.py -->
 ```py
@@ -225,7 +237,7 @@ INFO:root:Item: {
 ```
 <!-- MARKDOWN-AUTO-DOCS:END -->
 
-### 5. Increase an existing attribute value
+### Increase an existing attribute value
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/5-increase-an-existing-attribute-value.py) -->
 <!-- The below code snippet is automatically added from ./examples/5-increase-an-existing-attribute-value.py -->
 ```py
@@ -288,7 +300,7 @@ INFO:root:Item: {
 ```
 <!-- MARKDOWN-AUTO-DOCS:END -->
 
-### 6. Update existing attribute in an item
+### Update existing attribute in an item
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/6-update-existing-attribute-in-an-item.py) -->
 <!-- The below code snippet is automatically added from ./examples/6-update-existing-attribute-in-an-item.py -->
 ```py
@@ -349,7 +361,7 @@ INFO:root:Item: {
 ```
 <!-- MARKDOWN-AUTO-DOCS:END -->
 
-### 7. Add a new attribute in an item
+### Add a new attribute in an item
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/7-add-a-new-attribute-in-an-item.py) -->
 <!-- The below code snippet is automatically added from ./examples/7-add-a-new-attribute-in-an-item.py -->
 ```py
@@ -411,7 +423,7 @@ INFO:root:Item: {
 ```
 <!-- MARKDOWN-AUTO-DOCS:END -->
 
-### 8. Add an attribute to the list
+### Add an attribute to the list
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/8-add-an-attribute-to-the-list.py) -->
 <!-- The below code snippet is automatically added from ./examples/8-add-an-attribute-to-the-list.py -->
 ```py
@@ -475,7 +487,7 @@ INFO:root:Item: {
 ```
 <!-- MARKDOWN-AUTO-DOCS:END -->
 
-### 9. Add an attribute to the string set
+### Add an attribute to the string set
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/9-add-an-attribute-to-the-string-set.py) -->
 <!-- The below code snippet is automatically added from ./examples/9-add-an-attribute-to-the-string-set.py -->
 ```py
@@ -540,7 +552,7 @@ INFO:root:Item: {
 ```
 <!-- MARKDOWN-AUTO-DOCS:END -->
 
-### 10. Delete an attribute from the string set
+### Delete an attribute from the string set
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/10-delete-an-attribute-from-the-string-set.py) -->
 <!-- The below code snippet is automatically added from ./examples/10-delete-an-attribute-from-the-string-set.py -->
 ```py
@@ -604,7 +616,7 @@ INFO:root:Item: {
 ```
 <!-- MARKDOWN-AUTO-DOCS:END -->
 
-### 11. Delete an attribute from an item
+### Delete an attribute from an item
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/11-delete-an-attribute-from-an-item.py) -->
 <!-- The below code snippet is automatically added from ./examples/11-delete-an-attribute-from-an-item.py -->
 ```py
@@ -664,7 +676,7 @@ INFO:root:Item: {
 ```
 <!-- MARKDOWN-AUTO-DOCS:END -->
 
-### 12. Read items by filter
+### Read items by filter
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/12-read-items-by-filter.py) -->
 <!-- The below code snippet is automatically added from ./examples/12-read-items-by-filter.py -->
 ```py
@@ -746,7 +758,7 @@ INFO:root:Items: [{
 ```
 <!-- MARKDOWN-AUTO-DOCS:END -->
 
-### 13. Delete a table
+### Delete a table
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/13-delete-a-table.py) -->
 <!-- The below code snippet is automatically added from ./examples/13-delete-a-table.py -->
 ```py
