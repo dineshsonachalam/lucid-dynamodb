@@ -1,23 +1,14 @@
 from LucidDynamodb.Operations import DynamoDb
-import os
 import logging
-import uuid
-from boto3.dynamodb.conditions import Key
 logging.basicConfig(level=logging.INFO)
 
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-
 if __name__ == "__main__":
-    db = DynamoDb(region_name="us-east-1", 
-                aws_access_key_id=AWS_ACCESS_KEY_ID, 
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-
+    db = DynamoDb()
     item_creation_status = db.create_item(
         TableName="dev_jobs", 
         Item={
             "company_name": "Google",
-            "role_id": str(uuid.uuid4()),
+            "role_id": "111",
             "role": "Software Engineer 1",
             "salary": "$1,50,531",
             "locations": ["Mountain View, California", "Austin, Texas", "Chicago, IL"],
@@ -37,7 +28,8 @@ if __name__ == "__main__":
     else:
         logging.warning("Item creation failed")
         
-"""Output
-
+"""
+dineshsonachalam@macbook examples % python 3-create-a-new-item.py
+INFO:botocore.credentials:Found credentials in environment variables.
 INFO:root:Item created successfully
 """

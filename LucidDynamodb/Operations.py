@@ -50,7 +50,6 @@ class DynamoDb:
             return True
         except Exception as e:
             logging.error(e)
-            return False
 
     def delete_table(self, TableName):
         """Delete a table
@@ -68,7 +67,6 @@ class DynamoDb:
             return True
         except Exception as e:
             logging.error(e)
-            return False
                 
     def read_all_table_names(self):
         """Get all table names
@@ -92,7 +90,6 @@ class DynamoDb:
             return table_names
         except Exception as e:
             logging.error(e)
-            return []
 
     def create_item(self, TableName ,Item):
         """Create a New Item
@@ -110,7 +107,6 @@ class DynamoDb:
             return True
         except Exception as e:
             logging.error(e)
-            return False
         
     def delete_item(self, TableName, Key, ConditionExpression = "", ExpressionAttributeValues={}):
         """Delete an Item
@@ -139,7 +135,6 @@ class DynamoDb:
             return True
         except Exception as e:
             logging.error(e)
-            return False
         
     def read_item(self, TableName, Key):
         """Read an Item
@@ -157,7 +152,6 @@ class DynamoDb:
             return response.get('Item')
         except Exception as e:
             logging.error(e)
-            return {}
 
     def read_items_by_filter(self, TableName, KeyConditionExpression, GlobalSecondaryIndexName=None):
         """Read items by filter
@@ -186,8 +180,7 @@ class DynamoDb:
                 )   
             return response.get('Items')
         except Exception as e:
-            logging.error(e)
-            return []    
+            logging.error(e)   
         
     def generate_attribute_names(self, attribute_names):
         """Generate attribute names
@@ -289,7 +282,6 @@ class DynamoDb:
                 return False
         except Exception as e:
             logging.error(e)
-            return False
 
     def increase_attribute_value(self, TableName, Key, AttributeName, IncrementValue):
         """Increase an existing attribute value
@@ -325,7 +317,6 @@ class DynamoDb:
                 return False
         except Exception as e:
             logging.error(e)
-            return False
     
     def delete_attribute(self, TableName, Key, AttributeName):
         """Delete an attribute from an item
@@ -350,4 +341,3 @@ class DynamoDb:
             return True
         except Exception as e:
             logging.error(e)
-            return False

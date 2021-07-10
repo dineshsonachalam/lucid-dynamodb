@@ -1,23 +1,15 @@
 from LucidDynamodb.Operations import DynamoDb
-import os
 import logging
-import uuid
-from boto3.dynamodb.conditions import Key
 logging.basicConfig(level=logging.INFO)
 
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-
 if __name__ == "__main__":
-    db = DynamoDb(region_name="us-east-1", 
-                aws_access_key_id=AWS_ACCESS_KEY_ID, 
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+    db = DynamoDb()
     
     attribute_delete_status = db.delete_attribute(
         TableName="dev_jobs", 
         Key={
               "company_name": "Google",
-              "role_id": "e85f79a7-0857-4086-afbd-da13ec76b442"
+              "role_id": "111"
         }, 
         AttributeName="yearly_hike_percent")
 
@@ -30,20 +22,20 @@ if __name__ == "__main__":
         TableName="dev_jobs", 
         Key={
             "company_name": "Google",
-            "role_id": "e85f79a7-0857-4086-afbd-da13ec76b442"
+            "role_id": "111"
         })
     if(item != None):
         logging.info("Item: {}".format(item))
     else:
         logging.warning("Item doesn't exist")
 
-"""Output
-
+"""
+dineshsonachalam@macbook examples % python 11-delete-an-attribute-from-an-item.py
+INFO:botocore.credentials:Found credentials in environment variables.
 INFO:root:The attribute is deleted successfully
-INFO:root:Item: 
-{
+INFO:root:Item: {
 	'locations': ['Mountain View, California', 'Austin, Texas', 'Chicago, IL', 'Detroit, Michigan'],
-	'role_id': 'e85f79a7-0857-4086-afbd-da13ec76b442',
+	'role_id': '111',
 	'overall_review': {
 		'compensation_and_benefits': '3.9/5',
 		'overall_rating': '4/5',

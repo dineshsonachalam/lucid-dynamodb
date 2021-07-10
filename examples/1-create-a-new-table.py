@@ -1,12 +1,6 @@
 from LucidDynamodb.Operations import DynamoDb
-import os
 import logging
-import uuid
-from boto3.dynamodb.conditions import Key
 logging.basicConfig(level=logging.INFO)
-
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 
 table_schema = {
 	"TableName": "dev_jobs",
@@ -37,12 +31,8 @@ table_schema = {
 	}
 }
 
-
 if __name__ == "__main__":
-    db = DynamoDb(region_name="us-east-1", 
-                aws_access_key_id=AWS_ACCESS_KEY_ID, 
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-                
+    db = DynamoDb()
     table_creation_status = db.create_table(
                                     TableName=table_schema.get("TableName"),
                                     KeySchema=table_schema.get("KeySchema"),
@@ -54,8 +44,9 @@ if __name__ == "__main__":
         logging.info("{} table created successfully".format(table_schema.get("TableName")))
     else:
         logging.error("{} table creation failed".format(table_schema.get("TableName")))
-
-"""Output
-
+        
+"""
+dineshsonachalam@macbook examples % python 1-create-a-new-table.py
+INFO:botocore.credentials:Found credentials in environment variables.
 INFO:root:dev_jobs table created successfully
 """
