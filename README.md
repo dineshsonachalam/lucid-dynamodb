@@ -66,7 +66,7 @@ You can connect to DynamoDB by following any of these two ways.
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/using-aws-config-to-connect-to-dynamodb.py) -->
 <!-- The below code snippet is automatically added from ./examples/using-aws-config-to-connect-to-dynamodb.py -->
 ```py
-from LucidDynamodb.Operations import DynamoDb
+from LucidDynamodb import DynamoDb
 db = DynamoDb()
 
 # $> pip install awscli  #can add user flag 
@@ -82,7 +82,7 @@ db = DynamoDb()
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/using-aws-secret-to-connect-to-dynamodb.py) -->
 <!-- The below code snippet is automatically added from ./examples/using-aws-secret-to-connect-to-dynamodb.py -->
 ```py
-from LucidDynamodb.Operations import DynamoDb
+from LucidDynamodb import DynamoDb
 import os
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
@@ -96,7 +96,7 @@ db = DynamoDb(region_name="us-east-1",
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/1-create-a-new-table.py) -->
 <!-- The below code snippet is automatically added from ./examples/1-create-a-new-table.py -->
 ```py
-from LucidDynamodb.Operations import DynamoDb
+from LucidDynamodb import DynamoDb
 import logging
 logging.basicConfig(level=logging.INFO)
 
@@ -155,7 +155,7 @@ INFO:root:dev_jobs table created successfully
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/2-get-all-table-names.py) -->
 <!-- The below code snippet is automatically added from ./examples/2-get-all-table-names.py -->
 ```py
-from LucidDynamodb.Operations import DynamoDb
+from LucidDynamodb import DynamoDb
 import logging
 logging.basicConfig(level=logging.INFO)
 
@@ -176,7 +176,7 @@ INFO:root:Table names: ['dev_jobs', 'dev_test']
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/3-create-a-new-item.py) -->
 <!-- The below code snippet is automatically added from ./examples/3-create-a-new-item.py -->
 ```py
-from LucidDynamodb.Operations import DynamoDb
+from LucidDynamodb import DynamoDb
 import logging
 logging.basicConfig(level=logging.INFO)
 
@@ -218,7 +218,7 @@ INFO:root:Item created successfully
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/4-read-an-item.py) -->
 <!-- The below code snippet is automatically added from ./examples/4-read-an-item.py -->
 ```py
-from LucidDynamodb.Operations import DynamoDb
+from LucidDynamodb import DynamoDb
 import logging
 logging.basicConfig(level=logging.INFO)
 
@@ -263,7 +263,7 @@ INFO:root:Item: {
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/5-increase-an-existing-attribute-value.py) -->
 <!-- The below code snippet is automatically added from ./examples/5-increase-an-existing-attribute-value.py -->
 ```py
-from LucidDynamodb.Operations import DynamoDb
+from LucidDynamodb import DynamoDb
 import os
 import logging
 logging.basicConfig(level=logging.INFO)
@@ -326,7 +326,7 @@ INFO:root:Item: {
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/6-update-existing-attribute-in-an-item.py) -->
 <!-- The below code snippet is automatically added from ./examples/6-update-existing-attribute-in-an-item.py -->
 ```py
-from LucidDynamodb.Operations import DynamoDb
+from LucidDynamodb import DynamoDb
 import logging
 logging.basicConfig(level=logging.INFO)
 
@@ -387,7 +387,7 @@ INFO:root:Item: {
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/7-add-a-new-attribute-in-an-item.py) -->
 <!-- The below code snippet is automatically added from ./examples/7-add-a-new-attribute-in-an-item.py -->
 ```py
-from LucidDynamodb.Operations import DynamoDb
+from LucidDynamodb import DynamoDb
 import logging
 logging.basicConfig(level=logging.INFO)
 
@@ -449,7 +449,7 @@ INFO:root:Item: {
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/8-add-an-attribute-to-the-list.py) -->
 <!-- The below code snippet is automatically added from ./examples/8-add-an-attribute-to-the-list.py -->
 ```py
-from LucidDynamodb.Operations import DynamoDb
+from LucidDynamodb import DynamoDb
 import logging
 logging.basicConfig(level=logging.INFO)
 
@@ -513,7 +513,7 @@ INFO:root:Item: {
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/9-add-an-attribute-to-the-string-set.py) -->
 <!-- The below code snippet is automatically added from ./examples/9-add-an-attribute-to-the-string-set.py -->
 ```py
-from LucidDynamodb.Operations import DynamoDb
+from LucidDynamodb import DynamoDb
 import logging
 logging.basicConfig(level=logging.INFO)
 
@@ -578,7 +578,7 @@ INFO:root:Item: {
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/10-delete-an-attribute-from-the-string-set.py) -->
 <!-- The below code snippet is automatically added from ./examples/10-delete-an-attribute-from-the-string-set.py -->
 ```py
-from LucidDynamodb.Operations import DynamoDb
+from LucidDynamodb import DynamoDb
 import logging
 logging.basicConfig(level=logging.INFO)
 
@@ -642,7 +642,7 @@ INFO:root:Item: {
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/11-delete-an-attribute-from-an-item.py) -->
 <!-- The below code snippet is automatically added from ./examples/11-delete-an-attribute-from-an-item.py -->
 ```py
-from LucidDynamodb.Operations import DynamoDb
+from LucidDynamodb import DynamoDb
 import logging
 logging.basicConfig(level=logging.INFO)
 
@@ -702,7 +702,7 @@ INFO:root:Item: {
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/12-read-items-by-filter.py) -->
 <!-- The below code snippet is automatically added from ./examples/12-read-items-by-filter.py -->
 ```py
-from LucidDynamodb.Operations import DynamoDb
+from LucidDynamodb import DynamoDb
 import logging
 from boto3.dynamodb.conditions import Key
 logging.basicConfig(level=logging.INFO)
@@ -784,7 +784,7 @@ INFO:root:Items: [{
 <!-- MARKDOWN-AUTO-DOCS:START (CODE:src=./examples/13-delete-a-table.py) -->
 <!-- The below code snippet is automatically added from ./examples/13-delete-a-table.py -->
 ```py
-from LucidDynamodb.Operations import DynamoDb
+from LucidDynamodb import DynamoDb
 import logging
 logging.basicConfig(level=logging.INFO)
 

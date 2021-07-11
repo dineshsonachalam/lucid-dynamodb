@@ -1,4 +1,4 @@
-from LucidDynamodb.Operations import DynamoDb
+from LucidDynamodb import DynamoDb
 db = DynamoDb()
 
 # $> pip install awscli  #can add user flag 

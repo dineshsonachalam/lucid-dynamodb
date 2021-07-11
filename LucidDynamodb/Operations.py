@@ -1,5 +1,4 @@
 import boto3
-import logging
 
 class DynamoDb:
     def __init__(self, region_name=None, aws_access_key_id=None, aws_secret_access_key=None):
@@ -49,7 +48,7 @@ class DynamoDb:
                 table.meta.client.get_waiter('table_exists').wait(TableName=TableName)
             return True
         except Exception as e:
-            logging.error(e)
+            raise Exception(f"Table creation failed: {e}")
 
     def delete_table(self, TableName):
         """Delete a table
@@ -66,7 +65,7 @@ class DynamoDb:
             table.wait_until_not_exists()
             return True
         except Exception as e:
-            logging.error(e)
+            raise Exception(f"Table deletion failed: {e}")
                 
     def read_all_table_names(self):
         """Get all table names
@@ -89,7 +88,7 @@ class DynamoDb:
             table_names = db_client.list_tables()['TableNames']
             return table_names
         except Exception as e:
-            logging.error(e)
+            raise Exception(f"Unable to read all table names: {e}")
 
     def create_item(self, TableName ,Item):
         """Create a New Item
@@ -106,7 +105,7 @@ class DynamoDb:
             table.put_item(Item=Item)
             return True
         except Exception as e:
-            logging.error(e)
+            raise Exception(f"Item creation failed: {e}")
         
     def delete_item(self, TableName, Key, ConditionExpression = "", ExpressionAttributeValues={}):
         """Delete an Item
@@ -134,7 +133,7 @@ class DynamoDb:
                 )
             return True
         except Exception as e:
-            logging.error(e)
+            raise Exception(f"Item deletion failed: {e}")
         
     def read_item(self, TableName, Key):
         """Read an Item
@@ -151,7 +150,7 @@ class DynamoDb:
             response = table.get_item(Key=Key)
             return response.get('Item')
         except Exception as e:
-            logging.error(e)
+            raise Exception(f"Unable to read an item: {e}")
 
     def read_items_by_filter(self, TableName, KeyConditionExpression, GlobalSecondaryIndexName=None):
         """Read items by filter
@@ -180,7 +179,7 @@ class DynamoDb:
                 )   
             return response.get('Items')
         except Exception as e:
-            logging.error(e)   
+            raise Exception(f"Unable to read items by filter: {e}")
         
     def generate_attribute_names(self, attribute_names):
         """Generate attribute names
@@ -193,7 +192,7 @@ class DynamoDb:
         """
         ExpressionAttributeNames = {}
         for attribute_name in attribute_names:
-            ExpressionAttributeNames["#{}".format(attribute_name)] = attribute_name
+            ExpressionAttributeNames[f"#{attribute_name}"] = attribute_name
         return ExpressionAttributeNames 
       
     def generate_update_expression(self, AttributesToUpdate, Operation):
@@ -222,29 +221,29 @@ class DynamoDb:
             if Operation == "UPDATE_EXISTING_ATTRIBUTE_OR_ADD_NEW_ATTRIBUTE":
                 if "SET" not in UpdateExpression: 
                     UpdateExpression = "SET "
-                UpdateExpression += "#{} = :value{}, ".format(attribute_name, counter)
+                UpdateExpression += f"#{attribute_name} = :value{counter}, "
             elif Operation == "INCREASE_ATTRIBUTE_VALUE":
                 if "SET" not in UpdateExpression: 
                     UpdateExpression = "SET "
-                UpdateExpression += "#{} = #{} + :value{}, ".format(attribute_name, attribute_name, counter)                
+                UpdateExpression += f"#{attribute_name} = #{attribute_name} + :value{counter}, "
             elif Operation == "ADD_ATTRIBUTE_TO_LIST":
                 if "SET" not in UpdateExpression: 
                     UpdateExpression = "SET "
-                UpdateExpression += "#{} = list_append(#{},:value{}), ".format(attribute_name, attribute_name, counter)
+                UpdateExpression += f"#{attribute_name} = list_append(#{attribute_name},:value{counter}), "
             elif Operation == "ADD_ATTRIBUTE_TO_STRING_SET":
                 if "ADD" not in UpdateExpression: 
                     UpdateExpression = "ADD "
-                UpdateExpression += "#{} :value{}, ".format(attribute_name, counter)
+                UpdateExpression += f"#{attribute_name} :value{counter}, "
             elif Operation == "DELETE_ATTRIBUTE_FROM_STRING_SET":
                 if "DELETE" not in UpdateExpression: 
                     UpdateExpression = "DELETE "
-                UpdateExpression += "#{} :value{}, ".format(attribute_name, counter)
+                UpdateExpression += f"#{attribute_name} :value{counter}, "
             if Operation == "ADD_ATTRIBUTE_TO_LIST":
-                ExpressionAttributeValues[":value{}".format(counter)] = [attribute_value]
+                ExpressionAttributeValues[f":value{counter}"] = [attribute_value]
             elif  Operation == "ADD_ATTRIBUTE_TO_STRING_SET" or Operation == "DELETE_ATTRIBUTE_FROM_STRING_SET":
-                ExpressionAttributeValues[":value{}".format(counter)] = set([attribute_value])
+                ExpressionAttributeValues[f":value{counter}"] = set([attribute_value])
             else:
-                ExpressionAttributeValues[":value{}".format(counter)] = attribute_value
+                ExpressionAttributeValues[f":value{counter}"] = attribute_value
             counter = counter + 1
         
         UpdateExpression = UpdateExpression.rstrip(", ")
@@ -281,7 +280,7 @@ class DynamoDb:
             else:
                 return False
         except Exception as e:
-            logging.error(e)
+            raise Exception(f"Unable to update an item: {e}")
 
     def increase_attribute_value(self, TableName, Key, AttributeName, IncrementValue):
         """Increase an existing attribute value
@@ -316,7 +315,7 @@ class DynamoDb:
             else:
                 return False
         except Exception as e:
-            logging.error(e)
+            raise Exception(f"Unable to increase an existing attribute value: {e}")
     
     def delete_attribute(self, TableName, Key, AttributeName):
         """Delete an attribute from an item
@@ -335,9 +334,9 @@ class DynamoDb:
 
             table.update_item(
                                 Key=Key,
-                                UpdateExpression="REMOVE {}".format(AttributeName),
+                                UpdateExpression=f"REMOVE {AttributeName}",
                                 ReturnValues="ALL_NEW"
             )
             return True
         except Exception as e:
-            logging.error(e)
+            raise Exception(f"Unable to delete an attribute from an item: {e}")

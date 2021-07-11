@@ -1,4 +1,4 @@
-from LucidDynamodb.Operations import DynamoDb
+from LucidDynamodb import DynamoDb
 import logging
 from boto3.dynamodb.conditions import Key
 logging.basicConfig(level=logging.INFO)
