@@ -138,10 +138,10 @@ if __name__ == "__main__":
                                     GlobalSecondaryIndexes=table_schema.get("GlobalSecondaryIndexes"),
                                     ProvisionedThroughput=table_schema.get("ProvisionedThroughput")
     )
-    if(table_creation_status == True):
+    try:
         logging.info("{} table created successfully".format(table_schema.get("TableName")))
-    else:
-        logging.error("{} table creation failed".format(table_schema.get("TableName")))
+    except Exception as e:
+        logging.error("{} table creation failed - {}".format(table_schema.get("TableName"), e))
         
 """
 dineshsonachalam@macbook examples % python 1-create-a-new-table.py
@@ -201,10 +201,10 @@ if __name__ == "__main__":
             }
         }
     )
-    if(item_creation_status == True):
+    try:
         logging.info("Item created successfully")
-    else:
-        logging.warning("Item creation failed")
+    except Exception as e:
+        logging.warning("Item creation failed - {}".format(e))
         
 """
 dineshsonachalam@macbook examples % python 3-create-a-new-item.py
@@ -230,10 +230,10 @@ if __name__ == "__main__":
             "company_name": "Google",
             "role_id": "111"
         })
-    if(item != None):
+    try:
         logging.info("Item: {}".format(item))
-    else:
-        logging.warning("Item doesn't exist")
+    except Exception as e:
+        logging.warning("Item doesn't exist - {}".format(e))        
         
 """
 dineshsonachalam@macbook examples % python 4-read-an-item.py
@@ -250,9 +250,9 @@ INFO:root:Item: {
 	'yearly_hike_percent': Decimal('8'),
 	'salary': '$1,50,531',
 	'benefits': {
+		'Health insurance',
 		'Travel reimbursements',
-		'Internet, Medical, Edu reimbursements',
-		'Health insurance'
+		'Internet, Medical, Edu reimbursements'
 	}
 }
 """
@@ -281,10 +281,10 @@ if __name__ == "__main__":
         IncrementValue=5
     )
     
-    if(increase_attribute_status==True):
+    try:
         logging.info("Attribute value increment completed")
-    else:
-        logging.warning("Attribute value increment failed")
+    except Exception as e:
+        logging.warning("Attribute value increment failed - {}".format(e))
     
     item = db.read_item(
         TableName='dev_jobs', 
@@ -292,10 +292,10 @@ if __name__ == "__main__":
             "company_name": "Google",
             "role_id": "111"
         })
-    if(item != None):
+    try:
         logging.info("Item: {}".format(item))
-    else:
-        logging.warning("Item doesn't exist") 
+    except Exception as e:
+        logging.warning("Item doesn't exist - {}".format(e)) 
 
 """
 dineshsonachalam@macbook examples % python 5-increase-an-existing-attribute-value.py
@@ -342,10 +342,10 @@ if __name__ == "__main__":
             'role': 'Staff Software Engineer 2'
         }
     )
-    if(item_update_status == True):
+    try:
         logging.info("Update is successful")
-    else:
-        logging.warning("Update failed")
+    except Exception as e:
+        logging.warning("Update failed - {}".format(e))
 
     item = db.read_item(
         TableName="dev_jobs", 
@@ -353,11 +353,11 @@ if __name__ == "__main__":
             "company_name": "Google",
             "role_id": "111"
         })
-    if(item != None):
+    try:
         logging.info("Item: {}".format(item))
-    else:
-        logging.warning("Item doesn't exist")
-
+    except Exception as e:
+        logging.warning("Item doesn't exist - {}".format(e))
+        
 """
 dineshsonachalam@macbook examples % python 6-update-existing-attribute-in-an-item.py
 INFO:botocore.credentials:Found credentials in environment variables.
@@ -403,10 +403,10 @@ if __name__ == "__main__":
             'overall_review.yearly_bonus_percent': 12
         }
     )
-    if(item_update_status == True):
+    try:
         logging.info("Update is successful")
-    else:
-        logging.warning("Update failed")
+    except Exception as e:
+        logging.warning("Update failed - {}".format(e))
 
     item = db.read_item(
         TableName="dev_jobs", 
@@ -414,10 +414,10 @@ if __name__ == "__main__":
             "company_name": "Google",
             "role_id": "111"
         })
-    if(item != None):
+    try:
         logging.info("Item: {}".format(item))
-    else:
-        logging.warning("Item doesn't exist")
+    except Exception as e:
+        logging.warning("Item doesn't exist - {}".format(e))
         
 """
 dineshsonachalam@macbook examples % python 7-add-a-new-attribute-in-an-item.py
@@ -437,8 +437,8 @@ INFO:root:Item: {
 	'salary': '$1,50,531',
 	'benefits': {
 		'Health insurance',
-		'Internet, Medical, Edu reimbursements',
-		'Travel reimbursements'
+		'Travel reimbursements',
+		'Internet, Medical, Edu reimbursements'
 	}
 }
 """
@@ -467,10 +467,10 @@ if __name__ == "__main__":
         },
         Operation="ADD_ATTRIBUTE_TO_LIST"
     )
-    if(item_update_status == True):
+    try:
         logging.info("Update is successful")
-    else:
-        logging.warning("Update failed")
+    except Exception as e:
+        logging.warning("Update failed - {}".format(e))
 
     item = db.read_item(
         TableName="dev_jobs", 
@@ -478,10 +478,10 @@ if __name__ == "__main__":
             "company_name": "Google",
             "role_id": "111"
         })
-    if(item != None):
+    try:
         logging.info("Item: {}".format(item))
-    else:
-        logging.warning("Item doesn't exist")
+    except Exception as e:
+        logging.warning("Item doesn't exist - {}".format(e))
 
 """
 dineshsonachalam@macbook examples % python 8-add-an-attribute-to-the-list.py
@@ -501,8 +501,8 @@ INFO:root:Item: {
 	'salary': '$1,50,531',
 	'benefits': {
 		'Travel reimbursements',
-		'Internet, Medical, Edu reimbursements',
-		'Health insurance'
+		'Health insurance',
+		'Internet, Medical, Edu reimbursements'
 	}
 }
 """
@@ -531,10 +531,10 @@ if __name__ == "__main__":
         },
         Operation="ADD_ATTRIBUTE_TO_STRING_SET"
     )
-    if(item_update_status == True):
+    try:
         logging.info("Update is successful")
-    else:
-        logging.warning("Update failed")
+    except Exception as e:
+        logging.warning("Update failed - {}".format(e))
 
     item = db.read_item(
         TableName="dev_jobs", 
@@ -542,10 +542,10 @@ if __name__ == "__main__":
             "company_name": "Google",
             "role_id": "111"
         })
-    if(item != None):
+    try:
         logging.info("Item: {}".format(item))
-    else:
-        logging.warning("Item doesn't exist")
+    except Exception as e:
+        logging.warning("Item doesn't exist - {}".format(e))
         
 """
 dineshsonachalam@macbook examples % python 9-add-an-attribute-to-the-string-set.py
@@ -564,10 +564,10 @@ INFO:root:Item: {
 	'yearly_hike_percent': Decimal('13'),
 	'salary': '$1,50,531',
 	'benefits': {
-		'Travel reimbursements',
 		'Internet, Medical, Edu reimbursements',
 		'Health insurance',
-		'Free Food'
+		'Free Food',
+		'Travel reimbursements'
 	}
 }
 """
@@ -596,10 +596,10 @@ if __name__ == "__main__":
         },
         Operation="DELETE_ATTRIBUTE_FROM_STRING_SET"
     )
-    if(item_update_status == True):
+    try:
         logging.info("Update is successful")
-    else:
-        logging.warning("Update failed")
+    except Exception as e:
+        logging.warning("Update failed - {}".format(e))
 
     item = db.read_item(
         TableName="dev_jobs", 
@@ -607,10 +607,10 @@ if __name__ == "__main__":
             "company_name": "Google",
             "role_id": "111"
         })
-    if(item != None):
+    try:
         logging.info("Item: {}".format(item))
-    else:
-        logging.warning("Item doesn't exist")
+    except Exception as e:
+        logging.warning("Item doesn't exist - {}".format(e))
 
 """
 dineshsonachalam@macbook examples % python 10-delete-an-attribute-from-the-string-set.py
@@ -629,9 +629,9 @@ INFO:root:Item: {
 	'yearly_hike_percent': Decimal('13'),
 	'salary': '$1,50,531',
 	'benefits': {
+		'Health insurance',
 		'Internet, Medical, Edu reimbursements',
-		'Travel reimbursements',
-		'Health insurance'
+		'Travel reimbursements'
 	}
 }
 """
@@ -657,10 +657,10 @@ if __name__ == "__main__":
         }, 
         AttributeName="yearly_hike_percent")
 
-    if(attribute_delete_status == True):
+    try:
         logging.info("The attribute is deleted successfully")
-    else:
-        logging.warning("The attribute delete operation failed")
+    except Exception as e:
+        logging.warning("The attribute delete operation failed - {}".format(e))
 
     item = db.read_item(
         TableName="dev_jobs", 
@@ -668,10 +668,10 @@ if __name__ == "__main__":
             "company_name": "Google",
             "role_id": "111"
         })
-    if(item != None):
+    try:
         logging.info("Item: {}".format(item))
-    else:
-        logging.warning("Item doesn't exist")
+    except Exception as e:
+        logging.warning("Item doesn't exist - {}".format(e))
 
 """
 dineshsonachalam@macbook examples % python 11-delete-an-attribute-from-an-item.py
@@ -690,8 +690,8 @@ INFO:root:Item: {
 	'salary': '$1,50,531',
 	'benefits': {
 		'Internet, Medical, Edu reimbursements',
-		'Travel reimbursements',
-		'Health insurance'
+		'Health insurance',
+		'Travel reimbursements'
 	}
 }
 """
@@ -726,21 +726,21 @@ if __name__ == "__main__":
             }
         }
     )
-    if(item_creation_status == True):
+    try:
         logging.info("Item created successfully")
-    else:
-        logging.warning("Item creation failed")
+    except Exception as e:
+        logging.warning("Item creation failed - {}".format(e))
     
     items = db.read_items_by_filter(
                     TableName='dev_jobs', 
                     KeyConditionExpression=Key("company_name").eq("Google") 
     )
-    
-    if(len(items)>0):
+
+    try:
         logging.info("Items: {}".format(items))
-    else:
+    except Exception as e:
         logging.warning("Items doesn't exist")
-        
+            
 """
 dineshsonachalam@macbook examples % python 12-read-items-by-filter.py
 INFO:botocore.credentials:Found credentials in environment variables.
@@ -792,9 +792,9 @@ if __name__ == "__main__":
     db = DynamoDb()
     
     delete_table_status = db.delete_table(TableName='dev_jobs')
-    if(delete_table_status == True):
+    try:
         logging.info("Table deleted successfully")
-    else:
+    except Exception as e:
         logging.warning("Table delete operation failed")
 
     table_names = db.read_all_table_names()
@@ -820,9 +820,9 @@ pytest -s
 ## Github Workflow Artifacts
 
 <!-- MARKDOWN-AUTO-DOCS:START (WORKFLOW_ARTIFACT_TABLE) -->
-<table class="ARTIFACTS-TABLE"><thead><tr><th class="artifact-th">Artifact</th><th class="workflow-th">Workflow</th></tr></thead><tbody ><tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/suites/3209758451/artifacts/74241012>dependency-graph</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/actions/runs/1020252377>integration-tests</a></td></tr>
-<tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/suites/3209758451/artifacts/74241013>module-dependencies-license-report</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/actions/runs/1020252377>integration-tests</a></td></tr>
-<tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/suites/3209758451/artifacts/74241014>Pytest-report</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/actions/runs/1020252377>integration-tests</a></td></tr></tbody></table>
+<table class="ARTIFACTS-TABLE"><thead><tr><th class="artifact-th">Artifact</th><th class="workflow-th">Workflow</th></tr></thead><tbody ><tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/suites/3223981290/artifacts/74678033>dependency-graph</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/actions/runs/1025733482>integration-tests</a></td></tr>
+<tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/suites/3223981290/artifacts/74678034>module-dependencies-license-report</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/actions/runs/1025733482>integration-tests</a></td></tr>
+<tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/suites/3223981290/artifacts/74678036>Pytest-report</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/actions/runs/1025733482>integration-tests</a></td></tr></tbody></table>
 <!-- MARKDOWN-AUTO-DOCS:END -->
 
 ## License
