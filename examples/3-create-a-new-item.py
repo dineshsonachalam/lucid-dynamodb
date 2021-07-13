@@ -23,10 +23,10 @@ if __name__ == "__main__":
             }
         }
     )
-    if(item_creation_status == True):
+    try:
         logging.info("Item created successfully")
-    else:
-        logging.warning("Item creation failed")
+    except Exception as e:
+        logging.warning("Item creation failed - {}".format(e))
         
 """
 dineshsonachalam@macbook examples % python 3-create-a-new-item.py

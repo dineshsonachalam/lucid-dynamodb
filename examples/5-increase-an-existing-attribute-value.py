@@ -16,10 +16,10 @@ if __name__ == "__main__":
         IncrementValue=5
     )
     
-    if(increase_attribute_status==True):
+    try:
         logging.info("Attribute value increment completed")
-    else:
-        logging.warning("Attribute value increment failed")
+    except Exception as e:
+        logging.warning("Attribute value increment failed - {}".format(e))
     
     item = db.read_item(
         TableName='dev_jobs', 
@@ -27,10 +27,10 @@ if __name__ == "__main__":
             "company_name": "Google",
             "role_id": "111"
         })
-    if(item != None):
+    try:
         logging.info("Item: {}".format(item))
-    else:
-        logging.warning("Item doesn't exist") 
+    except Exception as e:
+        logging.warning("Item doesn't exist - {}".format(e)) 
 
 """
 dineshsonachalam@macbook examples % python 5-increase-an-existing-attribute-value.py

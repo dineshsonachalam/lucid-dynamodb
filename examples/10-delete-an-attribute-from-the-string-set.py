@@ -16,10 +16,10 @@ if __name__ == "__main__":
         },
         Operation="DELETE_ATTRIBUTE_FROM_STRING_SET"
     )
-    if(item_update_status == True):
+    try:
         logging.info("Update is successful")
-    else:
-        logging.warning("Update failed")
+    except Exception as e:
+        logging.warning("Update failed - {}".format(e))
 
     item = db.read_item(
         TableName="dev_jobs", 
@@ -27,10 +27,10 @@ if __name__ == "__main__":
             "company_name": "Google",
             "role_id": "111"
         })
-    if(item != None):
+    try:
         logging.info("Item: {}".format(item))
-    else:
-        logging.warning("Item doesn't exist")
+    except Exception as e:
+        logging.warning("Item doesn't exist - {}".format(e))
 
 """
 dineshsonachalam@macbook examples % python 10-delete-an-attribute-from-the-string-set.py
@@ -49,9 +49,9 @@ INFO:root:Item: {
 	'yearly_hike_percent': Decimal('13'),
 	'salary': '$1,50,531',
 	'benefits': {
+		'Health insurance',
 		'Internet, Medical, Edu reimbursements',
-		'Travel reimbursements',
-		'Health insurance'
+		'Travel reimbursements'
 	}
 }
 """

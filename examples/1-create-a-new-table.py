@@ -40,10 +40,10 @@ if __name__ == "__main__":
                                     GlobalSecondaryIndexes=table_schema.get("GlobalSecondaryIndexes"),
                                     ProvisionedThroughput=table_schema.get("ProvisionedThroughput")
     )
-    if(table_creation_status == True):
+    try:
         logging.info("{} table created successfully".format(table_schema.get("TableName")))
-    else:
-        logging.error("{} table creation failed".format(table_schema.get("TableName")))
+    except Exception as e:
+        logging.error("{} table creation failed - {}".format(table_schema.get("TableName"), e))
         
 """
 dineshsonachalam@macbook examples % python 1-create-a-new-table.py

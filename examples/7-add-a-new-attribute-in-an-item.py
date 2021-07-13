@@ -14,10 +14,10 @@ if __name__ == "__main__":
             'overall_review.yearly_bonus_percent': 12
         }
     )
-    if(item_update_status == True):
+    try:
         logging.info("Update is successful")
-    else:
-        logging.warning("Update failed")
+    except Exception as e:
+        logging.warning("Update failed - {}".format(e))
 
     item = db.read_item(
         TableName="dev_jobs", 
@@ -25,10 +25,10 @@ if __name__ == "__main__":
             "company_name": "Google",
             "role_id": "111"
         })
-    if(item != None):
+    try:
         logging.info("Item: {}".format(item))
-    else:
-        logging.warning("Item doesn't exist")
+    except Exception as e:
+        logging.warning("Item doesn't exist - {}".format(e))
         
 """
 dineshsonachalam@macbook examples % python 7-add-a-new-attribute-in-an-item.py
@@ -48,8 +48,8 @@ INFO:root:Item: {
 	'salary': '$1,50,531',
 	'benefits': {
 		'Health insurance',
-		'Internet, Medical, Edu reimbursements',
-		'Travel reimbursements'
+		'Travel reimbursements',
+		'Internet, Medical, Edu reimbursements'
 	}
 }
 """

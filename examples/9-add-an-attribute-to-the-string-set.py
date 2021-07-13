@@ -16,10 +16,10 @@ if __name__ == "__main__":
         },
         Operation="ADD_ATTRIBUTE_TO_STRING_SET"
     )
-    if(item_update_status == True):
+    try:
         logging.info("Update is successful")
-    else:
-        logging.warning("Update failed")
+    except Exception as e:
+        logging.warning("Update failed - {}".format(e))
 
     item = db.read_item(
         TableName="dev_jobs", 
@@ -27,10 +27,10 @@ if __name__ == "__main__":
             "company_name": "Google",
             "role_id": "111"
         })
-    if(item != None):
+    try:
         logging.info("Item: {}".format(item))
-    else:
-        logging.warning("Item doesn't exist")
+    except Exception as e:
+        logging.warning("Item doesn't exist - {}".format(e))
         
 """
 dineshsonachalam@macbook examples % python 9-add-an-attribute-to-the-string-set.py
@@ -49,10 +49,10 @@ INFO:root:Item: {
 	'yearly_hike_percent': Decimal('13'),
 	'salary': '$1,50,531',
 	'benefits': {
-		'Travel reimbursements',
 		'Internet, Medical, Edu reimbursements',
 		'Health insurance',
-		'Free Food'
+		'Free Food',
+		'Travel reimbursements'
 	}
 }
 """

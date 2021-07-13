@@ -6,9 +6,9 @@ if __name__ == "__main__":
     db = DynamoDb()
     
     delete_table_status = db.delete_table(TableName='dev_jobs')
-    if(delete_table_status == True):
+    try:
         logging.info("Table deleted successfully")
-    else:
+    except Exception as e:
         logging.warning("Table delete operation failed")
 
     table_names = db.read_all_table_names()

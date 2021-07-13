@@ -10,10 +10,10 @@ if __name__ == "__main__":
             "company_name": "Google",
             "role_id": "111"
         })
-    if(item != None):
+    try:
         logging.info("Item: {}".format(item))
-    else:
-        logging.warning("Item doesn't exist")
+    except Exception as e:
+        logging.warning("Item doesn't exist - {}".format(e))        
         
 """
 dineshsonachalam@macbook examples % python 4-read-an-item.py
@@ -30,9 +30,9 @@ INFO:root:Item: {
 	'yearly_hike_percent': Decimal('8'),
 	'salary': '$1,50,531',
 	'benefits': {
+		'Health insurance',
 		'Travel reimbursements',
-		'Internet, Medical, Edu reimbursements',
-		'Health insurance'
+		'Internet, Medical, Edu reimbursements'
 	}
 }
 """

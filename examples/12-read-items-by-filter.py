@@ -22,21 +22,21 @@ if __name__ == "__main__":
             }
         }
     )
-    if(item_creation_status == True):
+    try:
         logging.info("Item created successfully")
-    else:
-        logging.warning("Item creation failed")
+    except Exception as e:
+        logging.warning("Item creation failed - {}".format(e))
     
     items = db.read_items_by_filter(
                     TableName='dev_jobs', 
                     KeyConditionExpression=Key("company_name").eq("Google") 
     )
-    
-    if(len(items)>0):
+
+    try:
         logging.info("Items: {}".format(items))
-    else:
+    except Exception as e:
         logging.warning("Items doesn't exist")
-        
+            
 """
 dineshsonachalam@macbook examples % python 12-read-items-by-filter.py
 INFO:botocore.credentials:Found credentials in environment variables.
