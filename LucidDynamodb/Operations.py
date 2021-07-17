@@ -206,7 +206,7 @@ class DynamoDb:
             raise ReadItemsByFilterFailed(f"Unable to read items by filter: {e}")
         
     def create_attribute_names(self, attribute_names):
-        """Generate attribute names
+        """Create attribute names
 
         Args:
             attribute_names (str): Attribute names
@@ -220,7 +220,7 @@ class DynamoDb:
         return expression_attribute_names 
       
     def create_update_expression(self, attributes_to_update, operation):
-        """Generate update expression
+        """Create update expression
 
         Args:
             attributes_to_update (dict): Attributes to update
