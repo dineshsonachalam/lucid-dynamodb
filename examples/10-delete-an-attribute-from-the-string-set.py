@@ -6,15 +6,15 @@ if __name__ == "__main__":
     db = DynamoDb()
     
     item_update_status = db.update_item(
-        TableName="dev_jobs", 
-        Key={
+        table_name="dev_jobs", 
+        key={
             "company_name": "Google",
             "role_id": "111"
         },
-        AttributesToUpdate={
+        attributes_to_update={
             'benefits': "Free Food"
         },
-        Operation="DELETE_ATTRIBUTE_FROM_STRING_SET"
+        operation="DELETE_ATTRIBUTE_FROM_STRING_SET"
     )
     try:
         logging.info("Update is successful")
@@ -22,8 +22,8 @@ if __name__ == "__main__":
         logging.warning("Update failed - {}".format(e))
 
     item = db.read_item(
-        TableName="dev_jobs", 
-        Key={
+        table_name="dev_jobs", 
+        key={
             "company_name": "Google",
             "role_id": "111"
         })

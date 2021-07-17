@@ -5,8 +5,8 @@ logging.basicConfig(level=logging.INFO)
 if __name__ == "__main__":
     db = DynamoDb()
     item_creation_status = db.create_item(
-        TableName="dev_jobs", 
-        Item={
+        table_name="dev_jobs", 
+        item={
             "company_name": "Google",
             "role_id": "111",
             "role": "Software Engineer 1",

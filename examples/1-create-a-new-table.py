@@ -34,11 +34,11 @@ table_schema = {
 if __name__ == "__main__":
     db = DynamoDb()
     table_creation_status = db.create_table(
-                                    TableName=table_schema.get("TableName"),
-                                    KeySchema=table_schema.get("KeySchema"),
-                                    AttributeDefinitions=table_schema.get("AttributeDefinitions"),
-                                    GlobalSecondaryIndexes=table_schema.get("GlobalSecondaryIndexes"),
-                                    ProvisionedThroughput=table_schema.get("ProvisionedThroughput")
+                                    table_name=table_schema.get("TableName"),
+                                    key_schema=table_schema.get("KeySchema"),
+                                    attribute_definitions=table_schema.get("AttributeDefinitions"),
+                                    global_secondary_indexes=table_schema.get("GlobalSecondaryIndexes"),
+                                    provisioned_throughput=table_schema.get("ProvisionedThroughput")
     )
     try:
         logging.info("{} table created successfully".format(table_schema.get("TableName")))

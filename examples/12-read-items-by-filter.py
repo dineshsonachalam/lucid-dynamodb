@@ -7,8 +7,8 @@ if __name__ == "__main__":
     db = DynamoDb()
     
     item_creation_status = db.create_item(
-        TableName="dev_jobs", 
-        Item={
+        table_name="dev_jobs", 
+        item={
             "company_name": "Google",
             "role_id": "112",
             "role": "Software Architect",
@@ -28,8 +28,8 @@ if __name__ == "__main__":
         logging.warning("Item creation failed - {}".format(e))
     
     items = db.read_items_by_filter(
-                    TableName='dev_jobs', 
-                    KeyConditionExpression=Key("company_name").eq("Google") 
+                    table_name='dev_jobs', 
+                    key_condition_expression=Key("company_name").eq("Google") 
     )
 
     try:

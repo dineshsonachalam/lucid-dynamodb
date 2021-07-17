@@ -7,13 +7,13 @@ if __name__ == "__main__":
     db = DynamoDb()
     
     increase_attribute_status = db.increase_attribute_value(
-        TableName='dev_jobs',
-        Key={
+        table_name='dev_jobs',
+        key={
             "company_name": "Google",
             "role_id": "111"
         },
-        AttributeName="yearly_hike_percent",
-        IncrementValue=5
+        attribute_name="yearly_hike_percent",
+        increment_value=5
     )
     
     try:
@@ -22,8 +22,8 @@ if __name__ == "__main__":
         logging.warning("Attribute value increment failed - {}".format(e))
     
     item = db.read_item(
-        TableName='dev_jobs', 
-        Key={
+        table_name='dev_jobs', 
+        key={
             "company_name": "Google",
             "role_id": "111"
         })

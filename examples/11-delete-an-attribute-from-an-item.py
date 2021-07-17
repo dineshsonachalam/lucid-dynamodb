@@ -6,12 +6,12 @@ if __name__ == "__main__":
     db = DynamoDb()
     
     attribute_delete_status = db.delete_attribute(
-        TableName="dev_jobs", 
-        Key={
+        table_name="dev_jobs", 
+        key={
               "company_name": "Google",
               "role_id": "111"
         }, 
-        AttributeName="yearly_hike_percent")
+        attribute_name="yearly_hike_percent")
 
     try:
         logging.info("The attribute is deleted successfully")
@@ -19,8 +19,8 @@ if __name__ == "__main__":
         logging.warning("The attribute delete operation failed - {}".format(e))
 
     item = db.read_item(
-        TableName="dev_jobs", 
-        Key={
+        table_name="dev_jobs", 
+        key={
             "company_name": "Google",
             "role_id": "111"
         })

@@ -5,7 +5,7 @@ logging.basicConfig(level=logging.INFO)
 if __name__ == "__main__":
     db = DynamoDb()
     
-    delete_table_status = db.delete_table(TableName='dev_jobs')
+    delete_table_status = db.delete_table(table_name='dev_jobs')
     try:
         logging.info("Table deleted successfully")
     except Exception as e:

@@ -44,11 +44,11 @@ def test_create_new_table():
                 aws_access_key_id=AWS_ACCESS_KEY_ID, 
                 aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     table_creation_status = db.create_table(
-                                    TableName=table_schema.get("TableName"),
-                                    KeySchema=table_schema.get("KeySchema"),
-                                    AttributeDefinitions=table_schema.get("AttributeDefinitions"),
-                                    GlobalSecondaryIndexes=table_schema.get("GlobalSecondaryIndexes"),
-                                    ProvisionedThroughput=table_schema.get("ProvisionedThroughput")
+                                    table_name=table_schema.get("TableName"),
+                                    key_schema=table_schema.get("KeySchema"),
+                                    attribute_definitions=table_schema.get("AttributeDefinitions"),
+                                    global_secondary_indexes=table_schema.get("GlobalSecondaryIndexes"),
+                                    provisioned_throughput=table_schema.get("ProvisionedThroughput")
     )
     assert table_creation_status == True
 
@@ -64,8 +64,8 @@ def test_create_new_item():
                 aws_access_key_id=AWS_ACCESS_KEY_ID, 
                 aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     item_creation_status = db.create_item(
-        TableName=table_schema.get("TableName"), 
-        Item={
+        table_name=table_schema.get("TableName"), 
+        item={
             "company_name": "Google",
             "role_id": ITEM1_PARTITION_KEY,
             "role": "Software Engineer 1",
@@ -89,8 +89,8 @@ def test_read_item():
                 aws_access_key_id=AWS_ACCESS_KEY_ID, 
                 aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     item = db.read_item(
-        TableName=table_schema.get("TableName"), 
-        Key={
+        table_name=table_schema.get("TableName"), 
+        key={
             "company_name": "Google",
             "role_id": ITEM1_PARTITION_KEY
         }
@@ -102,13 +102,13 @@ def test_increase_attribute_value():
                 aws_access_key_id=AWS_ACCESS_KEY_ID, 
                 aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     increase_attribute_status = db.increase_attribute_value(
-        TableName=table_schema.get("TableName"),
-        Key={
+        table_name=table_schema.get("TableName"),
+        key={
             "company_name": "Google",
             "role_id": ITEM1_PARTITION_KEY
         },
-        AttributeName="yearly_hike_percent",
-        IncrementValue=5
+        attribute_name="yearly_hike_percent",
+        increment_value=5
     )
     assert increase_attribute_status==True
 
@@ -117,12 +117,12 @@ def test_update_existing_attribute():
                 aws_access_key_id=AWS_ACCESS_KEY_ID, 
                 aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     item_update_status = db.update_item(
-        TableName=table_schema.get("TableName"), 
-        Key={
+        table_name=table_schema.get("TableName"), 
+        key={
             "company_name": "Google",
             "role_id": ITEM1_PARTITION_KEY
         },
-        AttributesToUpdate={
+        attributes_to_update={
             'role': 'Staff Software Engineer 2'
         }
     )
@@ -133,12 +133,12 @@ def test_add_new_attribute():
                 aws_access_key_id=AWS_ACCESS_KEY_ID, 
                 aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     item_update_status = db.update_item(
-        TableName=table_schema.get("TableName"), 
-        Key={
+        table_name=table_schema.get("TableName"), 
+        key={
             "company_name": "Google",
             "role_id": ITEM1_PARTITION_KEY
         },
-        AttributesToUpdate={
+        attributes_to_update={
             'overall_review.yearly_bonus_percent': 12
         }
     )
@@ -149,15 +149,15 @@ def test_add_attribute_to_list():
                 aws_access_key_id=AWS_ACCESS_KEY_ID, 
                 aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     item_update_status = db.update_item(
-        TableName=table_schema.get("TableName"), 
-        Key={
+        table_name=table_schema.get("TableName"), 
+        key={
             "company_name": "Google",
             "role_id": ITEM1_PARTITION_KEY
         },
-        AttributesToUpdate={
+        attributes_to_update={
             'locations': "Detroit, Michigan"
         },
-        Operation="ADD_ATTRIBUTE_TO_LIST"
+        operation="ADD_ATTRIBUTE_TO_LIST"
     )
     assert item_update_status == True
     
@@ -166,15 +166,15 @@ def test_add_attributes_to_string_set():
                 aws_access_key_id=AWS_ACCESS_KEY_ID, 
                 aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     item_update_status = db.update_item(
-        TableName=table_schema.get("TableName"), 
-        Key={
+        table_name=table_schema.get("TableName"), 
+        key={
             "company_name": "Google",
             "role_id": ITEM1_PARTITION_KEY
         },
-        AttributesToUpdate={
+        attributes_to_update={
             'benefits': "Free Food"
         },
-        Operation="ADD_ATTRIBUTE_TO_STRING_SET"
+        operation="ADD_ATTRIBUTE_TO_STRING_SET"
     )
     assert item_update_status == True
     
@@ -183,15 +183,15 @@ def test_delete_attribute_from_string_set():
                 aws_access_key_id=AWS_ACCESS_KEY_ID, 
                 aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     item_update_status = db.update_item(
-        TableName=table_schema.get("TableName"), 
-        Key={
+        table_name=table_schema.get("TableName"), 
+        key={
             "company_name": "Google",
             "role_id": ITEM1_PARTITION_KEY
         },
-        AttributesToUpdate={
+        attributes_to_update={
             'benefits': "Free Food"
         },
-        Operation="DELETE_ATTRIBUTE_FROM_STRING_SET"
+        operation="DELETE_ATTRIBUTE_FROM_STRING_SET"
     )
     assert item_update_status == True
     
@@ -200,12 +200,12 @@ def test_delete_attribute_from_item():
                 aws_access_key_id=AWS_ACCESS_KEY_ID, 
                 aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     attribute_delete_status = db.delete_attribute(
-        TableName=table_schema.get("TableName"), 
-        Key={
+        table_name=table_schema.get("TableName"), 
+        key={
               "company_name": "Google",
               "role_id": ITEM1_PARTITION_KEY
         }, 
-        AttributeName="yearly_hike_percent")
+        attribute_name="yearly_hike_percent")
     assert attribute_delete_status == True
     
 def test_read_items_by_filter():
@@ -213,8 +213,8 @@ def test_read_items_by_filter():
                 aws_access_key_id=AWS_ACCESS_KEY_ID, 
                 aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     item_creation_status = db.create_item(
-        TableName=table_schema.get("TableName"), 
-        Item={
+        table_name=table_schema.get("TableName"), 
+        item={
             "company_name": "Google",
             "role_id": str(uuid.uuid4()),
             "role": "Software Architect",
@@ -230,8 +230,8 @@ def test_read_items_by_filter():
     )
     assert item_creation_status == True
     items = db.read_items_by_filter(
-                    TableName=table_schema.get("TableName"), 
-                    KeyConditionExpression=Key("company_name").eq("Google") 
+                    table_name=table_schema.get("TableName"), 
+                    key_condition_expression=Key("company_name").eq("Google") 
     )
     assert len(items)>0
     
@@ -239,5 +239,5 @@ def test_delete_table():
     db = DynamoDb(region_name="us-east-1", 
                 aws_access_key_id=AWS_ACCESS_KEY_ID, 
                 aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-    delete_table_status = db.delete_table(TableName=table_schema.get("TableName"))
+    delete_table_status = db.delete_table(table_name=table_schema.get("TableName"))
     assert delete_table_status == True
