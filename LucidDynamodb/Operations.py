@@ -205,7 +205,7 @@ class DynamoDb:
         except Exception as e:
             raise ReadItemsByFilterFailed(f"Unable to read items by filter: {e}")
         
-    def generate_attribute_names(self, attribute_names):
+    def create_attribute_names(self, attribute_names):
         """Generate attribute names
 
         Args:
@@ -219,7 +219,7 @@ class DynamoDb:
             expression_attribute_names[f"#{attribute_name}"] = attribute_name
         return expression_attribute_names 
       
-    def generate_update_expression(self, attributes_to_update, operation):
+    def create_update_expression(self, attributes_to_update, operation):
         """Generate update expression
 
         Args:
@@ -239,7 +239,7 @@ class DynamoDb:
         expression_attribute_values = {}
         counter = 1
         for attribute_name, attribute_value in attributes_to_update.items():
-            expression_attribute_names = self.generate_attribute_names(attribute_name.split('.'))
+            expression_attribute_names = self.create_attribute_names(attribute_name.split('.'))
             attribute_name = attribute_name.replace(".", ".#")
             
             if operation == "UPDATE_EXISTING_ATTRIBUTE_OR_ADD_NEW_ATTRIBUTE":
@@ -290,7 +290,7 @@ class DynamoDb:
         try:
             table = self.db.Table(table_name)
             update_expression, expression_attribute_names, \
-            expression_attribute_values = self.generate_update_expression(attributes_to_update, operation)
+            expression_attribute_values = self.create_update_expression(attributes_to_update, operation)
             if(len(update_expression)>0 and len(expression_attribute_names)>0 \
                and len(expression_attribute_values)>0):
                 table.update_item(
@@ -325,7 +325,7 @@ class DynamoDb:
             }
             operation = "INCREASE_ATTRIBUTE_VALUE"
             update_expression, expression_attribute_names, \
-            expression_attribute_values = self.generate_update_expression(attributes_to_update, operation)
+            expression_attribute_values = self.create_update_expression(attributes_to_update, operation)
             if(len(update_expression)>0 and len(expression_attribute_names)>0 \
                and len(expression_attribute_values)>0):
                 table.update_item(

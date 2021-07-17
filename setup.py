@@ -7,18 +7,18 @@ install_requires = [
     'botocore>=1.20.78'
 ]
 
-def get_LucidDynamodb_version():
+def get_lucid_dynamodb_version():
     url = "https://pypi.org/pypi/LucidDynamodb/json"
     response = requests.request("GET", url, headers={}, data={})
     result = response.json()
-    LucidDynamodb_version = str(result.get("info").get("version"))
-    current_version = semantic_version.Version(LucidDynamodb_version)
+    lucid_dynamodb_version = str(result.get("info").get("version"))
+    current_version = semantic_version.Version(lucid_dynamodb_version)
     next_version = current_version.next_patch()
     return next_version
 
 setup(
         name="LucidDynamodb",
-        version=str(get_LucidDynamodb_version()),
+        version=str(get_lucid_dynamodb_version()),
         author="Dinesh Sonachalam",
         author_email="dineshsonachalam@gmail.com",
         description="A simple Python wrapper to AWS Dynamodb",
