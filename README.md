@@ -132,11 +132,11 @@ table_schema = {
 if __name__ == "__main__":
     db = DynamoDb()
     table_creation_status = db.create_table(
-                                    TableName=table_schema.get("TableName"),
-                                    KeySchema=table_schema.get("KeySchema"),
-                                    AttributeDefinitions=table_schema.get("AttributeDefinitions"),
-                                    GlobalSecondaryIndexes=table_schema.get("GlobalSecondaryIndexes"),
-                                    ProvisionedThroughput=table_schema.get("ProvisionedThroughput")
+                                    table_name=table_schema.get("TableName"),
+                                    key_schema=table_schema.get("KeySchema"),
+                                    attribute_definitions=table_schema.get("AttributeDefinitions"),
+                                    global_secondary_indexes=table_schema.get("GlobalSecondaryIndexes"),
+                                    provisioned_throughput=table_schema.get("ProvisionedThroughput")
     )
     try:
         logging.info("{} table created successfully".format(table_schema.get("TableName")))
@@ -183,8 +183,8 @@ logging.basicConfig(level=logging.INFO)
 if __name__ == "__main__":
     db = DynamoDb()
     item_creation_status = db.create_item(
-        TableName="dev_jobs", 
-        Item={
+        table_name="dev_jobs", 
+        item={
             "company_name": "Google",
             "role_id": "111",
             "role": "Software Engineer 1",
@@ -225,8 +225,8 @@ logging.basicConfig(level=logging.INFO)
 if __name__ == "__main__":
     db = DynamoDb()
     item = db.read_item(
-        TableName="dev_jobs", 
-        Key={
+        table_name="dev_jobs", 
+        key={
             "company_name": "Google",
             "role_id": "111"
         })
@@ -276,13 +276,13 @@ if __name__ == "__main__":
     db = DynamoDb()
     
     increase_attribute_status = db.increase_attribute_value(
-        TableName='dev_jobs',
-        Key={
+        table_name='dev_jobs',
+        key={
             "company_name": "Google",
             "role_id": "111"
         },
-        AttributeName="yearly_hike_percent",
-        IncrementValue=5
+        attribute_name="yearly_hike_percent",
+        increment_value=5
     )
     
     try:
@@ -291,8 +291,8 @@ if __name__ == "__main__":
         logging.warning("Attribute value increment failed - {}".format(e))
     
     item = db.read_item(
-        TableName='dev_jobs', 
-        Key={
+        table_name='dev_jobs', 
+        key={
             "company_name": "Google",
             "role_id": "111"
         })
@@ -341,12 +341,12 @@ logging.basicConfig(level=logging.INFO)
 if __name__ == "__main__":
     db = DynamoDb() 
     item_update_status = db.update_item(
-        TableName="dev_jobs", 
-        Key={
+        table_name="dev_jobs", 
+        key={
             "company_name": "Google",
             "role_id": "111"
         },
-        AttributesToUpdate={
+        attributes_to_update={
             'role': 'Staff Software Engineer 2'
         }
     )
@@ -356,8 +356,8 @@ if __name__ == "__main__":
         logging.warning("Update failed - {}".format(e))
 
     item = db.read_item(
-        TableName="dev_jobs", 
-        Key={
+        table_name="dev_jobs", 
+        key={
             "company_name": "Google",
             "role_id": "111"
         })
@@ -406,12 +406,12 @@ logging.basicConfig(level=logging.INFO)
 if __name__ == "__main__":
     db = DynamoDb()
     item_update_status = db.update_item(
-        TableName="dev_jobs", 
-        Key={
+        table_name="dev_jobs", 
+        key={
             "company_name": "Google",
             "role_id": "111"
         },
-        AttributesToUpdate={
+        attributes_to_update={
             'overall_review.yearly_bonus_percent': 12
         }
     )
@@ -421,8 +421,8 @@ if __name__ == "__main__":
         logging.warning("Update failed - {}".format(e))
 
     item = db.read_item(
-        TableName="dev_jobs", 
-        Key={
+        table_name="dev_jobs", 
+        key={
             "company_name": "Google",
             "role_id": "111"
         })
@@ -473,15 +473,15 @@ if __name__ == "__main__":
     db = DynamoDb()
     
     item_update_status = db.update_item(
-        TableName="dev_jobs", 
-        Key={
+        table_name="dev_jobs", 
+        key={
             "company_name": "Google",
             "role_id": "111"
         },
-        AttributesToUpdate={
+        attributes_to_update={
             'locations': "Detroit, Michigan"
         },
-        Operation="ADD_ATTRIBUTE_TO_LIST"
+        operation="ADD_ATTRIBUTE_TO_LIST"
     )
     try:
         logging.info("Update is successful")
@@ -489,8 +489,8 @@ if __name__ == "__main__":
         logging.warning("Update failed - {}".format(e))
 
     item = db.read_item(
-        TableName="dev_jobs", 
-        Key={
+        table_name="dev_jobs", 
+        key={
             "company_name": "Google",
             "role_id": "111"
         })
@@ -542,15 +542,15 @@ if __name__ == "__main__":
     db = DynamoDb()
     
     item_update_status = db.update_item(
-        TableName="dev_jobs", 
-        Key={
+        table_name="dev_jobs", 
+        key={
             "company_name": "Google",
             "role_id": "111"
         },
-        AttributesToUpdate={
+        attributes_to_update={
             'benefits': "Free Food"
         },
-        Operation="ADD_ATTRIBUTE_TO_STRING_SET"
+        operation="ADD_ATTRIBUTE_TO_STRING_SET"
     )
     try:
         logging.info("Update is successful")
@@ -558,8 +558,8 @@ if __name__ == "__main__":
         logging.warning("Update failed - {}".format(e))
 
     item = db.read_item(
-        TableName="dev_jobs", 
-        Key={
+        table_name="dev_jobs", 
+        key={
             "company_name": "Google",
             "role_id": "111"
         })
@@ -612,15 +612,15 @@ if __name__ == "__main__":
     db = DynamoDb()
     
     item_update_status = db.update_item(
-        TableName="dev_jobs", 
-        Key={
+        table_name="dev_jobs", 
+        key={
             "company_name": "Google",
             "role_id": "111"
         },
-        AttributesToUpdate={
+        attributes_to_update={
             'benefits': "Free Food"
         },
-        Operation="DELETE_ATTRIBUTE_FROM_STRING_SET"
+        operation="DELETE_ATTRIBUTE_FROM_STRING_SET"
     )
     try:
         logging.info("Update is successful")
@@ -628,8 +628,8 @@ if __name__ == "__main__":
         logging.warning("Update failed - {}".format(e))
 
     item = db.read_item(
-        TableName="dev_jobs", 
-        Key={
+        table_name="dev_jobs", 
+        key={
             "company_name": "Google",
             "role_id": "111"
         })
@@ -681,12 +681,12 @@ if __name__ == "__main__":
     db = DynamoDb()
     
     attribute_delete_status = db.delete_attribute(
-        TableName="dev_jobs", 
-        Key={
+        table_name="dev_jobs", 
+        key={
               "company_name": "Google",
               "role_id": "111"
         }, 
-        AttributeName="yearly_hike_percent")
+        attribute_name="yearly_hike_percent")
 
     try:
         logging.info("The attribute is deleted successfully")
@@ -694,8 +694,8 @@ if __name__ == "__main__":
         logging.warning("The attribute delete operation failed - {}".format(e))
 
     item = db.read_item(
-        TableName="dev_jobs", 
-        Key={
+        table_name="dev_jobs", 
+        key={
             "company_name": "Google",
             "role_id": "111"
         })
@@ -747,8 +747,8 @@ if __name__ == "__main__":
     db = DynamoDb()
     
     item_creation_status = db.create_item(
-        TableName="dev_jobs", 
-        Item={
+        table_name="dev_jobs", 
+        item={
             "company_name": "Google",
             "role_id": "112",
             "role": "Software Architect",
@@ -768,8 +768,8 @@ if __name__ == "__main__":
         logging.warning("Item creation failed - {}".format(e))
     
     items = db.read_items_by_filter(
-                    TableName='dev_jobs', 
-                    KeyConditionExpression=Key("company_name").eq("Google") 
+                    table_name='dev_jobs', 
+                    key_condition_expression=Key("company_name").eq("Google") 
     )
 
     try:
@@ -837,7 +837,7 @@ logging.basicConfig(level=logging.INFO)
 if __name__ == "__main__":
     db = DynamoDb()
     
-    delete_table_status = db.delete_table(TableName='dev_jobs')
+    delete_table_status = db.delete_table(table_name='dev_jobs')
     try:
         logging.info("Table deleted successfully")
     except Exception as e:
