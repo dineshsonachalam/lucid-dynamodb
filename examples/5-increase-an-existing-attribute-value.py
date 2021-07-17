@@ -37,20 +37,24 @@ dineshsonachalam@macbook examples % python 5-increase-an-existing-attribute-valu
 INFO:botocore.credentials:Found credentials in environment variables.
 INFO:root:Attribute value increment completed
 INFO:root:Item: {
-	'locations': ['Mountain View, California', 'Austin, Texas', 'Chicago, IL'],
-	'role_id': '111',
-	'overall_review': {
-		'compensation_and_benefits': '3.9/5',
-		'overall_rating': '4/5'
-	},
-	'company_name': 'Google',
-	'role': 'Software Engineer 1',
-	'yearly_hike_percent': Decimal('13'),
-	'salary': '$1,50,531',
-	'benefits': {
-		'Internet, Medical, Edu reimbursements',
-		'Health insurance',
-		'Travel reimbursements'
-	}
+    "locations": [
+        "Mountain View, California",
+        "Austin, Texas",
+        "Chicago, IL"
+    ],
+    "role_id": "111",
+    "overall_review": {
+        "compensation_and_benefits": "3.9/5",
+        "overall_rating": "4/5"
+    },
+    "company_name": "Google",
+    "role": "Software Engineer 1",
+    "yearly_hike_percent": "13",
+    "salary": "$1,50,531",
+    "benefits": [
+        "Internet, Medical, Edu reimbursements",
+        "Health insurance",
+        "Travel reimbursements"
+    ]
 }
 """

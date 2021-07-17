@@ -19,20 +19,24 @@ if __name__ == "__main__":
 dineshsonachalam@macbook examples % python 4-read-an-item.py
 INFO:botocore.credentials:Found credentials in environment variables.
 INFO:root:Item: {
-	'locations': ['Mountain View, California', 'Austin, Texas', 'Chicago, IL'],
-	'role_id': '111',
-	'overall_review': {
-		'compensation_and_benefits': '3.9/5',
-		'overall_rating': '4/5'
-	},
-	'company_name': 'Google',
-	'role': 'Software Engineer 1',
-	'yearly_hike_percent': Decimal('8'),
-	'salary': '$1,50,531',
-	'benefits': {
-		'Health insurance',
-		'Travel reimbursements',
-		'Internet, Medical, Edu reimbursements'
-	}
+    "locations": [
+        "Mountain View, California",
+        "Austin, Texas",
+        "Chicago, IL"
+    ],
+    "role_id": "111",
+    "overall_review": {
+        "compensation_and_benefits": "3.9/5",
+        "overall_rating": "4/5"
+    },
+    "company_name": "Google",
+    "role": "Software Engineer 1",
+    "yearly_hike_percent": "8",
+    "salary": "$1,50,531",
+    "benefits": [
+        "Health insurance",
+        "Internet, Medical, Edu reimbursements",
+        "Travel reimbursements"
+    ]
 }
 """

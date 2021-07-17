@@ -10,5 +10,5 @@ if __name__ == "__main__":
 """
 dineshsonachalam@macbook examples % python 2-get-all-table-names.py
 INFO:botocore.credentials:Found credentials in environment variables.
-INFO:root:Table names: ['dev_jobs', 'dev_test']
+INFO:root:Table names: ['CertMagic', 'dev_jobs', 'dev_test', 'kp-config-v1', 'test-1']
 """

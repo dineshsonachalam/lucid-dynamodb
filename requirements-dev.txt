@@ -3,7 +3,4 @@ botocore>=1.20.78
 semantic-version==2.8.5
 twine==3.4.1
 pytest==6.2.4
-pytest-cov==2.12.1
-pytest-pep8==1.0.6
-pytest-html==3.1.1
 requests==2.25.1
