@@ -27,7 +27,13 @@ jobs:
             pytest --cov-report=xml --cov=./LucidDynamodb
             pwd
             ls
-
+        - name: Test
+          run: |
+            pwd
+            ls
+            cat /github/workspace/coverage.xml
+            ls /github/workspace
+            
         - name: SonarCloud Scan
           uses: sonarsource/sonarcloud-github-action@master
           env:
