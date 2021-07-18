@@ -31,7 +31,6 @@ if __name__ == "__main__":
         logging.info("Item: {}".format(item))
     except Exception as e:
         logging.warning("Item doesn't exist - {}".format(e))
-
 """
 dineshsonachalam@macbook examples % python 8-add-an-attribute-to-the-list.py
 INFO:botocore.credentials:Found credentials in environment variables.

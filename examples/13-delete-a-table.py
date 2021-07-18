@@ -13,7 +13,6 @@ if __name__ == "__main__":
 
     table_names = db.read_all_table_names()
     logging.info("Table names: {}".format(table_names))
-    
 """
 dineshsonachalam@macbook examples % python 13-delete-a-table.py
 INFO:botocore.credentials:Found credentials in environment variables.

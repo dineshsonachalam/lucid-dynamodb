@@ -14,8 +14,7 @@ if __name__ == "__main__":
     try:
         logging.info("Item: {}".format(item))
     except Exception as e:
-        logging.warning("Item doesn't exist - {}".format(e))        
-        
+        logging.warning("Item doesn't exist - {}".format(e))
 """
 dineshsonachalam@macbook examples % python 4-read-an-item.py
 INFO:botocore.credentials:Found credentials in environment variables.

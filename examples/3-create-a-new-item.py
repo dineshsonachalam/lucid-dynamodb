@@ -26,8 +26,7 @@ if __name__ == "__main__":
     try:
         logging.info("Item created successfully")
     except Exception as e:
-        logging.warning("Item creation failed - {}".format(e))
-        
+        logging.warning("Item creation failed - {}".format(e))    
 """
 dineshsonachalam@macbook examples % python 3-create-a-new-item.py
 INFO:botocore.credentials:Found credentials in environment variables.

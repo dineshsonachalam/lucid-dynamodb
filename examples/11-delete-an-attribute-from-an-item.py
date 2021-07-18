@@ -24,7 +24,6 @@ if __name__ == "__main__":
         logging.info("Item: {}".format(item))
     except Exception as e:
         logging.warning("Item doesn't exist - {}".format(e))
-
 """
 dineshsonachalam@macbook examples % python 11-delete-an-attribute-from-an-item.py
 INFO:botocore.credentials:Found credentials in environment variables.
