@@ -226,7 +226,7 @@ class DynamoDb:
         Args:
             attributes_to_update (dict): Attributes to update
             operation (str): Operation category
-        
+
         Returns:
             update_expression (str): Describes all updates you want to perform on specified item
                 Example: SET #domain_name = :value1, #owned_by = :value2

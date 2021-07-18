@@ -199,7 +199,7 @@ def test_read_items_by_filter():
                     key_condition_expression=Key("company_name").eq("Google")
     )
     assert len(items)>0
-    
+
 def test_delete_table():
     delete_table_status = db.delete_table(table_name=table_schema.get("TableName"))
     assert delete_table_status == True
