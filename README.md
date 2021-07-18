@@ -6,8 +6,16 @@
 <p align="center">
     <em>A minimalistic wrapper to AWS DynamoDB</em>
 </p>
+<p align="center">
+    <a href="https://sonarcloud.io/dashboard?id=lucid-dynamodb">
+        <img src="https://sonarcloud.io/api/project_badges/quality_gate?project=lucid-dynamodb"/>
+    </a>
+</p>
 
 <p align="center">
+    <a href="https://www.codacy.com/gh/dineshsonachalam/lucid-dynamodb/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dineshsonachalam/lucid-dynamodb&amp;utm_campaign=Badge_Grade">
+        <img src="https://app.codacy.com/project/badge/Grade/3607dfd408bb4b7394cb0631b717a76e"/>
+    </a>
     <a href="https://github.com/dineshsonachalam/Lucid-Dynamodb/actions" target="_blank">
         <img src="https://github.com/dineshsonachalam/Lucid-Dynamodb/actions/workflows/pypi-deploy.yml/badge.svg" alt="Deployment">
     </a>
