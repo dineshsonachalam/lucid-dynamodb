@@ -17,7 +17,6 @@ if __name__ == "__main__":
         logging.info("Attribute value increment completed")
     except Exception as e:
         logging.warning("Attribute value increment failed - {}".format(e))
-    
     item = db.read_item(
         table_name='dev_jobs',
         key={
