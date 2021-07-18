@@ -90,7 +90,7 @@ class DynamoDb:
             return True
         except Exception as e:
             raise TableDeletionFailed(f"Table deletion failed: {e}")
-                
+
     def read_all_table_names(self):
         """Get all table names
 
@@ -200,7 +200,7 @@ class DynamoDb:
             else:
                 response = table.query(
                     KeyConditionExpression=key_condition_expression
-                )     
+                )
             return json.dumps((response.get('Items')), indent=4, cls=DecimalEncoder)
         except Exception as e:
             raise ReadItemsByFilterFailed(f"Unable to read items by filter: {e}")
@@ -217,7 +217,7 @@ class DynamoDb:
         expression_attribute_names = {}
         for attribute_name in attribute_names:
             expression_attribute_names[f"#{attribute_name}"] = attribute_name
-        return expression_attribute_names 
+        return expression_attribute_names
       
     def create_update_expression(self, attributes_to_update, operation):
         """Create update expression
@@ -226,7 +226,7 @@ class DynamoDb:
             attributes_to_update (dict): Attributes to update
             operation (str): Operation category
         
-        Returns: 
+        Returns:
             update_expression (str): Describes all updates you want to perform on specified item
                 Example: SET #domain_name = :value1, #owned_by = :value2
             expression_attribute_names (dict): Attribute name
@@ -247,7 +247,7 @@ class DynamoDb:
                     update_expression = "SET "
                 update_expression += f"#{attribute_name} = :value{counter}, "
             elif operation == "INCREASE_ATTRIBUTE_VALUE":
-                if "SET" not in update_expression: 
+                if "SET" not in update_expression:
                     update_expression = "SET "
                 update_expression += f"#{attribute_name} = #{attribute_name} + :value{counter}, "
             elif operation == "ADD_ATTRIBUTE_TO_LIST":

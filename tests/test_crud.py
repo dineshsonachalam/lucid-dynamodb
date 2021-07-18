@@ -151,7 +151,7 @@ def test_add_attributes_to_string_set():
         operation="ADD_ATTRIBUTE_TO_STRING_SET"
     )
     assert item_update_status == True
-    
+
 def test_delete_attribute_from_string_set():
     item_update_status = db.update_item(
         table_name=table_schema.get("TableName"),
@@ -178,7 +178,7 @@ def test_delete_attribute_from_item():
     
 def test_read_items_by_filter():
     item_creation_status = db.create_item(
-        table_name=table_schema.get("TableName"), 
+        table_name=table_schema.get("TableName"),
         item={
             "company_name": "Google",
             "role_id": str(uuid.uuid4()),

@@ -22,7 +22,7 @@ class DeleteItemFailed(DynamoTableException):
 
 class ReadItemFailed(DynamoTableException):
     """Read item failed"""
-    
+
 class ReadItemsByFilterFailed(DynamoTableException):
     """Read items by filter failed"""
 
