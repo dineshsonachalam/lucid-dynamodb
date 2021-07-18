@@ -2,10 +2,8 @@ name: integration-tests
 
 on:
   push:
-    branches:
-      - master
-    tags:
-      - latest
+    branches:    
+      - '**'  # matches every branch
 
 jobs:
 
@@ -26,7 +24,7 @@ jobs:
             source env/bin/activate
             pip3 install -r requirements-dev.txt
             python setup.py install
-            pytest --cov-report=xml --cov=./LucidDynamodb
+            pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml
 
         - name: SonarCloud Scan
           uses: sonarsource/sonarcloud-github-action@master
@@ -75,6 +73,7 @@ jobs:
   deploy-to-pypi:
       needs: dependency-graph
       runs-on: ubuntu-latest
+      if: github.ref == 'refs/heads/master'
       steps:
         - uses: actions/checkout@v2
         - name: Install package dependencies
@@ -85,5 +84,3 @@ jobs:
             rm -rf build dist *.egg-info
             python3 setup.py sdist bdist_wheel
             twine upload --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_PASSWORD }} --skip-existing dist/*
-
-  

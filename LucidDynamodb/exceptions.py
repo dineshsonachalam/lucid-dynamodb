@@ -13,22 +13,22 @@ class TableDeletionFailed(DynamoTableException):
 
 class ReadAllTableNamesFailed(DynamoTableException):
     """Fetching all table names failed"""
-    
+
 class CreateItemFailed(DynamoTableException):
     """Item creation failed"""
-    
+
 class DeleteItemFailed(DynamoTableException):
     """Item deletion failed"""
-    
+
 class ReadItemFailed(DynamoTableException):
     """Read item failed"""
-    
+
 class ReadItemsByFilterFailed(DynamoTableException):
     """Read items by filter failed"""
 
 class UpdateItemFailed(DynamoTableException):
     """Update item failed"""
-    
+
 class IncreaseAttributeValueFailed(DynamoTableException):
     """Increasing an attribute value failed"""
 

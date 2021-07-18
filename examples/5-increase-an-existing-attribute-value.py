@@ -1,11 +1,9 @@
 from LucidDynamodb import DynamoDb
-import os
 import logging
 logging.basicConfig(level=logging.INFO)
 
 if __name__ == "__main__":
     db = DynamoDb()
-    
     increase_attribute_status = db.increase_attribute_value(
         table_name='dev_jobs',
         key={
@@ -15,14 +13,12 @@ if __name__ == "__main__":
         attribute_name="yearly_hike_percent",
         increment_value=5
     )
-    
     try:
         logging.info("Attribute value increment completed")
     except Exception as e:
         logging.warning("Attribute value increment failed - {}".format(e))
-    
     item = db.read_item(
-        table_name='dev_jobs', 
+        table_name='dev_jobs',
         key={
             "company_name": "Google",
             "role_id": "111"
@@ -30,8 +26,7 @@ if __name__ == "__main__":
     try:
         logging.info("Item: {}".format(item))
     except Exception as e:
-        logging.warning("Item doesn't exist - {}".format(e)) 
-
+        logging.warning("Item doesn't exist - {}".format(e))
 """
 dineshsonachalam@macbook examples % python 5-increase-an-existing-attribute-value.py
 INFO:botocore.credentials:Found credentials in environment variables.
@@ -52,8 +47,8 @@ INFO:root:Item: {
     "yearly_hike_percent": "13",
     "salary": "$1,50,531",
     "benefits": [
-        "Internet, Medical, Edu reimbursements",
         "Health insurance",
+        "Internet, Medical, Edu reimbursements",
         "Travel reimbursements"
     ]
 }

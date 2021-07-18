@@ -4,9 +4,8 @@ logging.basicConfig(level=logging.INFO)
 
 if __name__ == "__main__":
     db = DynamoDb()
-    
     item_update_status = db.update_item(
-        table_name="dev_jobs", 
+        table_name="dev_jobs",
         key={
             "company_name": "Google",
             "role_id": "111"
@@ -22,7 +21,7 @@ if __name__ == "__main__":
         logging.warning("Update failed - {}".format(e))
 
     item = db.read_item(
-        table_name="dev_jobs", 
+        table_name="dev_jobs",
         key={
             "company_name": "Google",
             "role_id": "111"
@@ -31,7 +30,6 @@ if __name__ == "__main__":
         logging.info("Item: {}".format(item))
     except Exception as e:
         logging.warning("Item doesn't exist - {}".format(e))
-
 """
 dineshsonachalam@macbook examples % python 8-add-an-attribute-to-the-list.py
 INFO:botocore.credentials:Found credentials in environment variables.
@@ -55,8 +53,8 @@ INFO:root:Item: {
     "salary": "$1,50,531",
     "benefits": [
         "Internet, Medical, Edu reimbursements",
-        "Health insurance",
-        "Travel reimbursements"
+        "Travel reimbursements",
+        "Health insurance"
     ]
 }
 """

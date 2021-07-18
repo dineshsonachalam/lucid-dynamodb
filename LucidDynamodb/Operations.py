@@ -38,8 +38,8 @@ class DynamoDb:
             )
         else:
             self.db = boto3.resource("dynamodb")
-        
-    def create_table(self, table_name, key_schema, attribute_definitions, provisioned_throughput, global_secondary_indexes=[]):
+
+    def create_table(self, table_name, key_schema, attribute_definitions, provisioned_throughput, global_secondary_indexes=None):
         """Create a new table
 
         Args:
@@ -47,8 +47,8 @@ class DynamoDb:
             key_schema (list): A key schema specifies the attributes that make up the Partition key,  Sort Key(Optional)) of a table.
             attribute_definitions (list): An array of attributes that describe the key schema for the table.
             global_secondary_indexes (list, optional): An index with a partition key and a sort key that can be different from those on the base table.
-            provisioned_throughput (dict): Provisioned throughput settings for this specified table. 
-            
+            provisioned_throughput (dict): Provisioned throughput settings for this specified table.
+
         Returns:
             bool: Table creation is successful or failed
         """
@@ -90,7 +90,7 @@ class DynamoDb:
             return True
         except Exception as e:
             raise TableDeletionFailed(f"Table deletion failed: {e}")
-                
+
     def read_all_table_names(self):
         """Get all table names
 
@@ -108,7 +108,7 @@ class DynamoDb:
             else:
                 db_client = boto3.client(
                     "dynamodb"
-                )            
+                )
             table_names = db_client.list_tables()['TableNames']
             return table_names
         except Exception as e:
@@ -130,8 +130,8 @@ class DynamoDb:
             return True
         except Exception as e:
             raise CreateItemFailed(f"Item creation failed: {e}")
-        
-    def delete_item(self, table_name, key, condition_expression = "", expression_attribute_values={}):
+
+    def delete_item(self, table_name, key, condition_expression = "", expression_attribute_values=None):
         """Delete an Item
 
         Args:
@@ -158,7 +158,7 @@ class DynamoDb:
             return True
         except Exception as e:
             raise DeleteItemFailed(f"Item deletion failed: {e}")
-        
+
     def read_item(self, table_name, key):
         """Read an Item
 
@@ -178,13 +178,13 @@ class DynamoDb:
 
     def read_items_by_filter(self, table_name, key_condition_expression, global_secondary_index_name=None):
         """Read items by filter
-           The Query operation will return all of the items from the table or index with that partition key value. 
+           The Query operation will return all of the items from the table or index with that partition key value.
 
         Args:
             table_name (str): Table name
-            key_condition_expression (boto3.dynamodb.conditions.Equals): Use the KeyConditionExpression parameter to 
-                provide a specific value for the partition key. You can optionally narrow the scope of the Query 
-                operation by specifying a sort key value and a comparison operator in KeyConditionExpression. 
+            key_condition_expression (boto3.dynamodb.conditions.Equals): Use the KeyConditionExpression parameter to
+                provide a specific value for the partition key. You can optionally narrow the scope of the Query
+                operation by specifying a sort key value and a comparison operator in KeyConditionExpression.
             global_secondary_index_name (str, optional): Name of the GlobalSecondaryIndex. Defaults to None.
 
         Returns:
@@ -200,12 +200,13 @@ class DynamoDb:
             else:
                 response = table.query(
                     KeyConditionExpression=key_condition_expression
-                )     
+                )
             return json.dumps((response.get('Items')), indent=4, cls=DecimalEncoder)
         except Exception as e:
             raise ReadItemsByFilterFailed(f"Unable to read items by filter: {e}")
-        
-    def create_attribute_names(self, attribute_names):
+
+    @staticmethod
+    def create_attribute_names(attribute_names):
         """Create attribute names
 
         Args:
@@ -217,20 +218,20 @@ class DynamoDb:
         expression_attribute_names = {}
         for attribute_name in attribute_names:
             expression_attribute_names[f"#{attribute_name}"] = attribute_name
-        return expression_attribute_names 
-      
+        return expression_attribute_names
+
     def create_update_expression(self, attributes_to_update, operation):
         """Create update expression
 
         Args:
             attributes_to_update (dict): Attributes to update
             operation (str): Operation category
-        
-        Returns:       
+
+        Returns:
             update_expression (str): Describes all updates you want to perform on specified item
                 Example: SET #domain_name = :value1, #owned_by = :value2
             expression_attribute_names (dict): Attribute name
-                Example: {'#domain_name': 'domain_name', '#owned_by': 'owned_by'} 
+                Example: {'#domain_name': 'domain_name', '#owned_by': 'owned_by'}
             expression_attribute_values (dict): Attribute values
                 Example: {':value1': 'xbox.com', ':value2': 'Microsoft'}
         """
@@ -243,23 +244,23 @@ class DynamoDb:
             attribute_name = attribute_name.replace(".", ".#")
             
             if operation == "UPDATE_EXISTING_ATTRIBUTE_OR_ADD_NEW_ATTRIBUTE":
-                if "SET" not in update_expression: 
+                if "SET" not in update_expression:
                     update_expression = "SET "
                 update_expression += f"#{attribute_name} = :value{counter}, "
             elif operation == "INCREASE_ATTRIBUTE_VALUE":
-                if "SET" not in update_expression: 
+                if "SET" not in update_expression:
                     update_expression = "SET "
                 update_expression += f"#{attribute_name} = #{attribute_name} + :value{counter}, "
             elif operation == "ADD_ATTRIBUTE_TO_LIST":
-                if "SET" not in update_expression: 
+                if "SET" not in update_expression:
                     update_expression = "SET "
                 update_expression += f"#{attribute_name} = list_append(#{attribute_name},:value{counter}), "
             elif operation == "ADD_ATTRIBUTE_TO_STRING_SET":
-                if "ADD" not in update_expression: 
+                if "ADD" not in update_expression:
                     update_expression = "ADD "
                 update_expression += f"#{attribute_name} :value{counter}, "
             elif operation == "DELETE_ATTRIBUTE_FROM_STRING_SET":
-                if "DELETE" not in update_expression: 
+                if "DELETE" not in update_expression:
                     update_expression = "DELETE "
                 update_expression += f"#{attribute_name} :value{counter}, "
             if operation == "ADD_ATTRIBUTE_TO_LIST":
@@ -272,8 +273,8 @@ class DynamoDb:
         
         update_expression = update_expression.rstrip(", ")
         return update_expression, expression_attribute_names, expression_attribute_values
-    
-    def update_item(self, table_name, key, 
+
+    def update_item(self, table_name, key,
                     attributes_to_update, operation="UPDATE_EXISTING_ATTRIBUTE_OR_ADD_NEW_ATTRIBUTE"):
         """Update an item
 
@@ -340,7 +341,7 @@ class DynamoDb:
                 return False
         except Exception as e:
             raise IncreaseAttributeValueFailed(f"Unable to increase an existing attribute value: {e}")
-    
+
     def delete_attribute(self, table_name, key, attribute_name):
         """Delete an attribute from an item
 

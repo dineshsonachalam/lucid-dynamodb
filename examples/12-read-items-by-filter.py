@@ -5,9 +5,8 @@ logging.basicConfig(level=logging.INFO)
 
 if __name__ == "__main__":
     db = DynamoDb()
-    
     item_creation_status = db.create_item(
-        table_name="dev_jobs", 
+        table_name="dev_jobs",
         item={
             "company_name": "Google",
             "role_id": "112",
@@ -26,17 +25,15 @@ if __name__ == "__main__":
         logging.info("Item created successfully")
     except Exception as e:
         logging.warning("Item creation failed - {}".format(e))
-    
     items = db.read_items_by_filter(
-                    table_name='dev_jobs', 
-                    key_condition_expression=Key("company_name").eq("Google") 
+                    table_name='dev_jobs',
+                    key_condition_expression=Key("company_name").eq("Google")
     )
 
     try:
         logging.info("Items: {}".format(items))
     except Exception as e:
-        logging.warning("Items doesn't exist")
-            
+        logging.warning(f"Items doesn't exist - {e}")
 """
 dineshsonachalam@macbook examples % python 12-read-items-by-filter.py
 INFO:botocore.credentials:Found credentials in environment variables.
@@ -60,8 +57,8 @@ INFO:root:Items: [
         "salary": "$1,50,531",
         "benefits": [
             "Travel reimbursements",
-            "Internet, Medical, Edu reimbursements",
-            "Health insurance"
+            "Health insurance",
+            "Internet, Medical, Edu reimbursements"
         ]
     },
     {
