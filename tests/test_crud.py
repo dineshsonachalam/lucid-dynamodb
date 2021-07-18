@@ -36,11 +36,11 @@ table_schema = {
 		"WriteCapacityUnits": 1
 	}
 }
+db = DynamoDb(region_name="us-east-1",
+              aws_access_key_id=AWS_ACCESS_KEY_ID,
+              aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
 def test_create_new_table():
-    db = DynamoDb(region_name="us-east-1",
-                aws_access_key_id=AWS_ACCESS_KEY_ID,
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     table_creation_status = db.create_table(
                                     table_name=table_schema.get("TableName"),
                                     key_schema=table_schema.get("KeySchema"),
@@ -51,16 +51,10 @@ def test_create_new_table():
     assert table_creation_status == True
 
 def test_get_all_table_name():
-    db = DynamoDb(region_name="us-east-1",
-                aws_access_key_id=AWS_ACCESS_KEY_ID,
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     table_names = db.read_all_table_names()
     assert len(table_names)>0
 
 def test_create_new_item():
-    db = DynamoDb(region_name="us-east-1",
-                aws_access_key_id=AWS_ACCESS_KEY_ID,
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     item_creation_status = db.create_item(
         table_name=table_schema.get("TableName"),
         item={
@@ -83,9 +77,6 @@ def test_create_new_item():
     assert item_creation_status == True
 
 def test_read_item():
-    db = DynamoDb(region_name="us-east-1",
-                aws_access_key_id=AWS_ACCESS_KEY_ID,
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     item = db.read_item(
         table_name=table_schema.get("TableName"),
         key={
@@ -96,9 +87,6 @@ def test_read_item():
     assert item != None
 
 def test_increase_attribute_value():
-    db = DynamoDb(region_name="us-east-1",
-                aws_access_key_id=AWS_ACCESS_KEY_ID,
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     increase_attribute_status = db.increase_attribute_value(
         table_name=table_schema.get("TableName"),
         key={
@@ -111,9 +99,6 @@ def test_increase_attribute_value():
     assert increase_attribute_status==True
 
 def test_update_existing_attribute():
-    db = DynamoDb(region_name="us-east-1",
-                aws_access_key_id=AWS_ACCESS_KEY_ID,
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     item_update_status = db.update_item(
         table_name=table_schema.get("TableName"),
         key={
@@ -127,9 +112,6 @@ def test_update_existing_attribute():
     assert item_update_status == True
 
 def test_add_new_attribute():
-    db = DynamoDb(region_name="us-east-1", 
-                aws_access_key_id=AWS_ACCESS_KEY_ID,
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     item_update_status = db.update_item(
         table_name=table_schema.get("TableName"),
         key={
@@ -143,9 +125,6 @@ def test_add_new_attribute():
     assert item_update_status == True
 
 def test_add_attribute_to_list():
-    db = DynamoDb(region_name="us-east-1",
-                aws_access_key_id=AWS_ACCESS_KEY_ID,
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     item_update_status = db.update_item(
         table_name=table_schema.get("TableName"),
         key={
@@ -160,9 +139,6 @@ def test_add_attribute_to_list():
     assert item_update_status == True
 
 def test_add_attributes_to_string_set():
-    db = DynamoDb(region_name="us-east-1",
-                aws_access_key_id=AWS_ACCESS_KEY_ID,
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     item_update_status = db.update_item(
         table_name=table_schema.get("TableName"),
         key={
@@ -177,9 +153,6 @@ def test_add_attributes_to_string_set():
     assert item_update_status == True
     
 def test_delete_attribute_from_string_set():
-    db = DynamoDb(region_name="us-east-1",
-                aws_access_key_id=AWS_ACCESS_KEY_ID,
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     item_update_status = db.update_item(
         table_name=table_schema.get("TableName"),
         key={
@@ -194,9 +167,6 @@ def test_delete_attribute_from_string_set():
     assert item_update_status == True
     
 def test_delete_attribute_from_item():
-    db = DynamoDb(region_name="us-east-1", 
-                aws_access_key_id=AWS_ACCESS_KEY_ID,
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     attribute_delete_status = db.delete_attribute(
         table_name=table_schema.get("TableName"),
         key={
@@ -207,9 +177,6 @@ def test_delete_attribute_from_item():
     assert attribute_delete_status == True
     
 def test_read_items_by_filter():
-    db = DynamoDb(region_name="us-east-1",
-                aws_access_key_id=AWS_ACCESS_KEY_ID,
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     item_creation_status = db.create_item(
         table_name=table_schema.get("TableName"), 
         item={
@@ -234,8 +201,5 @@ def test_read_items_by_filter():
     assert len(items)>0
     
 def test_delete_table():
-    db = DynamoDb(region_name="us-east-1",
-                aws_access_key_id=AWS_ACCESS_KEY_ID,
-                aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     delete_table_status = db.delete_table(table_name=table_schema.get("TableName"))
     assert delete_table_status == True

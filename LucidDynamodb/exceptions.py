@@ -19,7 +19,7 @@ class CreateItemFailed(DynamoTableException):
 
 class DeleteItemFailed(DynamoTableException):
     """Item deletion failed"""
-    
+
 class ReadItemFailed(DynamoTableException):
     """Read item failed"""
     
