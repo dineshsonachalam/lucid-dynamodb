@@ -43,7 +43,7 @@ if __name__ == "__main__":
     try:
         logging.info("{} table created successfully".format(table_schema.get("TableName")))
     except Exception as e:
-        logging.error("{} table creation failed - {}".format(table_schema.get("TableName"), e)) 
+        logging.error("{} table creation failed - {}".format(table_schema.get("TableName"), e))
 """
 dineshsonachalam@macbook examples % python 1-create-a-new-table.py
 INFO:botocore.credentials:Found credentials in environment variables.

@@ -5,7 +5,6 @@ logging.basicConfig(level=logging.INFO)
 
 if __name__ == "__main__":
     db = DynamoDb()
-    
     increase_attribute_status = db.increase_attribute_value(
         table_name='dev_jobs',
         key={
