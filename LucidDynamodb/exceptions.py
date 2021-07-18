@@ -13,7 +13,7 @@ class TableDeletionFailed(DynamoTableException):
 
 class ReadAllTableNamesFailed(DynamoTableException):
     """Fetching all table names failed"""
-    
+
 class CreateItemFailed(DynamoTableException):
     """Item creation failed"""
     
