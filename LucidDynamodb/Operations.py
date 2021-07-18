@@ -158,7 +158,7 @@ class DynamoDb:
             return True
         except Exception as e:
             raise DeleteItemFailed(f"Item deletion failed: {e}")
-        
+
     def read_item(self, table_name, key):
         """Read an Item
 
@@ -205,7 +205,8 @@ class DynamoDb:
         except Exception as e:
             raise ReadItemsByFilterFailed(f"Unable to read items by filter: {e}")
 
-    def create_attribute_names(self, attribute_names):
+    @staticmethod
+    def create_attribute_names(attribute_names):
         """Create attribute names
 
         Args:
@@ -218,7 +219,7 @@ class DynamoDb:
         for attribute_name in attribute_names:
             expression_attribute_names[f"#{attribute_name}"] = attribute_name
         return expression_attribute_names
-      
+
     def create_update_expression(self, attributes_to_update, operation):
         """Create update expression
 
@@ -272,7 +273,7 @@ class DynamoDb:
         
         update_expression = update_expression.rstrip(", ")
         return update_expression, expression_attribute_names, expression_attribute_values
-    
+
     def update_item(self, table_name, key,
                     attributes_to_update, operation="UPDATE_EXISTING_ATTRIBUTE_OR_ADD_NEW_ATTRIBUTE"):
         """Update an item
@@ -340,7 +341,7 @@ class DynamoDb:
                 return False
         except Exception as e:
             raise IncreaseAttributeValueFailed(f"Unable to increase an existing attribute value: {e}")
-    
+
     def delete_attribute(self, table_name, key, attribute_name):
         """Delete an attribute from an item
 

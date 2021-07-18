@@ -2,10 +2,8 @@ name: integration-tests
 
 on:
   push:
-    branches:
-      - master
-    tags:
-      - latest
+    branches:    
+      - '**'  # matches every branch
 
 jobs:
 
@@ -75,6 +73,7 @@ jobs:
   deploy-to-pypi:
       needs: dependency-graph
       runs-on: ubuntu-latest
+      if: github.ref == 'refs/heads/master'
       steps:
         - uses: actions/checkout@v2
         - name: Install package dependencies

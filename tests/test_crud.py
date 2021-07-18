@@ -175,7 +175,7 @@ def test_delete_attribute_from_item():
         },
         attribute_name="yearly_hike_percent")
     assert attribute_delete_status == True
-    
+
 def test_read_items_by_filter():
     item_creation_status = db.create_item(
         table_name=table_schema.get("TableName"),
