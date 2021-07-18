@@ -9,7 +9,8 @@ if __name__ == "__main__":
         key={
             "company_name": "Google",
             "role_id": "111"
-        })
+        }
+    )
     try:
         logging.info("Item: {}".format(item))
     except Exception as e:

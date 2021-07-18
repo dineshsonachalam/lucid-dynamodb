@@ -4,13 +4,9 @@ logging.basicConfig(level=logging.INFO)
 
 if __name__ == "__main__":
     db = DynamoDb()
-    
     attribute_delete_status = db.delete_attribute(
         table_name="dev_jobs", 
-        key={
-              "company_name": "Google",
-              "role_id": "111"
-        }, 
+        key={"company_name": "Google", "role_id": "111"}, 
         attribute_name="yearly_hike_percent")
 
     try:

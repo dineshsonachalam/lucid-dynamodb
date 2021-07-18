@@ -1,6 +1,6 @@
 from LucidDynamodb import DynamoDb
 db = DynamoDb()
-# $> pip install awscli  #can add user flag 
+# $> pip install awscli  #can add user flag
 # $> aws configure
 # AWS Access Key ID [****************ABCD]:[enter your key here]
 # AWS Secret Access Key [****************xyz]:[enter your secret key here]
