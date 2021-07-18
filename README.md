@@ -14,6 +14,7 @@
     <a href="https://github.com/dineshsonachalam/Lucid-Dynamodb/actions" target="_blank">
         <img src="https://github.com/dineshsonachalam/Lucid-Dynamodb/workflows/markdown-autodocs/badge.svg" alt="Deployment">
     </a>
+<a href="https://app.fossa.com/projects/git%2Bgithub.com%2Fdineshsonachalam%2Flucid-dynamodb?ref=badge_shield" alt="FOSSA Status"><img src="https://app.fossa.com/api/projects/git%2Bgithub.com%2Fdineshsonachalam%2Flucid-dynamodb.svg?type=shield"/></a>
     <a href="https://pypi.org/project/LucidDynamodb" target="_blank">
         <img src="https://img.shields.io/pypi/v/LucidDynamodb?color=%2334D058&label=pypi%20package" alt="Package version">
     </a>
@@ -21,6 +22,9 @@
         <img src="https://badgen.net/github/license/dineshsonachalam/Lucid-Dynamodb" alt="MIT License" height="20">
     </a>
 </p>
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fdineshsonachalam%2Flucid-dynamodb.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fdineshsonachalam%2Flucid-dynamodb?ref=badge_large)
 
 ## Table of contents
 - [Installation](#installation)
