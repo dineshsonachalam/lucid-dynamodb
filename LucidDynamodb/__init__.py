@@ -1,5 +1,4 @@
-"""
-LucidDynamodb Library
+"""LucidDynamodb Library
 
 A minimalistic wrapper to AWS DynamoDB
 """
