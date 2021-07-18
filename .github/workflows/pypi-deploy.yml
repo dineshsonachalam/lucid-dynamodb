@@ -84,5 +84,3 @@ jobs:
             rm -rf build dist *.egg-info
             python3 setup.py sdist bdist_wheel
             twine upload --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_PASSWORD }} --skip-existing dist/*
-
-  
