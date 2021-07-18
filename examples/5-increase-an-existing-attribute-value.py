@@ -1,5 +1,4 @@
 from LucidDynamodb import DynamoDb
-import os
 import logging
 logging.basicConfig(level=logging.INFO)
 

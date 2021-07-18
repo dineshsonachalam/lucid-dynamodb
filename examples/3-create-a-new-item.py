@@ -13,7 +13,7 @@ if __name__ == "__main__":
             "salary": "$1,50,531",
             "locations": ["Mountain View, California", "Austin, Texas", "Chicago, IL"],
             "yearly_hike_percent": 8,
-            "benefits": set(["Internet, Medical, Edu reimbursements", 
+            "benefits": set(["Internet, Medical, Edu reimbursements",
                              "Health insurance",
                              "Travel reimbursements"
                              ]),
@@ -26,7 +26,7 @@ if __name__ == "__main__":
     try:
         logging.info("Item created successfully")
     except Exception as e:
-        logging.warning("Item creation failed - {}".format(e))    
+        logging.warning("Item creation failed - {}".format(e))
 """
 dineshsonachalam@macbook examples % python 3-create-a-new-item.py
 INFO:botocore.credentials:Found credentials in environment variables.
