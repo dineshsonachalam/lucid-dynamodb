@@ -58,7 +58,7 @@ def test_get_all_table_name():
     assert len(table_names)>0
 
 def test_create_new_item():
-    db = DynamoDb(region_name="us-east-1", 
+    db = DynamoDb(region_name="us-east-1",
                 aws_access_key_id=AWS_ACCESS_KEY_ID,
                 aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     item_creation_status = db.create_item(
@@ -131,7 +131,7 @@ def test_add_new_attribute():
                 aws_access_key_id=AWS_ACCESS_KEY_ID,
                 aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     item_update_status = db.update_item(
-        table_name=table_schema.get("TableName"), 
+        table_name=table_schema.get("TableName"),
         key={
             "company_name": "Google",
             "role_id": ITEM1_PARTITION_KEY
@@ -158,7 +158,7 @@ def test_add_attribute_to_list():
         operation="ADD_ATTRIBUTE_TO_LIST"
     )
     assert item_update_status == True
-    
+
 def test_add_attributes_to_string_set():
     db = DynamoDb(region_name="us-east-1",
                 aws_access_key_id=AWS_ACCESS_KEY_ID,
@@ -195,7 +195,7 @@ def test_delete_attribute_from_string_set():
     
 def test_delete_attribute_from_item():
     db = DynamoDb(region_name="us-east-1", 
-                aws_access_key_id=AWS_ACCESS_KEY_ID, 
+                aws_access_key_id=AWS_ACCESS_KEY_ID,
                 aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     attribute_delete_status = db.delete_attribute(
         table_name=table_schema.get("TableName"),
