@@ -13,14 +13,13 @@ if __name__ == "__main__":
         attribute_name="yearly_hike_percent",
         increment_value=5
     )
-    
     try:
         logging.info("Attribute value increment completed")
     except Exception as e:
         logging.warning("Attribute value increment failed - {}".format(e))
     
     item = db.read_item(
-        table_name='dev_jobs', 
+        table_name='dev_jobs',
         key={
             "company_name": "Google",
             "role_id": "111"

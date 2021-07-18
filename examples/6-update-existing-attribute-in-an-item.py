@@ -3,7 +3,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 if __name__ == "__main__":
-    db = DynamoDb() 
+    db = DynamoDb()
     item_update_status = db.update_item(
         table_name="dev_jobs",
         key={
