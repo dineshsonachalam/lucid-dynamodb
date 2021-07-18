@@ -39,7 +39,7 @@ class DynamoDb:
         else:
             self.db = boto3.resource("dynamodb")
 
-    def create_table(self, table_name, key_schema, attribute_definitions, provisioned_throughput, global_secondary_indexes=[]):
+    def create_table(self, table_name, key_schema, attribute_definitions, provisioned_throughput, global_secondary_indexes=None):
         """Create a new table
 
         Args:
@@ -131,7 +131,7 @@ class DynamoDb:
         except Exception as e:
             raise CreateItemFailed(f"Item creation failed: {e}")
         
-    def delete_item(self, table_name, key, condition_expression = "", expression_attribute_values={}):
+    def delete_item(self, table_name, key, condition_expression = "", expression_attribute_values=None):
         """Delete an Item
 
         Args:

@@ -51,8 +51,8 @@ def test_create_new_table():
     assert table_creation_status == True
 
 def test_get_all_table_name():
-    db = DynamoDb(region_name="us-east-1", 
-                aws_access_key_id=AWS_ACCESS_KEY_ID, 
+    db = DynamoDb(region_name="us-east-1",
+                aws_access_key_id=AWS_ACCESS_KEY_ID,
                 aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     table_names = db.read_all_table_names()
     assert len(table_names)>0
@@ -70,7 +70,7 @@ def test_create_new_item():
             "salary": "$1,50,531",
             "locations": ["Mountain View, California", "Austin, Texas", "Chicago, IL"],
             "yearly_hike_percent": 8,
-            "benefits": set(["Internet, Medical, Edu reimbursements", 
+            "benefits": set(["Internet, Medical, Edu reimbursements",
                              "Health insurance",
                              "Travel reimbursements"
                              ]),
@@ -115,7 +115,7 @@ def test_update_existing_attribute():
                 aws_access_key_id=AWS_ACCESS_KEY_ID,
                 aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
     item_update_status = db.update_item(
-        table_name=table_schema.get("TableName"), 
+        table_name=table_schema.get("TableName"),
         key={
             "company_name": "Google",
             "role_id": ITEM1_PARTITION_KEY
@@ -141,7 +141,7 @@ def test_add_new_attribute():
         }
     )
     assert item_update_status == True
-    
+
 def test_add_attribute_to_list():
     db = DynamoDb(region_name="us-east-1",
                 aws_access_key_id=AWS_ACCESS_KEY_ID,

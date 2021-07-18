@@ -16,7 +16,7 @@ class ReadAllTableNamesFailed(DynamoTableException):
 
 class CreateItemFailed(DynamoTableException):
     """Item creation failed"""
-    
+
 class DeleteItemFailed(DynamoTableException):
     """Item deletion failed"""
     
