@@ -38,7 +38,7 @@ class DynamoDb:
             )
         else:
             self.db = boto3.resource("dynamodb")
-        
+
     def create_table(self, table_name, key_schema, attribute_definitions, provisioned_throughput, global_secondary_indexes=[]):
         """Create a new table
 

@@ -18,5 +18,5 @@ if __name__ == "__main__":
 dineshsonachalam@macbook examples % python 13-delete-a-table.py
 INFO:botocore.credentials:Found credentials in environment variables.
 INFO:root:Table deleted successfully
-INFO:root:Table names: ['CertMagic', 'dev_test', 'kp-config-v1', 'test-1']
+INFO:root:Table names: ['dev_test']
 """

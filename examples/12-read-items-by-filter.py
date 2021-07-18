@@ -60,8 +60,8 @@ INFO:root:Items: [
         "salary": "$1,50,531",
         "benefits": [
             "Travel reimbursements",
-            "Internet, Medical, Edu reimbursements",
-            "Health insurance"
+            "Health insurance",
+            "Internet, Medical, Edu reimbursements"
         ]
     },
     {

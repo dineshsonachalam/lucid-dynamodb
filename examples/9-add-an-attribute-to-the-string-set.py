@@ -54,10 +54,10 @@ INFO:root:Item: {
     "yearly_hike_percent": "13",
     "salary": "$1,50,531",
     "benefits": [
-        "Health insurance",
         "Free Food",
-        "Travel reimbursements",
-        "Internet, Medical, Edu reimbursements"
+        "Internet, Medical, Edu reimbursements",
+        "Health insurance",
+        "Travel reimbursements"
     ]
 }
 """
