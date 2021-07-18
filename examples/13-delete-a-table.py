@@ -8,7 +8,7 @@ if __name__ == "__main__":
     try:
         logging.info("Table deleted successfully")
     except Exception as e:
-        logging.warning("Table delete operation failed")
+        logging.warning(f"Table delete operation failed {e}")
 
     table_names = db.read_all_table_names()
     logging.info("Table names: {}".format(table_names))
