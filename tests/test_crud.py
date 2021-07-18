@@ -165,7 +165,7 @@ def test_delete_attribute_from_string_set():
         operation="DELETE_ATTRIBUTE_FROM_STRING_SET"
     )
     assert item_update_status == True
-    
+
 def test_delete_attribute_from_item():
     attribute_delete_status = db.delete_attribute(
         table_name=table_schema.get("TableName"),

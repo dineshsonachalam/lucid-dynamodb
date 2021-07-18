@@ -28,7 +28,7 @@ class ReadItemsByFilterFailed(DynamoTableException):
 
 class UpdateItemFailed(DynamoTableException):
     """Update item failed"""
-    
+
 class IncreaseAttributeValueFailed(DynamoTableException):
     """Increasing an attribute value failed"""
 

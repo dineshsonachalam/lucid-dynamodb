@@ -130,7 +130,7 @@ class DynamoDb:
             return True
         except Exception as e:
             raise CreateItemFailed(f"Item creation failed: {e}")
-        
+
     def delete_item(self, table_name, key, condition_expression = "", expression_attribute_values=None):
         """Delete an Item
 
@@ -204,7 +204,7 @@ class DynamoDb:
             return json.dumps((response.get('Items')), indent=4, cls=DecimalEncoder)
         except Exception as e:
             raise ReadItemsByFilterFailed(f"Unable to read items by filter: {e}")
-        
+
     def create_attribute_names(self, attribute_names):
         """Create attribute names
 
@@ -251,7 +251,7 @@ class DynamoDb:
                     update_expression = "SET "
                 update_expression += f"#{attribute_name} = #{attribute_name} + :value{counter}, "
             elif operation == "ADD_ATTRIBUTE_TO_LIST":
-                if "SET" not in update_expression: 
+                if "SET" not in update_expression:
                     update_expression = "SET "
                 update_expression += f"#{attribute_name} = list_append(#{attribute_name},:value{counter}), "
             elif operation == "ADD_ATTRIBUTE_TO_STRING_SET":
