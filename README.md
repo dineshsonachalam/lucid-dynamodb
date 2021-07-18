@@ -73,8 +73,7 @@ You can connect to DynamoDB by following any of these two ways.
 ```py
 from LucidDynamodb import DynamoDb
 db = DynamoDb()
-
-# $> pip install awscli  #can add user flag 
+# $> pip install awscli  #can add user flag
 # $> aws configure
 # AWS Access Key ID [****************ABCD]:[enter your key here]
 # AWS Secret Access Key [****************xyz]:[enter your secret key here]
@@ -91,8 +90,8 @@ from LucidDynamodb import DynamoDb
 import os
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-db = DynamoDb(region_name="us-east-1", 
-              aws_access_key_id=AWS_ACCESS_KEY_ID, 
+db = DynamoDb(region_name="us-east-1",
+              aws_access_key_id=AWS_ACCESS_KEY_ID,
               aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 ```
 <!-- MARKDOWN-AUTO-DOCS:END -->
@@ -147,7 +146,6 @@ if __name__ == "__main__":
         logging.info("{} table created successfully".format(table_schema.get("TableName")))
     except Exception as e:
         logging.error("{} table creation failed - {}".format(table_schema.get("TableName"), e))
-        
 """
 dineshsonachalam@macbook examples % python 1-create-a-new-table.py
 INFO:botocore.credentials:Found credentials in environment variables.
@@ -168,11 +166,10 @@ if __name__ == "__main__":
     db = DynamoDb()
     table_names = db.read_all_table_names()
     logging.info("Table names: {}".format(table_names))
-    
 """
 dineshsonachalam@macbook examples % python 2-get-all-table-names.py
 INFO:botocore.credentials:Found credentials in environment variables.
-INFO:root:Table names: ['CertMagic', 'dev_jobs', 'dev_test', 'kp-config-v1', 'test-1']
+INFO:root:Table names: ['dev_jobs', 'dev_test']
 """
 ```
 <!-- MARKDOWN-AUTO-DOCS:END -->
@@ -188,7 +185,7 @@ logging.basicConfig(level=logging.INFO)
 if __name__ == "__main__":
     db = DynamoDb()
     item_creation_status = db.create_item(
-        table_name="dev_jobs", 
+        table_name="dev_jobs",
         item={
             "company_name": "Google",
             "role_id": "111",
@@ -196,7 +193,7 @@ if __name__ == "__main__":
             "salary": "$1,50,531",
             "locations": ["Mountain View, California", "Austin, Texas", "Chicago, IL"],
             "yearly_hike_percent": 8,
-            "benefits": set(["Internet, Medical, Edu reimbursements", 
+            "benefits": set(["Internet, Medical, Edu reimbursements",
                              "Health insurance",
                              "Travel reimbursements"
                              ]),
@@ -210,7 +207,6 @@ if __name__ == "__main__":
         logging.info("Item created successfully")
     except Exception as e:
         logging.warning("Item creation failed - {}".format(e))
-        
 """
 dineshsonachalam@macbook examples % python 3-create-a-new-item.py
 INFO:botocore.credentials:Found credentials in environment variables.
@@ -230,16 +226,16 @@ logging.basicConfig(level=logging.INFO)
 if __name__ == "__main__":
     db = DynamoDb()
     item = db.read_item(
-        table_name="dev_jobs", 
+        table_name="dev_jobs",
         key={
             "company_name": "Google",
             "role_id": "111"
-        })
+        }
+    )
     try:
         logging.info("Item: {}".format(item))
     except Exception as e:
-        logging.warning("Item doesn't exist - {}".format(e))        
-        
+        logging.warning("Item doesn't exist - {}".format(e))
 """
 dineshsonachalam@macbook examples % python 4-read-an-item.py
 INFO:botocore.credentials:Found credentials in environment variables.
@@ -259,9 +255,9 @@ INFO:root:Item: {
     "yearly_hike_percent": "8",
     "salary": "$1,50,531",
     "benefits": [
-        "Health insurance",
+        "Travel reimbursements",
         "Internet, Medical, Edu reimbursements",
-        "Travel reimbursements"
+        "Health insurance"
     ]
 }
 """
@@ -273,13 +269,11 @@ INFO:root:Item: {
 <!-- The below code snippet is automatically added from ./examples/5-increase-an-existing-attribute-value.py -->
 ```py
 from LucidDynamodb import DynamoDb
-import os
 import logging
 logging.basicConfig(level=logging.INFO)
 
 if __name__ == "__main__":
     db = DynamoDb()
-    
     increase_attribute_status = db.increase_attribute_value(
         table_name='dev_jobs',
         key={
@@ -289,14 +283,12 @@ if __name__ == "__main__":
         attribute_name="yearly_hike_percent",
         increment_value=5
     )
-    
     try:
         logging.info("Attribute value increment completed")
     except Exception as e:
         logging.warning("Attribute value increment failed - {}".format(e))
-    
     item = db.read_item(
-        table_name='dev_jobs', 
+        table_name='dev_jobs',
         key={
             "company_name": "Google",
             "role_id": "111"
@@ -304,8 +296,7 @@ if __name__ == "__main__":
     try:
         logging.info("Item: {}".format(item))
     except Exception as e:
-        logging.warning("Item doesn't exist - {}".format(e)) 
-
+        logging.warning("Item doesn't exist - {}".format(e))
 """
 dineshsonachalam@macbook examples % python 5-increase-an-existing-attribute-value.py
 INFO:botocore.credentials:Found credentials in environment variables.
@@ -326,8 +317,8 @@ INFO:root:Item: {
     "yearly_hike_percent": "13",
     "salary": "$1,50,531",
     "benefits": [
-        "Internet, Medical, Edu reimbursements",
         "Health insurance",
+        "Internet, Medical, Edu reimbursements",
         "Travel reimbursements"
     ]
 }
@@ -344,9 +335,9 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 if __name__ == "__main__":
-    db = DynamoDb() 
+    db = DynamoDb()
     item_update_status = db.update_item(
-        table_name="dev_jobs", 
+        table_name="dev_jobs",
         key={
             "company_name": "Google",
             "role_id": "111"
@@ -361,7 +352,7 @@ if __name__ == "__main__":
         logging.warning("Update failed - {}".format(e))
 
     item = db.read_item(
-        table_name="dev_jobs", 
+        table_name="dev_jobs",
         key={
             "company_name": "Google",
             "role_id": "111"
@@ -370,7 +361,6 @@ if __name__ == "__main__":
         logging.info("Item: {}".format(item))
     except Exception as e:
         logging.warning("Item doesn't exist - {}".format(e))
-        
 """
 dineshsonachalam@macbook examples % python 6-update-existing-attribute-in-an-item.py
 INFO:botocore.credentials:Found credentials in environment variables.
@@ -392,8 +382,8 @@ INFO:root:Item: {
     "salary": "$1,50,531",
     "benefits": [
         "Health insurance",
-        "Travel reimbursements",
-        "Internet, Medical, Edu reimbursements"
+        "Internet, Medical, Edu reimbursements",
+        "Travel reimbursements"
     ]
 }
 """
@@ -411,7 +401,7 @@ logging.basicConfig(level=logging.INFO)
 if __name__ == "__main__":
     db = DynamoDb()
     item_update_status = db.update_item(
-        table_name="dev_jobs", 
+        table_name="dev_jobs",
         key={
             "company_name": "Google",
             "role_id": "111"
@@ -426,7 +416,7 @@ if __name__ == "__main__":
         logging.warning("Update failed - {}".format(e))
 
     item = db.read_item(
-        table_name="dev_jobs", 
+        table_name="dev_jobs",
         key={
             "company_name": "Google",
             "role_id": "111"
@@ -435,7 +425,6 @@ if __name__ == "__main__":
         logging.info("Item: {}".format(item))
     except Exception as e:
         logging.warning("Item doesn't exist - {}".format(e))
-        
 """
 dineshsonachalam@macbook examples % python 7-add-a-new-attribute-in-an-item.py
 INFO:botocore.credentials:Found credentials in environment variables.
@@ -457,8 +446,8 @@ INFO:root:Item: {
     "yearly_hike_percent": "13",
     "salary": "$1,50,531",
     "benefits": [
-        "Health insurance",
         "Internet, Medical, Edu reimbursements",
+        "Health insurance",
         "Travel reimbursements"
     ]
 }
@@ -476,9 +465,8 @@ logging.basicConfig(level=logging.INFO)
 
 if __name__ == "__main__":
     db = DynamoDb()
-    
     item_update_status = db.update_item(
-        table_name="dev_jobs", 
+        table_name="dev_jobs",
         key={
             "company_name": "Google",
             "role_id": "111"
@@ -494,7 +482,7 @@ if __name__ == "__main__":
         logging.warning("Update failed - {}".format(e))
 
     item = db.read_item(
-        table_name="dev_jobs", 
+        table_name="dev_jobs",
         key={
             "company_name": "Google",
             "role_id": "111"
@@ -503,7 +491,6 @@ if __name__ == "__main__":
         logging.info("Item: {}".format(item))
     except Exception as e:
         logging.warning("Item doesn't exist - {}".format(e))
-
 """
 dineshsonachalam@macbook examples % python 8-add-an-attribute-to-the-list.py
 INFO:botocore.credentials:Found credentials in environment variables.
@@ -527,8 +514,8 @@ INFO:root:Item: {
     "salary": "$1,50,531",
     "benefits": [
         "Internet, Medical, Edu reimbursements",
-        "Health insurance",
-        "Travel reimbursements"
+        "Travel reimbursements",
+        "Health insurance"
     ]
 }
 """
@@ -545,9 +532,8 @@ logging.basicConfig(level=logging.INFO)
 
 if __name__ == "__main__":
     db = DynamoDb()
-    
     item_update_status = db.update_item(
-        table_name="dev_jobs", 
+        table_name="dev_jobs",
         key={
             "company_name": "Google",
             "role_id": "111"
@@ -563,7 +549,7 @@ if __name__ == "__main__":
         logging.warning("Update failed - {}".format(e))
 
     item = db.read_item(
-        table_name="dev_jobs", 
+        table_name="dev_jobs",
         key={
             "company_name": "Google",
             "role_id": "111"
@@ -572,7 +558,6 @@ if __name__ == "__main__":
         logging.info("Item: {}".format(item))
     except Exception as e:
         logging.warning("Item doesn't exist - {}".format(e))
-        
 """
 dineshsonachalam@macbook examples % python 9-add-an-attribute-to-the-string-set.py
 INFO:botocore.credentials:Found credentials in environment variables.
@@ -595,10 +580,10 @@ INFO:root:Item: {
     "yearly_hike_percent": "13",
     "salary": "$1,50,531",
     "benefits": [
-        "Health insurance",
         "Free Food",
-        "Travel reimbursements",
-        "Internet, Medical, Edu reimbursements"
+        "Internet, Medical, Edu reimbursements",
+        "Health insurance",
+        "Travel reimbursements"
     ]
 }
 """
@@ -615,9 +600,8 @@ logging.basicConfig(level=logging.INFO)
 
 if __name__ == "__main__":
     db = DynamoDb()
-    
     item_update_status = db.update_item(
-        table_name="dev_jobs", 
+        table_name="dev_jobs",
         key={
             "company_name": "Google",
             "role_id": "111"
@@ -633,7 +617,7 @@ if __name__ == "__main__":
         logging.warning("Update failed - {}".format(e))
 
     item = db.read_item(
-        table_name="dev_jobs", 
+        table_name="dev_jobs",
         key={
             "company_name": "Google",
             "role_id": "111"
@@ -642,7 +626,6 @@ if __name__ == "__main__":
         logging.info("Item: {}".format(item))
     except Exception as e:
         logging.warning("Item doesn't exist - {}".format(e))
-
 """
 dineshsonachalam@macbook examples % python 10-delete-an-attribute-from-the-string-set.py
 INFO:botocore.credentials:Found credentials in environment variables.
@@ -665,9 +648,9 @@ INFO:root:Item: {
     "yearly_hike_percent": "13",
     "salary": "$1,50,531",
     "benefits": [
+        "Internet, Medical, Edu reimbursements",
         "Health insurance",
-        "Travel reimbursements",
-        "Internet, Medical, Edu reimbursements"
+        "Travel reimbursements"
     ]
 }
 """
@@ -684,13 +667,9 @@ logging.basicConfig(level=logging.INFO)
 
 if __name__ == "__main__":
     db = DynamoDb()
-    
     attribute_delete_status = db.delete_attribute(
-        table_name="dev_jobs", 
-        key={
-              "company_name": "Google",
-              "role_id": "111"
-        }, 
+        table_name="dev_jobs",
+        key={"company_name": "Google", "role_id": "111"},
         attribute_name="yearly_hike_percent")
 
     try:
@@ -699,7 +678,7 @@ if __name__ == "__main__":
         logging.warning("The attribute delete operation failed - {}".format(e))
 
     item = db.read_item(
-        table_name="dev_jobs", 
+        table_name="dev_jobs",
         key={
             "company_name": "Google",
             "role_id": "111"
@@ -708,7 +687,6 @@ if __name__ == "__main__":
         logging.info("Item: {}".format(item))
     except Exception as e:
         logging.warning("Item doesn't exist - {}".format(e))
-
 """
 dineshsonachalam@macbook examples % python 11-delete-an-attribute-from-an-item.py
 INFO:botocore.credentials:Found credentials in environment variables.
@@ -731,8 +709,8 @@ INFO:root:Item: {
     "salary": "$1,50,531",
     "benefits": [
         "Health insurance",
-        "Travel reimbursements",
-        "Internet, Medical, Edu reimbursements"
+        "Internet, Medical, Edu reimbursements",
+        "Travel reimbursements"
     ]
 }
 """
@@ -750,9 +728,8 @@ logging.basicConfig(level=logging.INFO)
 
 if __name__ == "__main__":
     db = DynamoDb()
-    
     item_creation_status = db.create_item(
-        table_name="dev_jobs", 
+        table_name="dev_jobs",
         item={
             "company_name": "Google",
             "role_id": "112",
@@ -771,17 +748,15 @@ if __name__ == "__main__":
         logging.info("Item created successfully")
     except Exception as e:
         logging.warning("Item creation failed - {}".format(e))
-    
     items = db.read_items_by_filter(
-                    table_name='dev_jobs', 
-                    key_condition_expression=Key("company_name").eq("Google") 
+                    table_name='dev_jobs',
+                    key_condition_expression=Key("company_name").eq("Google")
     )
 
     try:
         logging.info("Items: {}".format(items))
     except Exception as e:
-        logging.warning("Items doesn't exist")
-            
+        logging.warning(f"Items doesn't exist - {e}")
 """
 dineshsonachalam@macbook examples % python 12-read-items-by-filter.py
 INFO:botocore.credentials:Found credentials in environment variables.
@@ -805,8 +780,8 @@ INFO:root:Items: [
         "salary": "$1,50,531",
         "benefits": [
             "Travel reimbursements",
-            "Internet, Medical, Edu reimbursements",
-            "Health insurance"
+            "Health insurance",
+            "Internet, Medical, Edu reimbursements"
         ]
     },
     {
@@ -841,21 +816,19 @@ logging.basicConfig(level=logging.INFO)
 
 if __name__ == "__main__":
     db = DynamoDb()
-    
     delete_table_status = db.delete_table(table_name='dev_jobs')
     try:
         logging.info("Table deleted successfully")
     except Exception as e:
-        logging.warning("Table delete operation failed")
+        logging.warning(f"Table delete operation failed {e}")
 
     table_names = db.read_all_table_names()
     logging.info("Table names: {}".format(table_names))
-    
 """
 dineshsonachalam@macbook examples % python 13-delete-a-table.py
 INFO:botocore.credentials:Found credentials in environment variables.
 INFO:root:Table deleted successfully
-INFO:root:Table names: ['CertMagic', 'dev_test', 'kp-config-v1', 'test-1']
+INFO:root:Table names: ['dev_test']
 """
 ```
 <!-- MARKDOWN-AUTO-DOCS:END -->
@@ -871,8 +844,8 @@ pytest -s
 ## Github Workflow Artifacts
 
 <!-- MARKDOWN-AUTO-DOCS:START (WORKFLOW_ARTIFACT_TABLE) -->
-<table class="ARTIFACTS-TABLE"><thead><tr><th class="artifact-th">Artifact</th><th class="workflow-th">Workflow</th></tr></thead><tbody ><tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/suites/3264176293/artifacts/75968241>dependency-graph</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/actions/runs/1040768625>integration-tests</a></td></tr>
-<tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/suites/3264176293/artifacts/75968242>module-dependencies-license-report</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/actions/runs/1040768625>integration-tests</a></td></tr></tbody></table>
+<table class="ARTIFACTS-TABLE"><thead><tr><th class="artifact-th">Artifact</th><th class="workflow-th">Workflow</th></tr></thead><tbody ><tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/suites/3268154603/artifacts/76082828>dependency-graph</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/actions/runs/1042915256>integration-tests</a></td></tr>
+<tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/suites/3268154603/artifacts/76082829>module-dependencies-license-report</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/actions/runs/1042915256>integration-tests</a></td></tr></tbody></table>
 <!-- MARKDOWN-AUTO-DOCS:END -->
 
 ## License
