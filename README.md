@@ -16,6 +16,9 @@
     <a href="https://www.codacy.com/gh/dineshsonachalam/lucid-dynamodb/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dineshsonachalam/lucid-dynamodb&amp;utm_campaign=Badge_Grade">
         <img src="https://app.codacy.com/project/badge/Grade/3607dfd408bb4b7394cb0631b717a76e"/>
     </a>
+    <a href="https://snyk.io/test/github/dineshsonachalam/lucid-dynamodb">
+        <img src="https://snyk.io/test/github/dineshsonachalam/lucid-dynamodb/badge.svg"/>
+    </a>
     <a href="https://github.com/dineshsonachalam/Lucid-Dynamodb/actions" target="_blank">
         <img src="https://github.com/dineshsonachalam/Lucid-Dynamodb/actions/workflows/pypi-deploy.yml/badge.svg" alt="Deployment">
     </a>
