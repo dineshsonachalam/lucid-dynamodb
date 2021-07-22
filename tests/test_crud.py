@@ -96,7 +96,7 @@ def test_create_new_item():
         )
         assert item_creation_status == True
         item_creation_status = db.create_item(
-            table_name=table_schema.get("TEST_TABLE"),
+            table_name="TEST_TABLE",
             item={
                 "company_name": "Google",
                 "role_id": ITEM1_PARTITION_KEY,
