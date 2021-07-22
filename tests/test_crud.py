@@ -1,7 +1,16 @@
 from LucidDynamodb import DynamoDb
+from LucidDynamodb.exceptions import (
+    TableAlreadyExists,
+    TableNotFound,
+    ItemNotFound,
+    QueryFilterValidationFailed,
+    UnexpectedError
+)
+
 import os
 import uuid
 from boto3.dynamodb.conditions import Key
+import pytest
 
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
@@ -41,50 +50,92 @@ db = DynamoDb(region_name="us-east-1",
               aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
 def test_create_new_table():
-    table_creation_status = db.create_table(
-                                    table_name=table_schema.get("TableName"),
-                                    key_schema=table_schema.get("KeySchema"),
-                                    attribute_definitions=table_schema.get("AttributeDefinitions"),
-                                    global_secondary_indexes=table_schema.get("GlobalSecondaryIndexes"),
-                                    provisioned_throughput=table_schema.get("ProvisionedThroughput")
-    )
-    assert table_creation_status == True
-
+    try:
+        table_creation_status = db.create_table(
+                                            table_name=table_schema.get("TableName"),
+                                            key_schema=table_schema.get("KeySchema"),
+                                            attribute_definitions=table_schema.get("AttributeDefinitions"),
+                                            global_secondary_indexes=table_schema.get("GlobalSecondaryIndexes"),
+                                            provisioned_throughput=table_schema.get("ProvisionedThroughput")
+        )
+        assert table_creation_status == True
+        db.create_table(
+            table_name=table_schema.get("TableName"),
+            key_schema=table_schema.get("KeySchema"),
+            attribute_definitions=table_schema.get("AttributeDefinitions"),
+            global_secondary_indexes=table_schema.get("GlobalSecondaryIndexes"),
+            provisioned_throughput=table_schema.get("ProvisionedThroughput")
+        )
+    except TableAlreadyExists:
+        assert True
+        
 def test_get_all_table_name():
     table_names = db.read_all_table_names()
     assert len(table_names)>0
 
 def test_create_new_item():
-    item_creation_status = db.create_item(
-        table_name=table_schema.get("TableName"),
-        item={
-            "company_name": "Google",
-            "role_id": ITEM1_PARTITION_KEY,
-            "role": "Software Engineer 1",
-            "salary": "$1,50,531",
-            "locations": ["Mountain View, California", "Austin, Texas", "Chicago, IL"],
-            "yearly_hike_percent": 8,
-            "benefits": set(["Internet, Medical, Edu reimbursements",
-                             "Health insurance",
-                             "Travel reimbursements"
-                             ]),
-            "overall_review":{
-                "overall_rating" : "4/5",
-                "compensation_and_benefits": "3.9/5"
+    try:
+        item_creation_status = db.create_item(
+            table_name=table_schema.get("TableName"),
+            item={
+                "company_name": "Google",
+                "role_id": ITEM1_PARTITION_KEY,
+                "role": "Software Engineer 1",
+                "salary": "$1,50,531",
+                "locations": ["Mountain View, California", "Austin, Texas", "Chicago, IL"],
+                "yearly_hike_percent": 8,
+                "benefits": set(["Internet, Medical, Edu reimbursements",
+                                "Health insurance",
+                                "Travel reimbursements"
+                                ]),
+                "overall_review":{
+                    "overall_rating" : "4/5",
+                    "compensation_and_benefits": "3.9/5"
+                }
             }
-        }
-    )
-    assert item_creation_status == True
+        )
+        assert item_creation_status == True
+        item_creation_status = db.create_item(
+            table_name=table_schema.get("TEST_TABLE"),
+            item={
+                "company_name": "Google",
+                "role_id": ITEM1_PARTITION_KEY,
+                "role": "Software Engineer 1",
+                "salary": "$1,50,531",
+                "locations": ["Mountain View, California", "Austin, Texas", "Chicago, IL"],
+                "yearly_hike_percent": 8,
+                "benefits": set(["Internet, Medical, Edu reimbursements",
+                                "Health insurance",
+                                "Travel reimbursements"
+                                ]),
+                "overall_review":{
+                    "overall_rating" : "4/5",
+                    "compensation_and_benefits": "3.9/5"
+                }
+            }
+        )
+    except UnexpectedError:
+        assert True
 
 def test_read_item():
-    item = db.read_item(
-        table_name=table_schema.get("TableName"),
-        key={
-            "company_name": "Google",
-            "role_id": ITEM1_PARTITION_KEY
-        }
-    )
-    assert item != None
+    try:
+        item = db.read_item(
+            table_name=table_schema.get("TableName"),
+            key={
+                "company_name": "Google",
+                "role_id": ITEM1_PARTITION_KEY
+            }
+        )
+        assert item != None
+        item = db.read_item(
+            table_name=table_schema.get("TableName"),
+            key={
+                "company_name": "Airbnb",
+                "role_id": ITEM1_PARTITION_KEY
+            }
+        )
+    except ItemNotFound:
+        assert True
 
 def test_increase_attribute_value():
     increase_attribute_status = db.increase_attribute_value(
@@ -199,6 +250,16 @@ def test_read_items_by_filter():
                     key_condition_expression=Key("company_name").eq("Google")
     )
     assert len(items)>0
+
+def test_delete_item():
+    delete_item_status = db.delete_item(
+        table_name=table_schema.get("TableName"),
+        key={
+            "company_name": "Google",
+            "role_id": ITEM1_PARTITION_KEY
+        }
+    )
+    assert delete_item_status == True
 
 def test_delete_table():
     delete_table_status = db.delete_table(table_name=table_schema.get("TableName"))
