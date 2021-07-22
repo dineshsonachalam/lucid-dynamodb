@@ -1,3 +1,6 @@
+import os
+import uuid
+from boto3.dynamodb.conditions import Key
 from LucidDynamodb import DynamoDb
 from LucidDynamodb.exceptions import (
     TableAlreadyExists,
@@ -7,14 +10,8 @@ from LucidDynamodb.exceptions import (
     UnexpectedError
 )
 
-import os
-import uuid
-from boto3.dynamodb.conditions import Key
-import pytest
-
 AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-
 ITEM1_PARTITION_KEY = str(uuid.uuid4())
 
 table_schema = {
@@ -45,6 +42,7 @@ table_schema = {
 		"WriteCapacityUnits": 1
 	}
 }
+
 db = DynamoDb(region_name="us-east-1",
               aws_access_key_id=AWS_ACCESS_KEY_ID,
               aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
@@ -174,7 +172,7 @@ def test_add_new_attribute():
         }
     )
     assert item_update_status == True
-
+    
 def test_add_attribute_to_list():
     item_update_status = db.update_item(
         table_name=table_schema.get("TableName"),
@@ -228,28 +226,35 @@ def test_delete_attribute_from_item():
     assert attribute_delete_status == True
 
 def test_read_items_by_filter():
-    item_creation_status = db.create_item(
-        table_name=table_schema.get("TableName"),
-        item={
-            "company_name": "Google",
-            "role_id": str(uuid.uuid4()),
-            "role": "Software Architect",
-            "salary": "$4,80,000",
-            "locations": ["Mountain View, California"],
-            "yearly_hike_percent": 13,
-            "benefits": set(["Internet reimbursements"]),
-            "overall_review":{
-                "overall_rating" : "3/5",
-                "compensation_and_benefits": "4.2/5"
+    try:
+        item_creation_status = db.create_item(
+            table_name=table_schema.get("TableName"),
+            item={
+                "company_name": "Google",
+                "role_id": str(uuid.uuid4()),
+                "role": "Software Architect",
+                "salary": "$4,80,000",
+                "locations": ["Mountain View, California"],
+                "yearly_hike_percent": 13,
+                "benefits": set(["Internet reimbursements"]),
+                "overall_review":{
+                    "overall_rating" : "3/5",
+                    "compensation_and_benefits": "4.2/5"
+                }
             }
-        }
-    )
-    assert item_creation_status == True
-    items = db.read_items_by_filter(
-                    table_name=table_schema.get("TableName"),
-                    key_condition_expression=Key("company_name").eq("Google")
-    )
-    assert len(items)>0
+        )
+        assert item_creation_status == True
+        items = db.read_items_by_filter(
+                        table_name=table_schema.get("TableName"),
+                        key_condition_expression=Key("company_name").eq("Google")
+        )
+        assert len(items)>0
+        db.read_items_by_filter(
+                        table_name=table_schema.get("TableName"),
+                        key_condition_expression=Key("company_name").eq("Airbnb")
+        )
+    except QueryFilterValidationFailed:
+        assert True
 
 def test_delete_item():
     delete_item_status = db.delete_item(
@@ -262,5 +267,8 @@ def test_delete_item():
     assert delete_item_status == True
 
 def test_delete_table():
-    delete_table_status = db.delete_table(table_name=table_schema.get("TableName"))
-    assert delete_table_status == True
+    try:
+        delete_table_status = db.delete_table(table_name=table_schema.get("TableName"))
+        assert delete_table_status == True
+    except TableNotFound:
+        assert True

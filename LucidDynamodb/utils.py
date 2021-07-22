@@ -1,5 +1,17 @@
+def create_attribute_names(attribute_names):
+    """Create attribute names
+    Args:
+        attribute_names (str): Attribute names
+    Returns:
+        str: Expression attribute names
+    """
+    expression_attribute_names = {}
+    for attribute_name in attribute_names:
+        expression_attribute_names[f"#{attribute_name}"] = attribute_name
+    return expression_attribute_names
+
 def generate_expression_attribute_values(attributes_to_update, operation):
-    """Generate expression attribute values
+    """Generate Expression Attribute Values
     Args:
         attributes_to_update (dict): Attributes to update
         operation (str): Operation category
@@ -16,10 +28,9 @@ def generate_expression_attribute_values(attributes_to_update, operation):
     expression_attribute_values = {}
     counter = 1
     for attribute_name, attribute_value in attributes_to_update.items():
-        for attribute_name in attribute_name.split('.'):
-            expression_attribute_names[f"#{attribute_name}"] = attribute_name
+        expression_attribute_names = create_attribute_names(attribute_name.split('.'))
         attribute_name = attribute_name.replace(".", ".#")
-        if operation == "UPDATE_ITEM":
+        if operation == "UPDATE_EXISTING_ATTRIBUTE_OR_ADD_NEW_ATTRIBUTE":
             if "SET" not in update_expression:
                 update_expression = "SET "
             update_expression += f"#{attribute_name} = :value{counter}, "

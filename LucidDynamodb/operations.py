@@ -203,21 +203,23 @@ class DynamoDb:
             else:
                 raise UnexpectedError(e)
 
-    def update_item(self, table_name, key, attributes_to_update):
+    def update_item(self, table_name, key,
+                    attributes_to_update, operation="UPDATE_EXISTING_ATTRIBUTE_OR_ADD_NEW_ATTRIBUTE"):
         """Update an item
-
         Args:
             table_name (str): Table name
             key (dict): Partition key,  Sort Key(Optional)
             attributes_to_update (dict): Attributes data with K:V
+            operation (str, optional): Update operation category
+                Defaults to UPDATE_EXISTING_ATTRIBUTE_OR_ADD_NEW_ATTRIBUTE.
         
         Returns:
             bool: Attribute update is successful or failed
         """
         try:
             table = self.db.Table(table_name)
-            operation="UPDATE_ITEM"
-            update_expression, expression_attribute_names, \
+            update_expression, \
+            expression_attribute_names, \
             expression_attribute_values = generate_expression_attribute_values(attributes_to_update, operation)
             if(len(update_expression)>0 and len(expression_attribute_names)>0 \
                and len(expression_attribute_values)>0):
@@ -253,7 +255,7 @@ class DynamoDb:
             }
             operation = "INCREASE_ATTRIBUTE_VALUE"
             update_expression, expression_attribute_names, \
-            expression_attribute_values = self.generate_expression_attribute_values(attributes_to_update, operation)
+            expression_attribute_values = generate_expression_attribute_values(attributes_to_update, operation)
             if(len(update_expression)>0 and len(expression_attribute_names)>0 \
                and len(expression_attribute_values)>0):
                 table.update_item(
