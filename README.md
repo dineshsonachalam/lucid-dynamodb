@@ -22,9 +22,6 @@
     <a href="https://github.com/dineshsonachalam/Lucid-Dynamodb/actions" target="_blank">
         <img src="https://github.com/dineshsonachalam/Lucid-Dynamodb/actions/workflows/pypi-deploy.yml/badge.svg" alt="Deployment">
     </a>
-    <a href="https://github.com/dineshsonachalam/Lucid-Dynamodb/actions" target="_blank">
-        <img src="https://github.com/dineshsonachalam/Lucid-Dynamodb/workflows/markdown-autodocs/badge.svg" alt="Deployment">
-    </a>
     <a href="https://pypi.org/project/LucidDynamodb" target="_blank">
         <img src="https://img.shields.io/pypi/v/LucidDynamodb?color=%2334D058&label=pypi%20package" alt="Package version">
     </a>
@@ -843,13 +840,6 @@ To run tests, run the following command
 ```bash
 pytest -s
 ```
-
-## Github Workflow Artifacts
-
-<!-- MARKDOWN-AUTO-DOCS:START (WORKFLOW_ARTIFACT_TABLE) -->
-<table class="ARTIFACTS-TABLE"><thead><tr><th class="artifact-th">Artifact</th><th class="workflow-th">Workflow</th></tr></thead><tbody ><tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/suites/3314602791/artifacts/77592660>dependency-graph</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/actions/runs/1060113858>integration-tests</a></td></tr>
-<tr ><td class="artifact-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/suites/3314602791/artifacts/77592661>module-dependencies-license-report</a></td><td class="workflow-td td_text"><a href=https://github.com/dineshsonachalam/lucid-dynamodb/actions/runs/1060113858>integration-tests</a></td></tr></tbody></table>
-<!-- MARKDOWN-AUTO-DOCS:END -->
 
 ## License
 

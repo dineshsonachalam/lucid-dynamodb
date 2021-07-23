@@ -32,44 +32,6 @@ jobs:
             GITHUB_TOKEN: ${{ github.token }}
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-  module-dependencies-license-checker:
-      needs: integration-tests
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-
-        - name: Install dependencies
-          run: pip3 install pip-licenses
-        
-        - name: Get all dependent module licenses
-          run: pip-licenses --format=html --output-file=./module-dependencies-license-report.md
-        
-        - name: Upload module-dependencies license report to Artifact
-          uses: actions/upload-artifact@v2
-          with:
-            name: module-dependencies-license-report
-            path: ${{ github.workspace }}/module-dependencies-license-report.md
-
-  dependency-graph:
-      needs: module-dependencies-license-checker
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-
-        - name: Install dependencies
-          run: |
-            pip3 install graphviz pipdeptree
-            sudo apt-get -y install graphviz
-        
-        - name: Create dependency graph
-          run: pipdeptree --graph-output png > ./dependency-graph.png
-        
-        - name: Upload dependency graph to Artifact
-          uses: actions/upload-artifact@v2
-          with:
-            name: dependency-graph
-            path: ${{ github.workspace }}/dependency-graph.png
-
   deploy-to-pypi:
       needs: dependency-graph
       runs-on: ubuntu-latest
@@ -84,3 +46,12 @@ jobs:
             rm -rf build dist *.egg-info
             python3 setup.py sdist bdist_wheel
             twine upload --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_PASSWORD }} --skip-existing dist/*
+
+  auto-update-readme:
+      needs: deploy-to-pypi
+      runs-on: ubuntu-latest
+      if: github.ref == 'refs/heads/master'
+      steps:
+        - uses: actions/checkout@v2
+        - name: Markdown autodocs
+          uses: dineshsonachalam/markdown-autodocs@v1.0.3
