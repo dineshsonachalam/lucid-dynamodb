@@ -57,6 +57,7 @@ jobs:
       - name: Build pdoc docs image
         run: |
           sudo pip3 install pdoc3
+          sudo pip3 install -r requirements-dev.txt
           sudo pdoc --html ./LucidDynamodb --output-dir ./docs --force
           docker build --no-cache -t dineshsonachalam/lucid-dynamodb-docs:latest .
         
