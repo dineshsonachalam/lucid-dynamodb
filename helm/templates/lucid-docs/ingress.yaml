@@ -1,0 +1,14 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Values.lucidDocs.appName }}
+  namespace: {{ .Values.namespace }}
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: {{ .Values.lucidDocs.ingressRoute }}
+    kind: Rule
+    services:
+    - name: {{ .Values.lucidDocs.appName }}
+      port: {{ .Values.lucidDocs.containerPort }}   

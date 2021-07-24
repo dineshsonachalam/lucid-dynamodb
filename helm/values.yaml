@@ -1,0 +1,8 @@
+namespace: dinesh
+replicas: 1
+
+lucidDocs:
+    image: dineshsonachalam/lucid-dynamodb-docs:latest
+    containerPort: 3000   
+    appName: lucid-docs
+    ingressRoute: (Host(`lucid-dynamodb.dineshsonachalam.com`)) 
