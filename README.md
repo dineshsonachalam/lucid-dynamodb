@@ -4,7 +4,7 @@
   </a>
 </h1>
 <p align="center">
-    <em>A minimalistic wrapper to AWS DynamoDB</em>
+    <em>A minimalistic wrapper to <a href="https://aws.amazon.com/dynamodb">AWS DynamoDB</a></em>
 </p>
 <p align="center">
     <a href="https://sonarcloud.io/dashboard?id=lucid-dynamodb">
