@@ -30,6 +30,10 @@
     </a>
 </p>
 
+Useful links:
+- See the full documentation at https://lucid-dynamodb.dineshsonachalam.com
+- Ask questions in the <a href ="https://github.com/dineshsonachalam/lucid-dynamodb/issues">GitHub issues</a>
+
 ## Table of contents
 - [Installation](#installation)
 - [Example](#example)
