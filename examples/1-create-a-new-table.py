@@ -1,4 +1,7 @@
 from LucidDynamodb import DynamoDb
+from LucidDynamodb.exceptions import (
+    TableAlreadyExists
+)
 import logging
 logging.basicConfig(level=logging.INFO)
 
@@ -32,18 +35,19 @@ table_schema = {
 }
 
 if __name__ == "__main__":
-    db = DynamoDb()
-    table_creation_status = db.create_table(
-                                    table_name=table_schema.get("TableName"),
-                                    key_schema=table_schema.get("KeySchema"),
-                                    attribute_definitions=table_schema.get("AttributeDefinitions"),
-                                    global_secondary_indexes=table_schema.get("GlobalSecondaryIndexes"),
-                                    provisioned_throughput=table_schema.get("ProvisionedThroughput")
-    )
     try:
-        logging.info("{} table created successfully".format(table_schema.get("TableName")))
-    except Exception as e:
-        logging.error("{} table creation failed - {}".format(table_schema.get("TableName"), e))
+        db = DynamoDb()
+        db.create_table(
+            table_name=table_schema.get("TableName"),
+            key_schema=table_schema.get("KeySchema"),
+            attribute_definitions=table_schema.get("AttributeDefinitions"),
+            global_secondary_indexes=table_schema.get("GlobalSecondaryIndexes"),
+            provisioned_throughput=table_schema.get("ProvisionedThroughput")
+        )
+        logging.info(f"{table_schema.get('TableName')} table created successfully")
+    except TableAlreadyExists as e:
+        logging.error(f"{table_schema.get('TableName')} table creation failed - {e}")
+
 """
 dineshsonachalam@macbook examples % python 1-create-a-new-table.py
 INFO:botocore.credentials:Found credentials in environment variables.
