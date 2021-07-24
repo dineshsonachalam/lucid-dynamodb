@@ -113,26 +113,24 @@ logging.basicConfig(level=logging.INFO)
 
 table_schema = {
 	"TableName": "dev_jobs",
-	"KeySchema": [
-        {
-            "AttributeName": "company_name",
-            "KeyType": "HASH"
-	    },
-        {
-            "AttributeName": "role_id",
-            "KeyType": "RANGE"
-	    }
-    ],
-	"AttributeDefinitions": [
-        {
-            "AttributeName": "company_name",
-            "AttributeType": "S"
-	    },
-        {
-            "AttributeName": "role_id",
-            "AttributeType": "S"
-	    }
-     ],
+	"KeySchema": [{
+			"AttributeName": "company_name",
+			"KeyType": "HASH"
+		},
+		{
+			"AttributeName": "role_id",
+			"KeyType": "RANGE"
+		}
+	],
+	"AttributeDefinitions": [{
+			"AttributeName": "company_name",
+			"AttributeType": "S"
+		},
+		{
+			"AttributeName": "role_id",
+			"AttributeType": "S"
+		}
+	],
 	"GlobalSecondaryIndexes": [],
 	"ProvisionedThroughput": {
 		"ReadCapacityUnits": 1,
