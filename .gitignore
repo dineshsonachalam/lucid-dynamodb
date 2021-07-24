@@ -3,7 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 junit/
-
+node_modules/
+package-lock.json
 # C extensions
 *.so
 

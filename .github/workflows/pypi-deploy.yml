@@ -47,8 +47,28 @@ jobs:
             python3 setup.py sdist bdist_wheel
             twine upload --username ${{ secrets.PYPI_USERNAME }} --password ${{ secrets.PYPI_PASSWORD }} --skip-existing dist/*
 
+  upload-docs-docker-image:
+    needs: deploy-to-pypi
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build pdoc docs image
+        run: |
+          sudo pip3 install pdoc3
+          sudo pdoc --html ./LucidDynamodb --output-dir ./docs --force
+          docker build --no-cache -t dineshsonachalam/lucid-dynamodb-docs:latest .
+        
+      - name: Log into registry
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push image
+        run: |
+          docker push dineshsonachalam/lucid-dynamodb-docs:latest
+
   auto-update-readme:
-      needs: deploy-to-pypi
+      needs: upload-docs-docker-image
       runs-on: ubuntu-latest
       if: github.ref == 'refs/heads/master'
       steps:

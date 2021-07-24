@@ -1,0 +1,29 @@
+{
+  "name": "lucid-dynamodb",
+  "version": "1.0.0",
+  "description": "<h1 align=\"center\">   <a href=\"https://pypi.org/project/LucidDynamodb\" target=\"_blank\">     <img src=\"https://i.imgur.com/r9hHHUo.png\" alt=\"LucidDynamodb\">   </a> </h1> <p align=\"center\">     <em>A minimalistic wrapper to AWS DynamoDB</em> </p> <p align=\"center\">     <a href=\"https://sonarcloud.io/dashboard?id=lucid-dynamodb\">         <img src=\"https://sonarcloud.io/api/project_badges/quality_gate?project=lucid-dynamodb\"/>     </a> </p>",
+  "main": "server.js",
+  "directories": {
+    "doc": "docs",
+    "example": "examples",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dineshsonachalam/lucid-dynamodb.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dineshsonachalam/lucid-dynamodb/issues"
+  },
+  "homepage": "https://github.com/dineshsonachalam/lucid-dynamodb#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
