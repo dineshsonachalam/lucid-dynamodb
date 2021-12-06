@@ -28,7 +28,7 @@ def generate_expression_attribute_values(attributes_to_update, operation):
     expression_attribute_values = {}
     counter = 1
     for attribute_name, attribute_value in attributes_to_update.items():
-        expression_attribute_names = create_attribute_names(attribute_name.split('.'))
+        expression_attribute_names.update(create_attribute_names(attribute_name.split('.')))
         attribute_name = attribute_name.replace(".", ".#")
         if operation == "UPDATE_EXISTING_ATTRIBUTE_OR_ADD_NEW_ATTRIBUTE":
             if "SET" not in update_expression:
