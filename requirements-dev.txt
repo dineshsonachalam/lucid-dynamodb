@@ -4,4 +4,4 @@ semantic-version==2.8.5
 twine==3.4.1
 pytest==6.2.4
 pytest-cov==2.12.1
-requests==2.25.1
+requests==2.31.0
